@@ -68,31 +68,42 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
           ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
-        bottom: TabBar(
-          labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          tabs: <Widget>[
-            Tab(text: "推荐"),
-            Tab(text: "电视剧"),
-            Tab(text: "电影"),
-            Tab(text: "综艺"),
-            Tab(text: "动漫"),
-            Tab(text: "记录片"),
-          ],
-          controller: tabController, // 记得要带上tabController
-          onTap: (value) => {cz_print(value, StackTrace.current)},
-        ),
+//        bottom:
       ),
-      body: TabBarView(
-        controller: tabController,
-        children: <Widget>[
-          MovieHomeListWidget(),
-          Center(child: Text("这是推荐的内容")),
-          Center(child: Text("这是关注的内容")),
-          Center(child: Text("这是收藏的内容")),
-          Center(child: Text("这是新增的内容")),
-          Center(child: Text("这是点赞的内容"))
+      body: Column(
+        children: [
+          Container(
+            height: 44,
+            child: TabBar(
+              labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              tabs: <Widget>[
+                Tab(text: "推荐"),
+                Tab(text: "电视剧"),
+                Tab(text: "电影"),
+                Tab(text: "综艺"),
+                Tab(text: "动漫"),
+                Tab(text: "记录片"),
+              ],
+              controller: tabController, // 记得要带上tabController
+              onTap: (value) => {cz_print(value, StackTrace.current)},
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: <Widget>[
+                Center(child: Text("这是推荐")),
+                //Center(child: Text("这是推荐")),
+                MovieHomeListWidget(categoryId: "12"),
+                MovieHomeListWidget(categoryId: "5"),
+                MovieHomeListWidget(categoryId: "3"),
+                MovieHomeListWidget(categoryId: "4"),
+                MovieHomeListWidget(categoryId: "18"),
+              ],
+            ),
+          )
         ],
-      ),
+      )
     );
   }
 }

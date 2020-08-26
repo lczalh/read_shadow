@@ -26,7 +26,10 @@ class MovieHomeListItemWidget extends StatefulWidget {
       _MovieHomeListItemWidgetState();
 }
 
-class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> {
+class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> with AutomaticKeepAliveClientMixin {
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -45,7 +48,7 @@ class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> {
           children: [
             CachedNetworkImage(
                 fit: BoxFit.cover,
-                height: ScreenUtil().setHeight(250),
+                height: ScreenUtil().setWidth(310),
                 width: (ScreenUtil.screenWidth - 10) / 3,
                 imageUrl: widget.movieImageUrl
               // placeholder: (context, url) => Icons.add,
@@ -70,45 +73,6 @@ class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> {
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
                 )))
       ],
-    );
-
-      Container(
-      width: (ScreenUtil.screenWidth - 36) / 3,
-      height: ScreenUtil().setHeight(280),
-      //  color: Colors.red,
-      child: Column(
-        children: [
-          Stack(
-            alignment: AlignmentDirectional.bottomEnd,
-            children: [
-              CachedNetworkImage(
-                fit: BoxFit.cover,
-                height: ScreenUtil().setHeight(230),
-                width: (ScreenUtil.screenWidth - 10) / 3,
-                imageUrl: widget.movieImageUrl
-                    // placeholder: (context, url) => Icons.add,
-                //errorWidget: (context, url, error) =>
-                // Image.asset("images/app.png"),
-              ),
-              Text(
-                widget.lastUpdateSeries,
-                style: TextStyle(
-                    color: Colors.white70,
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0.7),
-                    fontSize: ScreenUtil().setSp(18)),
-              )
-            ],
-          ),
-          Expanded(
-              child: Center(
-                  child: Text(
-                    widget.movieName,
-            overflow: TextOverflow.ellipsis,
-            style:
-                TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
-          )))
-        ],
-      ),
     );
   }
 }

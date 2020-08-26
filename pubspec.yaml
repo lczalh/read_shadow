@@ -29,8 +29,8 @@ dependencies:
   # 网络图片加载
   cached_network_image: ^2.2.0+1
   # 轮播图
-  carousel_slider: ^2.1.0
-  #flutter_swiper
+  #carousel_slider: ^2.1.0
+  flutter_swiper : ^1.1.6
   # 上下拉刷新
   flutter_easyrefresh: ^2.1.5
   #pull_to_refresh: ^1.6.1
@@ -43,6 +43,8 @@ dependencies:
   flutter_screenutil: ^2.3.1
   # 路由
   fluro: "^1.6.3"
+  # 状态管理
+  provider: ^4.3.2+1
   # 包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储
   #shared_preferences: ^0.5.7+3
   # 应用发现网络连接并进行相应配置
