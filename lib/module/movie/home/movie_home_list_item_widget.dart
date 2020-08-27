@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 class MovieHomeListItemWidget extends StatefulWidget {
-
   const MovieHomeListItemWidget({
     Key key,
     this.movieName,
@@ -26,8 +25,8 @@ class MovieHomeListItemWidget extends StatefulWidget {
       _MovieHomeListItemWidgetState();
 }
 
-class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> with AutomaticKeepAliveClientMixin {
-
+class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -46,14 +45,17 @@ class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> with 
         Stack(
           alignment: AlignmentDirectional.bottomEnd,
           children: [
-            CachedNetworkImage(
-                fit: BoxFit.cover,
-                height: ScreenUtil().setWidth(310),
-                width: (ScreenUtil.screenWidth - 10) / 3,
-                imageUrl: widget.movieImageUrl
-              // placeholder: (context, url) => Icons.add,
-              //errorWidget: (context, url, error) =>
-              // Image.asset("images/app.png"),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  height: ScreenUtil().setWidth(290),
+                  width: (ScreenUtil.screenWidth - 40) / 3,
+                  imageUrl: widget.movieImageUrl
+                  // placeholder: (context, url) => Icons.add,
+                  //errorWidget: (context, url, error) =>
+                  // Image.asset("images/app.png"),
+                  ),
             ),
             Text(
               widget.lastUpdateSeries,
@@ -67,11 +69,10 @@ class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget> with 
         Expanded(
             child: Center(
                 child: Text(
-                  widget.movieName,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
-                )))
+          widget.movieName,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
+        )))
       ],
     );
   }

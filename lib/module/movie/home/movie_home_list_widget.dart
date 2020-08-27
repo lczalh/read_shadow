@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,9 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
+import 'package:read_shadow/utility/cz_kit/cz_router.dart';
 import 'package:read_shadow/utility/network/cz_api.dart';
+import 'package:read_shadow/utility/router/routes.dart';
 
 import 'movie_home_list_item_widget.dart';
 import 'movie_root_model.dart';
@@ -69,7 +73,7 @@ class _MovieHomeListWidgetState extends State<MovieHomeListWidget>
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-      //     firstRefresh: true,
+      firstRefresh: true,
       firstRefreshWidget: Center(
         child: SpinKitFadingCube(
           color: Theme.of(context).primaryColor,
@@ -101,19 +105,31 @@ class _MovieHomeListWidgetState extends State<MovieHomeListWidget>
         infoColor: Colors.white70,
       ),
       child: GridView.builder(
+        padding: EdgeInsets.all(10),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: ScreenUtil().setWidth(1.2),
-          crossAxisSpacing: 5,
+          crossAxisSpacing: 10,
           mainAxisSpacing: 5,
         ),
         itemBuilder: (context, index) {
           final model = this.models[index];
-          return MovieHomeListItemWidget(
-              movieName: model.vodName,
-              movieImageUrl: model.vodPic,
-              lastUpdateSeries: model.vodContinu);
+          return GestureDetector(
+            onTap: () {
+             // print();
+
+             var json = Uri.encodeComponent(model.toJson());
+             print(json);
+              CZRouter.cz_push(context, "${Routes.movieDetails}?params=$json");
+            },
+            child: MovieHomeListItemWidget(
+                movieName: model.vodName,
+                movieImageUrl: model.vodPic,
+                lastUpdateSeries: model.vodContinu),
+          );
+
+
         },
         itemCount: models.length,
       ),

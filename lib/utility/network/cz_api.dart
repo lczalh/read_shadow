@@ -27,10 +27,8 @@ class CZApi {
     parames['wd'] = wd;
     parames['p'] = p;
     parames['cid'] = cid;
-    cz_print(parames, StackTrace.current);
     var map = await CZNetwork()
         .get(CZApiPath.videoResourcesPath, parames, _delay, _max);
-    cz_print(map, StackTrace.current);
     return MovieRootModel.fromMap(map);
   }
 }

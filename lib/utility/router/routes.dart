@@ -15,7 +15,12 @@ class Routes {
 //  static Router router;
 
   static String root = "/";
+
+  // 电影搜索页
   static String movieSearch = "/movieSearch";
+
+  // 电影详情页
+  static String movieDetails = "/movieDetails";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -25,5 +30,6 @@ class Routes {
 
     // 注册
     router.define(movieSearch, handler: movieSearchHandler);
+    router.define(movieDetails, handler: movieDetailsHandler);
   }
 }
