@@ -46,7 +46,8 @@ dependencies:
   # 状态管理
   provider: ^4.3.2+1
   # 播放器
-  fijkplayer: ^0.8.7
+  #fijkplayer: ^0.8.7
+  video_player: ^0.10.12+2
   #video_player: ^0.10.12+2
   # 包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储
   #shared_preferences: ^0.5.7+3
