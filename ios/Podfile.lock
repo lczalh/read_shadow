@@ -1,28 +1,70 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - Kingfisher (5.8.3):
+    - Kingfisher/Core (= 5.8.3)
+  - Kingfisher/Core (5.8.3)
+  - Masonry (1.1.0)
+  - MMLayout (0.3.0)
   - path_provider (0.0.1):
     - Flutter
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
-  - video_player (0.0.1):
-    - Flutter
+  - SuperPlayer (3.2.5):
+    - AFNetworking (~> 4.0)
+    - Masonry (~> 1.1.0)
+    - MMLayout (~> 0.3.0)
+    - SDWebImage (~> 5.0)
+    - SuperPlayer/Player (= 3.2.5)
+  - SuperPlayer/Player (3.2.5):
+    - AFNetworking (~> 4.0)
+    - Masonry (~> 1.1.0)
+    - MMLayout (~> 0.3.0)
+    - SDWebImage (~> 5.0)
+    - TXLiteAVSDK_Player (= 7.2.8932)
+  - TXLiteAVSDK_Player (7.2.8932)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - Kingfisher (~> 5.8.3)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
-  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - SuperPlayer
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - FMDB
+    - Kingfisher
+    - Masonry
+    - MMLayout
+    - SDWebImage
+    - SuperPlayer
+    - TXLiteAVSDK_Player
 
 EXTERNAL SOURCES:
   Flutter:
@@ -33,17 +75,21 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
-  video_player:
-    :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MMLayout: d559edecd69fbcb348368ba90917e047ab1c544e
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  SuperPlayer: 5fba5483acaf772d34a462fddfc92819a2d39410
+  TXLiteAVSDK_Player: 7e2f5854f131f0de16ffdefa35081a36bb4f1e93
 
-PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
+PODFILE CHECKSUM: d9080d8e9ff0fe161ce09752995ae69b0aec88fe
 
 COCOAPODS: 1.9.1

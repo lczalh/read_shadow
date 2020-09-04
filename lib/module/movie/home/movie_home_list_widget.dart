@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,6 +31,9 @@ class MovieHomeListWidget extends StatefulWidget {
 
 class _MovieHomeListWidgetState extends State<MovieHomeListWidget>
     with AutomaticKeepAliveClientMixin {
+
+  static const platform = const MethodChannel('samples.flutter.io/battery');
+
   @override
   bool get wantKeepAlive => true;
 
@@ -117,19 +122,15 @@ class _MovieHomeListWidgetState extends State<MovieHomeListWidget>
           final model = this.models[index];
           return GestureDetector(
             onTap: () {
-             // print();
-
-             var json = Uri.encodeComponent(model.toJson());
-             print(json);
-              CZRouter.cz_push(context, "${Routes.movieDetails}?params=$json");
+              var json = Uri.encodeComponent(model.toJson());
+              print(json);
+               CZRouter.cz_push(context, "${Routes.movieDetails}?params=$json");
             },
             child: MovieHomeListItemWidget(
                 movieName: model.vodName,
                 movieImageUrl: model.vodPic,
                 lastUpdateSeries: model.vodContinu),
           );
-
-
         },
         itemCount: models.length,
       ),
