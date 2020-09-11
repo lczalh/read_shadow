@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:read_shadow/module/movie/home/movie_home_list_widget.dart';
+import 'package:read_shadow/module/movie/home/recommend/movie_home_recommend_widget.dart';
+import 'package:read_shadow/module/movie/home/widget/movie_home_list_widget.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:read_shadow/utility/cz_kit/cz_router.dart';
 import 'package:read_shadow/utility/router/routes.dart';
@@ -34,9 +35,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
         title: Row(
           children: <Widget>[
             Icon(Icons.business),
@@ -45,17 +44,16 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
                 height: 30,
                 width: ScreenUtil().setWidth(500),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white54, width: 1), //边框
+                  border: Border.all( width: 1), //边框
                   borderRadius: BorderRadius.circular(22),
-                  color: Colors.black,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.search, size: 20, color: Colors.white54,),
+                    Icon(Icons.search, size: 20),
                     Text(
                       "请输入电影名称",
-                      style: TextStyle(fontSize: ScreenUtil().setSp(20), color: Colors.white54),
+                      style: TextStyle(fontSize: ScreenUtil().setSp(20)),
                     )
                   ],
                 ),
@@ -75,6 +73,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
           Container(
             height: 44,
             child: TabBar(
+              labelColor: Colors.red,
               labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               tabs: <Widget>[
                 Tab(text: "推荐"),
@@ -92,7 +91,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
             child: TabBarView(
               controller: tabController,
               children: <Widget>[
-                Center(child: Text("这是推荐")),
+                MovieHomeRecommendWidget(),
                 //Center(child: Text("这是推荐")),
                 MovieHomeListWidget(categoryId: "12"),
                 MovieHomeListWidget(categoryId: "5"),

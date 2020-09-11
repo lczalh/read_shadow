@@ -14,7 +14,7 @@ import 'package:read_shadow/utility/network/cz_api.dart';
 import 'package:read_shadow/utility/router/routes.dart';
 
 import 'movie_home_list_item_widget.dart';
-import 'movie_root_model.dart';
+import '../model/movie_root_model.dart';
 
 class MovieHomeListWidget extends StatefulWidget {
   @override

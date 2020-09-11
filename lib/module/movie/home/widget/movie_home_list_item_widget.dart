@@ -49,7 +49,7 @@ class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget>
               borderRadius: BorderRadius.circular(5),
               child: CachedNetworkImage(
                   fit: BoxFit.cover,
-                  height: ScreenUtil().setWidth(290),
+                  //height: ScreenUtil().setWidth(290),
                   width: (ScreenUtil.screenWidth - 40) / 3,
                   imageUrl: widget.movieImageUrl
                   // placeholder: (context, url) => Icons.add,
@@ -71,7 +71,7 @@ class _MovieHomeListItemWidgetState extends State<MovieHomeListItemWidget>
                 child: Text(
           widget.movieName,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
+          style: TextStyle(fontWeight: FontWeight.bold),
         )))
       ],
     );

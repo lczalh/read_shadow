@@ -1,6 +1,7 @@
 import 'dart:collection';
 
-import 'package:read_shadow/module/movie/home/movie_root_model.dart';
+import 'package:read_shadow/module/movie/home/model/movie_root_model.dart';
+import 'package:read_shadow/module/movie/home/recommend/movie_home_recommend_model.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 import 'cz_network.dart';
@@ -28,8 +29,12 @@ class CZApi {
     parames['p'] = p;
     parames['cid'] = cid;
     var map = await CZNetwork()
-        .get(CZApiPath.videoResourcesPath, parames, _delay, _max);
+        .get(baseUrl: "http://caiji.kuyun98.com", path: CZApiPath.videoResourcesPath);
     return MovieRootModel.fromMap(map);
+  }
+
+  static Future<MovieHomeRecommendRootModel> getRecommendMovieData() {
+
   }
 }
 

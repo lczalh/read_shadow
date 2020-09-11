@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'dart:convert';
 
@@ -13,7 +14,7 @@ class CZNetwork {
     if (_dio == null) {
       BaseOptions _options = BaseOptions(
         /// 请求基地址,可以包含子路径
-        baseUrl: 'http://caiji.kuyun98.com',
+      //  baseUrl: 'http://caiji.kuyun98.com',
 
         /// 连接服务器超时时间，单位是毫秒.
         connectTimeout: 5000,
@@ -39,10 +40,21 @@ class CZNetwork {
       Function(Map<String, dynamic> map) success,
       Function(String error) failure
   */
-  dynamic get(
-      String path, Map<String, dynamic> params, int delay, int max) async {
+  /*
+    GET
+    param 请求基地址
+    param 路径
+    param 重试请求时间间隔
+    param 最大重试次数
+    param 请求成功回调
+    param 请求失败回调
+    ,
+      Function(Map<String, dynamic> map) success,
+      Function(String error) failure
+  */
+  dynamic get({@required String baseUrl, @required String path, Map<String, dynamic> params, int delay = 3, int max = 3}) async {
     try {
-      Response response = await _dio.get(path, queryParameters: params);
+      Response response = await _dio.get("$baseUrl$path", queryParameters: params);
       if (response.statusCode == 200) {
         return json.decode(response.toString());
       } else {
@@ -54,7 +66,7 @@ class CZNetwork {
       } else {
         max -= 1;
         await Future.delayed(Duration(seconds: delay), () async {
-          return await get(path, params, delay, max);
+          return await get(baseUrl: baseUrl, path: path, params: params, delay: delay, max: max);
         });
       }
     }
