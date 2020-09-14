@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:read_shadow/module/movie/home/recommend/movie_home_recommend_widget.dart';
+import 'package:read_shadow/module/movie/home/recommend/video_recommend_widget.dart';
 import 'package:read_shadow/module/movie/home/widget/movie_home_list_widget.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:read_shadow/utility/cz_kit/cz_router.dart';
@@ -91,7 +91,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
             child: TabBarView(
               controller: tabController,
               children: <Widget>[
-                MovieHomeRecommendWidget(),
+                VideoRecommendWidget(),
                 //Center(child: Text("这是推荐")),
                 MovieHomeListWidget(categoryId: "12"),
                 MovieHomeListWidget(categoryId: "5"),

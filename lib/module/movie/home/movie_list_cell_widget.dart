@@ -43,7 +43,7 @@ class _MovieListCellWidgetState extends State<MovieListCellWidget> {
             alignment: AlignmentDirectional.bottomCenter,
             children: [
               ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(5),
                   child: ConstrainedBox(
                     child: CachedNetworkImage(
                         // width: context.size.width,
