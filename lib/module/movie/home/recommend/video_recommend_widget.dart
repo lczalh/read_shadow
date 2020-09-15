@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/movie/home/recommend/hot_online_dramas_widget.dart';
+import 'package:read_shadow/module/movie/home/recommend/topic_movie_ranking_widget.dart';
 import 'package:read_shadow/module/movie/home/widget/movie_home_list_item_widget.dart';
 
 import '../../../../utility/cz_kit/cz_common.dart';
@@ -98,24 +99,17 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
             return Container();
           }
         } else {
-          return Text('Item$index');
+          if (model.data.topicMovieRanking.articleList != null && model.data.topicMovieRanking.articleList.length > 0) {
+            MovieHomeRecommendArticleListModel movieHomeRecommendArticleListModel = model.data.topicMovieRanking.articleList[index - 3];
+            cz_print(movieHomeRecommendArticleListModel.title, StackTrace.current);
+            return TopicMovieRankingWidget(articleListModel: movieHomeRecommendArticleListModel);
+          } else {
+            return Container();
+          }
         }
       },
-      itemCount: 10,
+      itemCount: model.data.topicMovieRanking.articleList.length + 3,
     );
-  }
-
-  List<dynamic> _videoDataConversion(MovieHomeRecommendRootModel model) {
-    List<dynamic> models = [];
-    // 热门电视剧
-    if (model.data.hotOnlineDramas.movieList.length > 0) {
-      models.add(model.data.hotOnlineDramas);
-    }
-    // 免费电影
-    if (model.data.freeOnlinePlaying.movieList.length > 0) {
-      models.add(model.data.freeOnlinePlaying);
-    }
-    return models;
   }
 
 }
