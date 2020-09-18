@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:read_shadow/module/movie/details/cz_video_player_widget.dart';
-import 'package:read_shadow/module/movie/home/model/movie_root_model.dart';
+import 'package:read_shadow/module/video/details/cz_video_player_widget.dart';
+import 'package:read_shadow/module/video/home/model/movie_root_model.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
@@ -22,12 +22,6 @@ class MovieDetailsWidget extends StatefulWidget {
 class _MovieDetailsWidgetState extends State<MovieDetailsWidget>
     with TickerProviderStateMixin {
 
-  //这里就是关键的代码，定义一个key
-  // GlobalKey<CZVideoPlayerWidgetState> _childViewKey = new GlobalKey<CZVideoPlayerWidgetState>();
-
-
-  // 注册一个通知, 传值 / 调用iOS 方法
-  static const MethodChannel methodChannel = MethodChannel("cz_video_player/method_channel");
 
   //
   static const eventChannel = EventChannel('cz_video_player/event_channel');

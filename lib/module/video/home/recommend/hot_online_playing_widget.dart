@@ -2,8 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
-import '../video_recommend_title_more_widget.dart';
-import 'movie_home_recommend_model.dart';
+import 'hot_online_dramas_more_widget.dart';
+import 'video_recommend_model.dart';
 
 class HotOnlinePlayingWidget extends StatelessWidget {
 
@@ -23,7 +23,7 @@ class HotOnlinePlayingWidget extends StatelessWidget {
           height: ScreenUtil().setHeight(60),
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
-            child: VideoRecommendTitleMoreWidget(title: title,),
+            child: HotOnlineDramasMoreWidget(title: title,),
           ),
         ),
       ],

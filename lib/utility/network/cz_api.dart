@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-import 'package:read_shadow/module/movie/home/model/movie_root_model.dart';
-import 'package:read_shadow/module/movie/home/recommend/movie_home_recommend_model.dart';
+import 'package:read_shadow/module/video/home/model/movie_root_model.dart';
+import 'package:read_shadow/module/video/home/recommend/video_recommend_model.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 import 'cz_network.dart';

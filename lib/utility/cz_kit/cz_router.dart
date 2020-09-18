@@ -7,11 +7,15 @@ import 'package:read_shadow/utility/router/routes.dart';
 class CZRouter {
   // 跳转 不带回调
   static cz_push(BuildContext context, String path,
-      {bool replace = false,
-      bool clearStack = false,
-      TransitionType transition = TransitionType.native,
-      Duration transitionDuration = const Duration(milliseconds: 250),
-      RouteTransitionsBuilder transitionBuilder}) {
+      {
+        String params,
+        bool replace = false,
+        bool clearStack = false,
+        TransitionType transition = TransitionType.native,
+        Duration transitionDuration = const Duration(milliseconds: 250),
+        RouteTransitionsBuilder transitionBuilder
+      }) {
+
     Application.router.navigateTo(context, path,
         replace: replace,
         clearStack: clearStack,

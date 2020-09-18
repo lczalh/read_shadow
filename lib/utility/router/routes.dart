@@ -22,6 +22,9 @@ class Routes {
   // 电影详情页
   static String movieDetails = "/movieDetails";
 
+  // 视频详情页
+  static String videoDetails = "/videoDetails";
+
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -30,6 +33,6 @@ class Routes {
 
     // 注册
     router.define(movieSearch, handler: movieSearchHandler);
-    router.define(movieDetails, handler: movieDetailsHandler);
+    router.define(videoDetails, handler: videoDetailsHandler);
   }
 }

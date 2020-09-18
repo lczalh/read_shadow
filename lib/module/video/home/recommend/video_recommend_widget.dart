@@ -1,20 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:read_shadow/module/movie/home/recommend/hot_online_dramas_widget.dart';
-import 'package:read_shadow/module/movie/home/recommend/topic_movie_ranking_widget.dart';
-import 'package:read_shadow/module/movie/home/widget/movie_home_list_item_widget.dart';
+import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_widget.dart';
+import 'package:read_shadow/module/video/home/recommend/topic_movie_ranking_widget.dart';
 
 import '../../../../utility/cz_kit/cz_common.dart';
-import '../../../../utility/cz_kit/cz_common.dart';
 import '../../../../utility/network/cz_network.dart';
-import '../movie_list_cell_widget.dart';
-import '../video_recommend_title_more_widget.dart';
-import '../movie_list_widget.dart';
 import 'free_online_playing_widget.dart';
-import 'movie_home_recommend_model.dart';
+import 'video_recommend_model.dart';
 
 class VideoRecommendWidget extends StatefulWidget {
   @override

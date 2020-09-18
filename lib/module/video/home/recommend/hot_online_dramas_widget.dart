@@ -2,10 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:read_shadow/module/movie/home/movie_list_cell_widget.dart';
+import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_cell_widget.dart';
+import 'package:read_shadow/utility/cz_kit/cz_router.dart';
+import 'package:read_shadow/utility/router/routes.dart';
 
-import '../video_recommend_title_more_widget.dart';
-import 'movie_home_recommend_model.dart';
+import 'hot_online_dramas_more_widget.dart';
+import 'video_recommend_model.dart';
 
 class HotOnlineDramasWidget extends StatelessWidget {
 
@@ -25,7 +27,7 @@ class HotOnlineDramasWidget extends StatelessWidget {
           height: ScreenUtil().setHeight(60),
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
-            child: VideoRecommendTitleMoreWidget(title: title,),
+            child: HotOnlineDramasMoreWidget(title: title,),
           ),
         ),
         GridView.builder(
@@ -42,11 +44,9 @@ class HotOnlineDramasWidget extends StatelessWidget {
             final model = this.listModel[index];
             return GestureDetector(
               onTap: () {
-               // var json = Uri.encodeComponent(model.toJson());
-               // print(json);
-                //CZRouter.cz_push(context, "${Routes.movieDetails}?params=$json");
+                CZRouter.cz_push(context, "${Routes.videoDetails}?movieName=${Uri.encodeComponent(model.name)}&movieId=${model.movieId}");
               },
-              child: MovieListCellWidget(movieName: model.name, movieImageUrl: model.img, movieDirector: model.commentSpecial));
+              child: HotOnlineDramasCellWidget(movieName: model.name, movieImageUrl: model.img, movieDirector: model.commentSpecial));
           },
           itemCount: listModel.length,
         )

@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:read_shadow/module/video/home/recommend/topic_movie_ranking_cell_widget.dart';
 
-import '../movie_list_cell_widget.dart';
-import 'movie_home_recommend_model.dart';
+import 'hot_online_dramas_cell_widget.dart';
+import 'video_recommend_model.dart';
 
 class TopicMovieRankingWidget extends StatelessWidget {
   TopicMovieRankingWidget({Key key, this.articleListModel}) : super(key: key);
@@ -19,7 +20,7 @@ class TopicMovieRankingWidget extends StatelessWidget {
     if (articleListModel.relatedMovies != null &&
         articleListModel.relatedMovies.length > 0) {
       return Padding(
-        padding: EdgeInsets.only(left: 10, right: 10),
+        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
         child: Stack(
           children: [
             ClipRRect(
@@ -139,20 +140,20 @@ class TopicMovieRankingWidget extends StatelessWidget {
                     child: Container(
                       // padding: EdgeInsets.only(),
                       width: ScreenUtil.screenWidth - 40,
-                      height: ScreenUtil().setHeight(350),
+                      height: ScreenUtil().setHeight(300),
                       child: Swiper(
                         itemBuilder: (BuildContext context, int index) {
                           MovieHomeRecommendMovieListModel
                               movieHomeRecommendMovieListModel =
                               articleListModel.relatedMovies[index];
-                          return MovieListCellWidget(
-                              movieName: movieHomeRecommendMovieListModel.name,
-                              movieImageUrl:
-                                  movieHomeRecommendMovieListModel.img,
-                              movieDirector: "");
+                          return TopicMovieRankingCellWidget(
+                            title: movieHomeRecommendMovieListModel.name,
+                            imageUrl: movieHomeRecommendMovieListModel.img,
+                              score: movieHomeRecommendMovieListModel.rating
+                          );
                         },
-                        itemHeight: ScreenUtil().setHeight(350),
-                        itemWidth: ScreenUtil().setWidth(50),
+                        // itemHeight: ScreenUtil().setHeight(200),
+                        // itemWidth: ScreenUtil().setWidth(50),
                         itemCount: articleListModel.relatedMovies.length ?? 0,
                         viewportFraction: 0.8,
                         scale: 0.8,
