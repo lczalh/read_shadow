@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class VideoDetailsBasicInfoWidget extends StatelessWidget {
   VideoDetailsBasicInfoWidget({
@@ -54,8 +55,10 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
               width: ScreenUtil().setWidth(200),
               fit: BoxFit.cover,
               imageUrl: movieImageUrl,
-              placeholder: (context, url) =>
-                  Image.asset('images/icon_placeholder_figure.png'),
+              placeholder: (context, url) => Center(
+                  child: SpinKitFadingCube(
+                color: Theme.of(context).accentColor,
+              )),
               errorWidget: (context, url, error) =>
                   Image.asset('images/icon_placeholder_figure.png'),
             ),
@@ -81,7 +84,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
                     child: Text(
                       movieNameEn,
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(24),
+                          fontSize: ScreenUtil().setSp(28),
                           color: Colors.white),
                     ),
                     padding: EdgeInsets.only(
@@ -95,7 +98,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
                     child: Text(
                       "${movieArea} · ${movieMins} · ${movieOverallRating}分",
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(24),
+                          fontSize: ScreenUtil().setSp(26),
                           color: Colors.white),
                     ),
                   ),
@@ -106,7 +109,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
                     child: Text(
                       "${movieRatingCount}人评分 / ${moviePersonCount}人想看",
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(24),
+                          fontSize: ScreenUtil().setSp(26),
                           color: Colors.white),
                     ),
                   )

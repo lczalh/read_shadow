@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/details/video_details_model.dart';
 
 class VideoDetailsActorsWidget extends StatelessWidget {
@@ -21,13 +22,12 @@ class VideoDetailsActorsWidget extends StatelessWidget {
             child: Text(
               "演职人员",
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(26),
+                fontSize: ScreenUtil().setSp(28),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
               //textAlign: TextAlign.center,
-            )
-        ),
+            )),
         Container(
           height: ScreenUtil().setHeight(240),
           child: ListView.builder(
@@ -40,29 +40,47 @@ class VideoDetailsActorsWidget extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: CachedNetworkImage(
-                        width: ScreenUtil().setWidth(150),
-                        height: ScreenUtil().setWidth(150),
+                        width: ScreenUtil().setWidth(120),
+                        height: ScreenUtil().setWidth(120),
                         imageUrl: actorModel.img,
-                        placeholder: (context, url) => Image.asset('images/icon_placeholder_figure.png'),
-                        errorWidget: (context, url, error) => Image.asset('images/icon_placeholder_figure.png'),
-                        fit: BoxFit.fill,
+                        placeholder: (context, url) => Center(
+                            child: SpinKitFadingCube(
+                          color: Theme.of(context).accentColor,
+                        )),
+                        errorWidget: (context, url, error) =>
+                            Image.asset('images/icon_placeholder_figure.png'),
+                        fit: BoxFit.cover,
                       ),
                       borderRadius:
-                          BorderRadius.circular(ScreenUtil().setWidth(150)),
+                          BorderRadius.circular(ScreenUtil().setWidth(60)),
                     ),
-                    Text(
-                      actorModel.name.isEmpty == true ? "未知" : actorModel.name,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(color: Colors.white),
+                    /// 中文名
+                    Padding(
+                      child: Text(
+                        actorModel.name.isEmpty == true ? "未知" : actorModel.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(color: Colors.white, fontSize: 26.sp),
+                      ),
+                      padding: EdgeInsets.only(top: 5),
                     ),
+                    /// 英文名
                     Text(
                       actorModel.nameEn.isEmpty == true
                           ? "未知"
                           : actorModel.nameEn,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 24.sp),
+                    ),
+                    /// 饰角
+                    Text(
+                      actorModel.roleName.isEmpty == true
+                          ? "未知"
+                          : actorModel.roleName,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(color: Colors.white, fontSize: 22.sp),
                     ),
                   ],
                 ),

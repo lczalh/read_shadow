@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TopicMovieRankingCellWidget extends StatelessWidget {
   TopicMovieRankingCellWidget({Key key, this.title, this.imageUrl, this.score})
@@ -28,7 +29,10 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
                 placeholder: (context, url) =>
-                    Image.asset('images/icon_placeholder_figure.png'),
+                    Center(
+                    child: SpinKitFadingCube(
+                  color: Theme.of(context).accentColor,
+                )),
                 errorWidget: (context, url, error) =>
                     Image.asset('images/icon_placeholder_figure.png'),
               ),

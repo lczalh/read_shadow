@@ -21,7 +21,7 @@ class VideoDetailsTypeWidget extends StatelessWidget {
             child: Text(
               "影片类型",
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(26),
+                fontSize: ScreenUtil().setSp(28),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
@@ -33,19 +33,16 @@ class VideoDetailsTypeWidget extends StatelessWidget {
               String type = types[index];
               return Container(
                 width: ScreenUtil().setWidth(120),
-                height: ScreenUtil().setHeight(60),
+                height: ScreenUtil().setHeight(80),
                 child: Padding(
                   padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(35),
                     child: Container(
                       alignment: Alignment.center,
-                      // margin: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
-                    //  width: ScreenUtil().setWidth(80),
-                    //  height: ScreenUtil().setHeight(50),
                       color: Theme.of(context).accentColor,
                       child: Text(type, style: TextStyle(
-                        fontSize: ScreenUtil().setSp(22),
+                        fontSize: ScreenUtil().setSp(26),
                         color: Colors.white
                       ),),
                     ),
@@ -57,7 +54,7 @@ class VideoDetailsTypeWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             //  shrinkWrap: true,
           ),
-          height: ScreenUtil().setHeight(60),
+          height: ScreenUtil().setHeight(80),
         ),
       ],
     );

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/details/video_details_actors_widget.dart';
+import 'package:read_shadow/module/video/details/video_details_film_critics_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_basic_info_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_introduction_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_model.dart';
@@ -50,31 +51,28 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-        ),
-        body: Stack(
-      children: [
-        FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            var widget;
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                widget = _loadingErrorWidget();
-              } else {
-                widget = _dataWidget(snapshot.data);
-              }
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          var widget;
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              widget = _loadingErrorWidget();
             } else {
-              widget = _loadingWidget();
+              widget = _dataWidget(snapshot.data);
             }
-            return widget;
-          },
-        ),
-      ],
-    ));
+          } else {
+            widget = _loadingWidget();
+          }
+          return widget;
+        },
+      ),
+    );
   }
 
   _loadingWidget() {
@@ -113,7 +111,8 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
         ListView.builder(
           //padding: EdgeInsets.only(top: 0),
           itemBuilder: (BuildContext context, int index) {
-            if (index == 0) { /// 基本信息
+            if (index == 0) {
+              /// 基本信息
               return VideoDetailsBasicInfoWidget(
                 movieImageUrl: model.data.basic.img,
                 movieName: model.data.basic.name,
@@ -124,20 +123,26 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
                 moviePersonCount: model.data.basic.personCount,
                 movieRatingCount: model.data.basic.ratingCount,
               );
-            } else if (index == 1) { /// 所属类型
+            } else if (index == 1) {
+              /// 所属类型
               return model.data.basic.type.length > 0
                   ? VideoDetailsTypeWidget(types: model.data.basic.type)
                   : Container();
-            } else if (index == 2) { /// 简介
-              return model.data.basic.story.isEmpty == false ? VideoDetailsIntroductionWidget(movieIntroduction: model.data.basic.story,) : Container();
+            } else if (index == 2) {
+              /// 简介
+              return model.data.basic.story.isEmpty == false
+                  ? VideoDetailsIntroductionWidget(
+                      movieIntroduction: model.data.basic.story,
+                    )
+                  : Container();
             } else if (index == 3) {
-              // 演职人员
+              /// 演职人员
               return model.data.basic.actors.length > 0
                   ? VideoDetailsActorsWidget(
                       actorModels: model.data.basic.actors)
                   : Container();
             } else if (index == 4) {
-              // 剧照
+              /// 剧照
               return model.data.basic.stageImg != null &&
                       model.data.basic.stageImg.list.length > 0
                   ? VideoDetailsStageWidget(
@@ -145,8 +150,8 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
                     )
                   : Container();
             } else if (index == 5) {
-              // 影屏
-              return Text('Item$index');
+              /// 预告与花絮
+              return VideoDetailsFilmCriticsWidget(movieId: widget.movieId,);
             } else {
               return Text('Item$index');
             }

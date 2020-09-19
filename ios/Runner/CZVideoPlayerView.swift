@@ -6,7 +6,6 @@
 //
 import UIKit
 import SuperPlayer
-import Kingfisher
 
 class CZVideoPlayerView: NSObject, FlutterPlatformView {
     

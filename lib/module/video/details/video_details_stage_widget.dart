@@ -1,12 +1,11 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/details/video_details_model.dart';
 
 class VideoDetailsStageWidget extends StatelessWidget {
-
   VideoDetailsStageWidget({Key key, this.listElementModels}) : super(key: key);
 
   final List<VideoDetailsListElementModel> listElementModels;
@@ -22,24 +21,34 @@ class VideoDetailsStageWidget extends StatelessWidget {
             child: Text(
               "剧照",
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(26),
+                fontSize: ScreenUtil().setSp(28),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
               //textAlign: TextAlign.center,
-            )
-        ),
+            )),
         GridView.builder(
-          physics: NeverScrollableScrollPhysics(), // 禁止滚动
+          padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+          physics: NeverScrollableScrollPhysics(),
+          // 禁止滚动
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5
           ),
           itemBuilder: (context, index) {
-            VideoDetailsListElementModel listElementModel = listElementModels[index];
+            VideoDetailsListElementModel listElementModel =
+                listElementModels[index];
             return CachedNetworkImage(
               imageUrl: listElementModel.imgUrl,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => Center(
+                  child: SpinKitFadingCube(
+                color: Theme.of(context).accentColor,
+              )),
+              errorWidget: (context, url, error) =>
+                  Image.asset('images/icon_placeholder_figure.png'),
             );
           },
           itemCount: listElementModels.length,

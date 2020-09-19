@@ -41,3 +41,43 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+ios/Flutter/Flutter 2.framework/Flutter
+ios/Flutter/Flutter 2.framework/icudtl.dat
+ios/Flutter/Flutter 2.framework/Info.plist
+ios/Flutter/Flutter 2.framework/_CodeSignature/CodeResources
+ios/Flutter/Flutter 2.framework/Headers/Flutter.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterAppDelegate.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterBinaryMessenger.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterCallbackCache.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterChannels.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterCodecs.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterDartProject.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterEngine.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterHeadlessDartRunner.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterMacros.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterPlatformViews.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterPlugin.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterPluginAppLifeCycleDelegate.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterTexture.h
+ios/Flutter/Flutter 2.framework/Headers/FlutterViewController.h
+ios/Flutter/Flutter 2.framework/Modules/module.modulemap
+ios/Flutter/Flutter 3.framework/Flutter
+ios/Flutter/Flutter 3.framework/icudtl.dat
+ios/Flutter/Flutter 3.framework/Info.plist
+ios/Flutter/Flutter 3.framework/_CodeSignature/CodeResources
+ios/Flutter/Flutter 3.framework/Headers/Flutter.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterAppDelegate.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterBinaryMessenger.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterCallbackCache.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterChannels.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterCodecs.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterDartProject.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterEngine.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterHeadlessDartRunner.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterMacros.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterPlatformViews.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterPlugin.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterPluginAppLifeCycleDelegate.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterTexture.h
+ios/Flutter/Flutter 3.framework/Headers/FlutterViewController.h
+ios/Flutter/Flutter 3.framework/Modules/module.modulemap

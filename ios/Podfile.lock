@@ -20,37 +20,30 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - Kingfisher (5.8.3):
-    - Kingfisher/Core (= 5.8.3)
-  - Kingfisher/Core (5.8.3)
   - Masonry (1.1.0)
-  - MMLayout (0.3.0)
   - path_provider (0.0.1):
     - Flutter
-  - SDWebImage (5.8.0):
-    - SDWebImage/Core (= 5.8.0)
-  - SDWebImage/Core (5.8.0)
+  - SDWebImage (5.9.1):
+    - SDWebImage/Core (= 5.9.1)
+  - SDWebImage/Core (5.9.1)
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
-  - SuperPlayer (3.2.5):
-    - AFNetworking (~> 4.0)
-    - Masonry (~> 1.1.0)
-    - MMLayout (~> 0.3.0)
-    - SDWebImage (~> 5.0)
-    - SuperPlayer/Player (= 3.2.5)
-  - SuperPlayer/Player (3.2.5):
-    - AFNetworking (~> 4.0)
-    - Masonry (~> 1.1.0)
-    - MMLayout (~> 0.3.0)
-    - SDWebImage (~> 5.0)
-    - TXLiteAVSDK_Player (= 7.2.8932)
-  - TXLiteAVSDK_Player (7.2.8932)
+  - SuperPlayer (3.3.0):
+    - AFNetworking
+    - Masonry
+    - SDWebImage
+    - SuperPlayer/Player (= 3.3.0)
+  - SuperPlayer/Player (3.3.0):
+    - AFNetworking
+    - Masonry
+    - SDWebImage
+    - TXLiteAVSDK_Player
+  - TXLiteAVSDK_Player (7.7.9458)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
-  - Kingfisher (~> 5.8.3)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - SuperPlayer
@@ -59,9 +52,7 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - FMDB
-    - Kingfisher
     - Masonry
-    - MMLayout
     - SDWebImage
     - SuperPlayer
     - TXLiteAVSDK_Player
@@ -81,15 +72,13 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MMLayout: d559edecd69fbcb348368ba90917e047ab1c544e
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  SuperPlayer: 5fba5483acaf772d34a462fddfc92819a2d39410
-  TXLiteAVSDK_Player: 7e2f5854f131f0de16ffdefa35081a36bb4f1e93
+  SuperPlayer: 2d5b20253635e19de28f9b1c49810601d0f423be
+  TXLiteAVSDK_Player: 7029bd52e0945c31fcd48f4136016531650401a1
 
-PODFILE CHECKSUM: d9080d8e9ff0fe161ce09752995ae69b0aec88fe
+PODFILE CHECKSUM: 42addffa25d4d14e436c5c8e6047083a7c6d0c81
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.0

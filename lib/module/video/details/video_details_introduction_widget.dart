@@ -26,16 +26,16 @@ class _VideoDetailsIntroductionWidgetState extends State<VideoDetailsIntroductio
           child: Text(
             "简介",
             style: TextStyle(
-              fontSize: ScreenUtil().setSp(26),
+              fontSize: ScreenUtil().setSp(28),
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           )),
       Padding(
-        padding: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
+        padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
         child: Text(
           widget.movieIntroduction,
-          style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(24)),
+          style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(26)),
           overflow: TextOverflow.ellipsis,
           maxLines: _isSpread == false ? 4 : 9999,
         ),
@@ -49,7 +49,7 @@ class _VideoDetailsIntroductionWidgetState extends State<VideoDetailsIntroductio
               children: [
                 Text(
                   _isSpread == false ? '显示全部' : '隐藏部分',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(24)),
                 ),
                 Icon(
                   _isSpread == false ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up,
