@@ -40,7 +40,7 @@ class VideoDetailsTypeWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(35),
                     child: Container(
                       alignment: Alignment.center,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).accentColor.withOpacity(0.5),
                       child: Text(type, style: TextStyle(
                         fontSize: ScreenUtil().setSp(26),
                         color: Colors.white

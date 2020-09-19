@@ -1,18 +1,9 @@
-/*
- * fluro
- * Created by Yakka
- * https://theyakka.com
- * 
- * Copyright (c) 2019 Yakka, LLC. All rights reserved.
- * See LICENSE for distribution and usage details.
- */
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import './route_handlers.dart';
+import 'route_handlers.dart';
 
-class Routes {
-//  // 路由管理
-//  static Router router;
+class RoutePathRegister {
 
   static String root = "/";
 

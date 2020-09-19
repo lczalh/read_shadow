@@ -14,10 +14,20 @@ class HotOnlineDramasMoreWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+        ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                colors: <Color>[Colors.blue, Colors.purple, Colors.red, Colors.pinkAccent, Colors.orange],
+                tileMode: TileMode.mirror,
+              ).createShader(bounds);
+            },
+            blendMode: BlendMode.srcATop,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: ScreenUtil().setSp(28), fontWeight: FontWeight.bold),
+            ),
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,

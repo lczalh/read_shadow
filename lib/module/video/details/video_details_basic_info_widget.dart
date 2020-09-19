@@ -45,14 +45,14 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil.screenWidth,
-      height: ScreenUtil().setHeight(300),
+      height: ScreenUtil().setHeight(350),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             child: CachedNetworkImage(
-              width: ScreenUtil().setWidth(200),
+              width: ScreenUtil().setWidth(220),
               fit: BoxFit.cover,
               imageUrl: movieImageUrl,
               placeholder: (context, url) => Center(
@@ -62,7 +62,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
               errorWidget: (context, url, error) =>
                   Image.asset('images/icon_placeholder_figure.png'),
             ),
-            padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 40, top: 10, bottom: 10),
           ),
           Expanded(
             child: Padding(

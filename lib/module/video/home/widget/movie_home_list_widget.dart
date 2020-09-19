@@ -8,10 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
-import 'package:read_shadow/utility/cz_kit/cz_router.dart';
-import 'package:read_shadow/utility/network/cz_api.dart';
-import 'package:read_shadow/utility/router/routes.dart';
+import 'package:read_shadow/router/cz_router.dart';
+import 'package:read_shadow/network/cz_api.dart';
 
 import 'movie_home_list_item_widget.dart';
 import '../model/movie_root_model.dart';
@@ -124,7 +124,7 @@ class _MovieHomeListWidgetState extends State<MovieHomeListWidget>
             onTap: () {
               var json = Uri.encodeComponent(model.toJson());
               print(json);
-               CZRouter.cz_push(context, "${Routes.movieDetails}?params=$json");
+               CZRouter.cz_push(context, "${RoutePathRegister.movieDetails}?params=$json");
             },
             child: MovieHomeListItemWidget(
                 movieName: model.vodName,

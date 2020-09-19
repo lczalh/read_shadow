@@ -1,18 +1,15 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
-import 'package:flutter/services.dart';
-//import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
-import 'package:read_shadow/utility/router/application.dart';
-import 'package:read_shadow/utility/router/routes.dart';
+import 'package:read_shadow/router/application.dart';
 
 import 'module/entrance/entrance.dart';
 
 void main() {
   // 配置路由
   final router = Router();
-  Routes.configureRoutes(router);
+  RoutePathRegister.configureRoutes(router);
   Application.router = router;
   cz_print(router, StackTrace.current);
   runApp(MyApp());

@@ -16,7 +16,8 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
       {Key key,
       @required this.movieName,
       @required this.movieImageUrl,
-      @required this.movieDirector})
+      @required this.movieDirector,
+      this.movieRating})
       : super(key: key);
 
   /// 电影名称
@@ -27,6 +28,9 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
 
   /// 导演
   final String movieDirector;
+
+  /// 评分
+  final String movieRating;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +67,7 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
                       color: Color.fromRGBO(0, 0, 0, 0.8),
                       child: Center(
                         child: Text(
-                          "评分:8.0",
+                          "评分：$movieRating",
                           style: TextStyle(
                               color: Colors.white,
                               backgroundColor: Color.fromRGBO(0, 0, 0, 0.7),
@@ -77,26 +81,19 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          height: ScreenUtil().setHeight(40),
-          child: Padding(
-            padding: EdgeInsets.only(top: 5),
-            child: Text(
-              movieName,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: ScreenUtil().setSp(28)),
-            ),
+        Padding(
+          padding: EdgeInsets.only(top: 5),
+          child: Text(
+            movieName,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: ScreenUtil().setSp(28), fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
-          height: ScreenUtil().setHeight(40),
-          child: Text(
-            movieDirector,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontSize: ScreenUtil().setSp(24),
-                color: Colors.deepOrangeAccent),
-          ),
+        Text(
+          movieDirector,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              fontSize: ScreenUtil().setSp(24)),
         ),
       ],
     );

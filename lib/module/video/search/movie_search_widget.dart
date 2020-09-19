@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/module/video/home/model/movie_root_model.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
-import 'package:read_shadow/utility/cz_kit/cz_router.dart';
-import 'package:read_shadow/utility/network/cz_api.dart';
+import 'package:read_shadow/router/cz_router.dart';
+import 'package:read_shadow/network/cz_api.dart';
 
 class MovieSearchWidget extends StatefulWidget {
   @override

@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_cell_widget.dart';
-import 'package:read_shadow/utility/cz_kit/cz_router.dart';
-import 'package:read_shadow/utility/router/routes.dart';
+import 'package:read_shadow/router/cz_router.dart';
+import 'package:read_shadow/router/route_path_register.dart';
 
 import 'hot_online_dramas_more_widget.dart';
 import 'video_recommend_model.dart';
@@ -36,7 +36,7 @@ class HotOnlineDramasWidget extends StatelessWidget {
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            childAspectRatio: ScreenUtil().setWidth(1),
+            childAspectRatio: ScreenUtil().setWidth(1.1),
             crossAxisSpacing: 10,
             mainAxisSpacing: 5,
           ),
@@ -44,9 +44,9 @@ class HotOnlineDramasWidget extends StatelessWidget {
             final model = this.listModel[index];
             return GestureDetector(
               onTap: () {
-                CZRouter.cz_push(context, "${Routes.videoDetails}?movieName=${Uri.encodeComponent(model.name)}&movieId=${model.movieId}");
+                CZRouter.cz_push(context, RoutePathRegister.videoDetails, params: {"movieName": model.name, "movieId": model.movieId});
               },
-              child: HotOnlineDramasCellWidget(movieName: model.name, movieImageUrl: model.img, movieDirector: model.commentSpecial));
+              child: HotOnlineDramasCellWidget(movieName: model.name, movieImageUrl: model.img, movieDirector: model.commentSpecial, movieRating: model.rating));
           },
           itemCount: listModel.length,
         )

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_widget.dart';
 import 'package:read_shadow/module/video/home/recommend/topic_movie_ranking_widget.dart';
+import 'package:read_shadow/network/cz_network.dart';
 
 import '../../../../utility/cz_kit/cz_common.dart';
-import '../../../../utility/network/cz_network.dart';
 import 'free_online_playing_widget.dart';
 import 'video_recommend_model.dart';
 

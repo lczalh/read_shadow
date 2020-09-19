@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/details/video_details_actors_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_film_critics_widget.dart';
@@ -12,7 +11,7 @@ import 'package:read_shadow/module/video/details/video_details_introduction_widg
 import 'package:read_shadow/module/video/details/video_details_model.dart';
 import 'package:read_shadow/module/video/details/video_details_stage_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_type_widget.dart';
-import 'package:read_shadow/utility/network/cz_network.dart';
+import 'package:read_shadow/network/cz_network.dart';
 
 class VideoDetailsWidget extends StatefulWidget {
   VideoDetailsWidget({Key key, this.movieName, this.movieId}) : super(key: key);
@@ -156,7 +155,7 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
               return Text('Item$index');
             }
           },
-          itemCount: 100,
+          itemCount: 6,
         ),
       ],
     );

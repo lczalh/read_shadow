@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/module/video/home/recommend/video_recommend_widget.dart';
 import 'package:read_shadow/module/video/home/widget/movie_home_list_widget.dart';
+import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
-import 'package:read_shadow/utility/cz_kit/cz_router.dart';
-import 'package:read_shadow/utility/router/routes.dart';
+import 'package:read_shadow/router/cz_router.dart';
 
 class MovieHomeWidget extends StatefulWidget {
   @override
@@ -15,10 +15,6 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   TabController tabController;
 
-  List<Text> tabBarItems = [Text("11111"), Text("11111"), Text("11111")];
-
-  List<Text> tabBarViews = [Text("11111"), Text("11111"), Text("11111")];
-
   @override
   bool get wantKeepAlive => true;
 
@@ -27,7 +23,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
     // TODO: implement initState
     super.initState();
     tabController = TabController(
-      length: 6,
+      length: 5,
       vsync: this,
     );
   }
@@ -59,7 +55,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
                 ),
               ),
               onTap: () {
-                CZRouter.cz_push(context, Routes.movieSearch);
+                CZRouter.cz_push(context, RoutePathRegister.movieSearch);
               },
             ),
             Icon(Icons.business)
@@ -77,11 +73,11 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
               labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               tabs: <Widget>[
                 Tab(text: "推荐"),
-                Tab(text: "电视剧"),
-                Tab(text: "电影"),
-                Tab(text: "综艺"),
-                Tab(text: "动漫"),
-                Tab(text: "记录片"),
+                Tab(text: "小编强推"),
+                Tab(text: "明星推荐"),
+                Tab(text: "追剧向导"),
+                Tab(text: "时光热榜"),
+                //Tab(text: "记录片"),
               ],
               controller: tabController, // 记得要带上tabController
               onTap: (value) => {cz_print(value, StackTrace.current)},
@@ -97,7 +93,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
                 MovieHomeListWidget(categoryId: "5"),
                 MovieHomeListWidget(categoryId: "3"),
                 MovieHomeListWidget(categoryId: "4"),
-                MovieHomeListWidget(categoryId: "18"),
+               // MovieHomeListWidget(categoryId: "18"),
               ],
             ),
           )
