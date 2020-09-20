@@ -67,7 +67,7 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
                       color: Color.fromRGBO(0, 0, 0, 0.8),
                       child: Center(
                         child: Text(
-                          "评分：$movieRating",
+                          "评分：${movieRating == null || movieRating.isEmpty == true ? "0" : movieRating}",
                           style: TextStyle(
                               color: Colors.white,
                               backgroundColor: Color.fromRGBO(0, 0, 0, 0.7),

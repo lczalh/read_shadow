@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_widget.dart';
 import 'package:read_shadow/module/video/home/recommend/topic_movie_ranking_widget.dart';
+import 'package:read_shadow/module/video/home/recommend/video_recommend_swiper_widget.dart';
 import 'package:read_shadow/network/cz_network.dart';
 
 import '../../../../utility/cz_kit/cz_common.dart';
@@ -74,19 +75,21 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
 
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
-        if (index == 0) {
+        if (index == 0) { /// 轮播图
+          return VideoRecommendSwiperWidget();
+        } else if (index == 1) {
           if (model.data.latestOnlinePlaying.movieList != null && model.data.latestOnlinePlaying.movieList.length > 0) {
             return HotOnlineDramasWidget(title: "最新上线", listModel: model.data.latestOnlinePlaying.movieList ?? [],);
           } else {
             return Container();
           }
-        } else if (index == 1) {
+        } else if (index == 2) {
           if (model.data.freeOnlinePlaying.movieList != null && model.data.freeOnlinePlaying.movieList.length > 0) {
             return FreeOnlinePlayingWidget(title: "免费电影", listModel: model.data.freeOnlinePlaying.movieList ?? [],);
           } else {
             return Container();
           }
-        } else if (index == 2) {
+        } else if (index == 3) {
           if (model.data.hotOnlineDramas.movieList != null && model.data.hotOnlineDramas.movieList.length > 0) {
             return FreeOnlinePlayingWidget(title: "热门电视剧", listModel: model.data.hotOnlineDramas.movieList ?? [],);
           } else {
@@ -102,7 +105,7 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
           }
         }
       },
-      itemCount: model.data.topicMovieRanking.articleList.length + 3,
+      itemCount: model.data.topicMovieRanking.articleList.length + 4,
     );
   }
 
