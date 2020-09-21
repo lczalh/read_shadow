@@ -145,6 +145,7 @@ class TopicMovieRankingWidget extends StatelessWidget {
                             fontSize: ScreenUtil().setSp(22),
                             color: Colors.white,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
 
@@ -187,7 +188,7 @@ class TopicMovieRankingWidget extends StatelessWidget {
                                 articleListModel.relatedMovies.length ?? 0,
                             viewportFraction: 0.8,
                             scale: 0.8,
-                            //layout: SwiperLayout.TINDER,
+                            autoplay: true,
                           ),
                         ),
                       )

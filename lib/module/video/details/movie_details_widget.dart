@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:read_shadow/module/video/details/cz_video_player_widget.dart';
+import 'package:read_shadow/module/video/player/cz_video_player_widget.dart';
 import 'package:read_shadow/module/video/home/model/movie_root_model.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 

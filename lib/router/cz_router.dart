@@ -27,9 +27,10 @@ class CZRouter {
         /// 路径拼接
         query += "$key=$value&";
       }
+      print('路由器跳转传递的参数：${query.substring(0, query.length - 1)}');
+      path = path + query.substring(0, query.length - 1);
     }
-    print('路由器跳转传递的参数：${query.substring(0, query.length - 1)}');
-    path = path + query.substring(0, query.length - 1);
+
     Application.router.navigateTo(context, path,
         replace: replace,
         clearStack: clearStack,
@@ -60,8 +61,9 @@ class CZRouter {
         /// 路径拼接
         query += "$key=$value&";
       }
+      print('路由器跳转传递的参数：${query.substring(0, query.length - 1)}');
+      path = path + query.substring(0, query.length - 1);
     }
-    print('路由器跳转传递的参数：${query.substring(0, query.length - 1)}');
     Application.router
         .navigateTo(context, path,
             replace: replace,

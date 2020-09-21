@@ -33,6 +33,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Row(
           children: <Widget>[
             Icon(Icons.business),
@@ -68,12 +69,22 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
       body: Column(
         children: [
           Container(
+            color: Theme.of(context).accentColor,
             height: 44,
             child: TabBar(
-              labelColor: Colors.red,
+            //  labelColor: Colors.white,
+              labelStyle: TextStyle(
+                color: Colors.white,
+                fontSize: ScreenUtil().setSp(28),
+                fontWeight: FontWeight.bold
+              ),
+              unselectedLabelStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: ScreenUtil().setSp(26),
+              ),
               labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               tabs: <Widget>[
-                Tab(text: "推荐"),
+                Tab(text: "热门推荐"),
                 Tab(text: "小编强推"),
                 Tab(text: "明星推荐"),
                 Tab(text: "追剧向导"),

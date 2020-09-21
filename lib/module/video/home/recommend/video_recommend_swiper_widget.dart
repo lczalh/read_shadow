@@ -14,8 +14,8 @@ class VideoRecommendSwiperWidget extends StatefulWidget {
   _VideoRecommendSwiperWidget createState() => _VideoRecommendSwiperWidget();
 }
 
-class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget> with AutomaticKeepAliveClientMixin {
-
+class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -33,7 +33,6 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget> with
         baseUrl: "https://content-api-m.mtime.cn",
         path: "/movieList/topSlides.api");
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,22 +63,30 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget> with
   }
 
   _dataWidget(data) {
-    VideoRecommendSwiperModel swiperModel = VideoRecommendSwiperModel.fromMap(data);
+    VideoRecommendSwiperModel swiperModel =
+        VideoRecommendSwiperModel.fromMap(data);
     return Container(
       width: ScreenUtil.screenWidth,
       height: ScreenUtil().setHeight(350),
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          VideoRecommendSwiperListElementModel listElementModel= swiperModel.data.list[index];
-          return CachedNetworkImage(
-            fit: BoxFit.fill,
-            imageUrl: listElementModel.img,
-            placeholder: (context, url) => Center(
-                child: SpinKitFadingCube(
-                  color: Theme.of(context).accentColor,
-                )),
-            errorWidget: (context, url, error) =>
-                Image.asset('images/icon_placeholder_figure.png'),
+          VideoRecommendSwiperListElementModel listElementModel =
+              swiperModel.data.list[index];
+          return GestureDetector(
+            onTap: () {
+              CZRouter.cz_push(context, RoutePathRegister.pieceSingleDetails,
+                  params: {"articleId": listElementModel.articleId});
+            },
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: listElementModel.img,
+              placeholder: (context, url) => Center(
+                  child: SpinKitFadingCube(
+                color: Theme.of(context).accentColor,
+              )),
+              errorWidget: (context, url, error) =>
+                  Image.asset('images/icon_placeholder_figure.png'),
+            ),
           );
         },
         // itemHeight: ScreenUtil().setHeight(200),
@@ -91,6 +98,5 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget> with
         //layout: SwiperLayout.TINDER,
       ),
     );
-
   }
 }

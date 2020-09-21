@@ -7,14 +7,20 @@ class RoutePathRegister {
 
   static String root = "/";
 
-  // 电影搜索页
+  /// 电影搜索页
   static String movieSearch = "/movieSearch";
 
   // 电影详情页
   static String movieDetails = "/movieDetails";
 
-  // 视频详情页
+  /// 视频详情页
   static String videoDetails = "/videoDetails";
+
+  /// 片单详情
+  static String pieceSingleDetails = "/pieceSingleDetails";
+
+  /// 视频播放页
+  static String videoPlayer = "/videoPlayer";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -25,5 +31,8 @@ class RoutePathRegister {
     // 注册
     router.define(movieSearch, handler: movieSearchHandler);
     router.define(videoDetails, handler: videoDetailsHandler);
+    router.define(pieceSingleDetails, handler: pieceSingleDetailsHandler);
+    router.define(videoPlayer, handler: videoPlayerHandler);
+
   }
 }

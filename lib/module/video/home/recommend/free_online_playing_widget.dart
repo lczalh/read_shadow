@@ -19,14 +19,21 @@ class FreeOnlinePlayingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: ScreenUtil.screenWidth,
-          height: ScreenUtil().setHeight(60),
-          child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: HotOnlineDramasMoreWidget(
-              title: title,
+          margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          child: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                colors: <Color>[Colors.blue, Colors.purple, Colors.red, Colors.pinkAccent, Colors.orange],
+                tileMode: TileMode.mirror,
+              ).createShader(bounds);
+            },
+            blendMode: BlendMode.srcATop,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: ScreenUtil().setSp(30), fontWeight: FontWeight.bold),
             ),
           ),
         ),

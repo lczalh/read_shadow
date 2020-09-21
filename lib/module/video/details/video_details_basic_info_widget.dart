@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:read_shadow/router/cz_router.dart';
+import 'package:read_shadow/router/route_path_register.dart';
 
 class VideoDetailsBasicInfoWidget extends StatelessWidget {
   VideoDetailsBasicInfoWidget({
@@ -45,24 +47,45 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil.screenWidth,
-      height: ScreenUtil().setHeight(350),
+    //  height: ScreenUtil().setHeight(350),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            child: CachedNetworkImage(
-              width: ScreenUtil().setWidth(220),
-              fit: BoxFit.cover,
-              imageUrl: movieImageUrl,
-              placeholder: (context, url) => Center(
-                  child: SpinKitFadingCube(
-                color: Theme.of(context).accentColor,
-              )),
-              errorWidget: (context, url, error) =>
-                  Image.asset('images/icon_placeholder_figure.png'),
+          GestureDetector(
+            child: Padding(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CachedNetworkImage(
+                    width: ScreenUtil().setWidth(250),
+                    height: ScreenUtil().setHeight(350),
+                    fit: BoxFit.cover,
+                    imageUrl: movieImageUrl,
+                    placeholder: (context, url) => Center(
+                        child: SpinKitFadingCube(
+                          color: Theme.of(context).accentColor,
+                        )),
+                    errorWidget: (context, url, error) =>
+                        Image.asset('images/icon_placeholder_figure.png'),
+                  ),
+                  Container(
+                    width: ScreenUtil().setWidth(250),
+                    height: ScreenUtil().setHeight(350),
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                  Icon(
+                    Icons.play_circle_outline,
+                    color: Colors.white,
+                    size: ScreenUtil().setWidth(70),
+                  )
+                ],
+              ),
+              padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
             ),
-            padding: EdgeInsets.only(left: 40, top: 10, bottom: 10),
+            onTap: () {
+              CZRouter.cz_push(context, RoutePathRegister.videoPlayer);
+            },
           ),
           Expanded(
             child: Padding(

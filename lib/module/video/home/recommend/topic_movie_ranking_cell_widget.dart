@@ -41,8 +41,6 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: Container(
-            //  width: ScreenUtil.screenWidth,
-            //height: ScreenUtil().setHeight(600),
             color: Colors.black.withOpacity(0.5),
           ),
         ),
@@ -78,9 +76,6 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
                       color: Colors.amber,
                       //size: ScreenUtil().setWidth(10),
                     ),
-                    // onRatingUpdate: (rating) {
-                    //   print(rating);
-                    // },
                     itemSize: ScreenUtil().setWidth(25),
                   ),
                   Padding(

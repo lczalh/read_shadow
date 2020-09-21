@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_widget.dart';
 import 'package:read_shadow/module/video/home/recommend/topic_movie_ranking_widget.dart';
 import 'package:read_shadow/module/video/home/recommend/video_recommend_swiper_widget.dart';

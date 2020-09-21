@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:read_shadow/module/video/home/piece_single/video_piece_single_info_widget.dart';
 import 'package:read_shadow/module/video/home/piece_single/video_piece_single_model.dart';
 import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_cell_widget.dart';
 import 'package:read_shadow/network/cz_network.dart';
 import 'package:read_shadow/router/cz_router.dart';
 import 'package:read_shadow/router/route_path_register.dart';
+import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 class VideoPieceSingleWidget extends StatefulWidget {
   VideoPieceSingleWidget({Key key, this.channelId}) : super(key: key);
@@ -27,7 +29,7 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
   // var _future;
 
   // 记录当前页数
-  int currentPage = 1;
+  int currentPage = 0;
 
   /// 存储所有列表模型
   List<VideoPieceSingleListElementModel> listModel = [];
@@ -41,7 +43,8 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
     super.initState();
     _controller = EasyRefreshController();
     _scrollController = ScrollController();
-    //_future = getVideoTrailerInfoModel();
+    //cz_print(widget.channelId, StackTrace.current);
+    //cz_print(currentPage, StackTrace.current);
   }
 
   getVideoPieceSingleModel() {
@@ -58,16 +61,14 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
       if (currentPage == 1) listModel.clear();
       for (VideoPieceSingleListElementModel model
           in videoPieceSingleModel.data.list) {
-         listModel.add(model);
+        listModel.add(model);
       }
-      setState(() {
-
-      });
+      setState(() {});
       _controller.finishRefresh();
       _controller.finishLoad();
     }).catchError((error) {
-       _controller.finishRefresh();
-       _controller.finishLoad();
+      _controller.finishRefresh();
+      _controller.finishLoad();
     });
   }
 
@@ -87,12 +88,12 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
       scrollController: _scrollController,
       emptyWidget: listModel.length == 0
           ? Center(
-        child: Text(
-          "暂无片单更新",
-         // style: TextStyle(
-              //fontSize: ScreenUtil().setSp(30), color: Colors.grey[400]),
-        ),
-      )
+              child: Text(
+                "暂无片单更新",
+                // style: TextStyle(
+                //fontSize: ScreenUtil().setSp(30), color: Colors.grey[400]),
+              ),
+            )
           : null,
       header: ClassicalHeader(),
       footer: ClassicalFooter(
@@ -103,7 +104,7 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: ScreenUtil().setWidth(1.2),
+          childAspectRatio: ScreenUtil().setWidth(1),
           crossAxisSpacing: 5,
           mainAxisSpacing: 5,
         ),
@@ -111,22 +112,25 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
           VideoPieceSingleListElementModel model = listModel[index];
           return GestureDetector(
               onTap: () {
-                // CZRouter.cz_push(context, RoutePathRegister.videoDetails, params: {"movieName": model.name, "movieId": model.movieId});
+                CZRouter.cz_push(context, RoutePathRegister.pieceSingleDetails,
+                    params: {"articleId": model.articleId});
               },
-              child: HotOnlineDramasCellWidget(
-              movieName: model.title,
-              movieImageUrl: model.movieImg,
-              movieDirector: "1111",
-              movieRating: ""));
+              child: VideoPieceSingleInfoWidget(
+                pieceSingleName: model.title,
+                pieceSingleImageUrl: model.movieImg,
+                pieceSingleNum: model.movieCount,
+              ));
         },
         itemCount: listModel.length,
       ),
       onRefresh: () async {
         currentPage = 1;
+        cz_print(currentPage, StackTrace.current);
         getVideoPieceSingleModel();
       },
       onLoad: () async {
         currentPage += 1;
+        cz_print(currentPage, StackTrace.current);
         getVideoPieceSingleModel();
       },
     );
