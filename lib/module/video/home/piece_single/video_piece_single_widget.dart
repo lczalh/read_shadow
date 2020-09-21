@@ -4,7 +4,10 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/home/piece_single/video_piece_single_model.dart';
+import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_cell_widget.dart';
 import 'package:read_shadow/network/cz_network.dart';
+import 'package:read_shadow/router/cz_router.dart';
+import 'package:read_shadow/router/route_path_register.dart';
 
 class VideoPieceSingleWidget extends StatefulWidget {
   VideoPieceSingleWidget({Key key, this.channelId}) : super(key: key);
@@ -16,14 +19,18 @@ class VideoPieceSingleWidget extends StatefulWidget {
   _VideoPieceSingleWidget createState() => _VideoPieceSingleWidget();
 }
 
-class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget> {
+class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
-  var _future;
+  // var _future;
 
   // 记录当前页数
   int currentPage = 1;
+
+  /// 存储所有列表模型
+  List<VideoPieceSingleListElementModel> listModel = [];
 
   EasyRefreshController _controller;
   ScrollController _scrollController;
@@ -34,78 +41,59 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget> {
     super.initState();
     _controller = EasyRefreshController();
     _scrollController = ScrollController();
-    _future = getVideoTrailerInfoModel();
+    //_future = getVideoTrailerInfoModel();
   }
 
-  getVideoTrailerInfoModel() async {
-    return await CZNetwork().get(
+  getVideoPieceSingleModel() {
+    CZNetwork().get(
         baseUrl: "https://content-api-m.mtime.cn",
         path: "/movieList/channel/list.api",
         params: {
           "channelId": widget.channelId,
           "pageIndex": currentPage,
           "pageSize": "30"
-        });
+        }).then((map) {
+      VideoPieceSingleModel videoPieceSingleModel =
+          VideoPieceSingleModel.fromMap(map);
+      if (currentPage == 1) listModel.clear();
+      for (VideoPieceSingleListElementModel model
+          in videoPieceSingleModel.data.list) {
+         listModel.add(model);
+      }
+      setState(() {
+
+      });
+      _controller.finishRefresh();
+      _controller.finishLoad();
+    }).catchError((error) {
+       _controller.finishRefresh();
+       _controller.finishLoad();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        var widget;
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            widget = _loadingErrorWidget();
-          } else {
-            widget = _dataWidget(snapshot.data);
-          }
-        } else {
-          widget = _loadingWidget();
-        }
-        return widget;
-      },
-    );
-  }
-
-  _loadingWidget() {
-    return Center(
-        child: SpinKitFadingCube(
-          color: Theme.of(context).accentColor,
-        ));
-  }
-
-  _loadingErrorWidget() {
-    return Center(
-      child: Text('数据加载失败，请重试。'),
-    );
-  }
-
-  _dataWidget(data) {
-    VideoPieceSingleModel videoPieceSingleModel = VideoPieceSingleModel.fromMap(data);
     return EasyRefresh(
-      // firstRefresh: true,
-      // firstRefreshWidget: Center(
-      //   child: SpinKitFadingCube(
-      //     color: Theme.of(context).primaryColor,
-      //     size: 25.0,
-      //   ),
-      // ),
+      firstRefresh: true,
+      firstRefreshWidget: Center(
+          child: SpinKitFadingCube(
+        color: Theme.of(context).accentColor,
+      )),
       enableControlFinishRefresh: true,
       enableControlFinishLoad: true,
       // topBouncing: true,
       //bottomBouncing: true,
       controller: _controller,
       scrollController: _scrollController,
-      // emptyWidget: models.length == 0
-      //     ? Center(
-      //   child: Text(
-      //     "暂无数据",
-      //    // style: TextStyle(
-      //         //fontSize: ScreenUtil().setSp(30), color: Colors.grey[400]),
-      //   ),
-      // )
-      //     : null,
+      emptyWidget: listModel.length == 0
+          ? Center(
+        child: Text(
+          "暂无片单更新",
+         // style: TextStyle(
+              //fontSize: ScreenUtil().setSp(30), color: Colors.grey[400]),
+        ),
+      )
+          : null,
       header: ClassicalHeader(),
       footer: ClassicalFooter(
         enableInfiniteLoad: true,
@@ -116,18 +104,31 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: ScreenUtil().setWidth(1.2),
-          crossAxisSpacing: 10,
+          crossAxisSpacing: 5,
           mainAxisSpacing: 5,
         ),
         itemBuilder: (context, index) {
-          return Container(
-            color: Colors.red,
-          );
+          VideoPieceSingleListElementModel model = listModel[index];
+          return GestureDetector(
+              onTap: () {
+                // CZRouter.cz_push(context, RoutePathRegister.videoDetails, params: {"movieName": model.name, "movieId": model.movieId});
+              },
+              child: HotOnlineDramasCellWidget(
+              movieName: model.title,
+              movieImageUrl: model.movieImg,
+              movieDirector: "1111",
+              movieRating: ""));
         },
-        itemCount: videoPieceSingleModel.data.list.length,
+        itemCount: listModel.length,
       ),
-      onRefresh: () async {},
-      onLoad: () async {},
+      onRefresh: () async {
+        currentPage = 1;
+        getVideoPieceSingleModel();
+      },
+      onLoad: () async {
+        currentPage += 1;
+        getVideoPieceSingleModel();
+      },
     );
   }
 }

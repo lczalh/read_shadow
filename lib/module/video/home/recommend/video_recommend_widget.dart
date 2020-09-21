@@ -96,6 +96,7 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
             return Container();
           }
         } else {
+          cz_print(model.data.topicMovieRanking.articleList.length, StackTrace.current);
           if (model.data.topicMovieRanking.articleList != null && model.data.topicMovieRanking.articleList.length > 0) {
             MovieHomeRecommendArticleListModel movieHomeRecommendArticleListModel = model.data.topicMovieRanking.articleList[index - 3];
             cz_print(movieHomeRecommendArticleListModel.title, StackTrace.current);
@@ -105,7 +106,7 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
           }
         }
       },
-      itemCount: model.data.topicMovieRanking.articleList.length + 4,
+      itemCount: model.data.topicMovieRanking.articleList.length + 3,
     );
   }
 

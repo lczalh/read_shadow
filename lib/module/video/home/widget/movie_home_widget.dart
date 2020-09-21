@@ -90,11 +90,9 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
               children: <Widget>[
                 VideoRecommendWidget(),
                 VideoPieceSingleWidget(channelId: 1,),
-                //MovieHomeListWidget(categoryId: "12"),
-                MovieHomeListWidget(categoryId: "5"),
-                MovieHomeListWidget(categoryId: "3"),
-                MovieHomeListWidget(categoryId: "4"),
-               // MovieHomeListWidget(categoryId: "18"),
+                VideoPieceSingleWidget(channelId: 2,),
+                VideoPieceSingleWidget(channelId: 3,),
+                VideoPieceSingleWidget(channelId: 4,),
               ],
             ),
           )
