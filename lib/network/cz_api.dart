@@ -29,7 +29,7 @@ class CZApi {
     parames['p'] = p;
     parames['cid'] = cid;
     var map = await CZNetwork()
-        .get(baseUrl: "http://caiji.kuyun98.com", path: CZApiPath.videoResourcesPath);
+        .get(baseUrl: "http://zy.yilans.net", path: "/api.php/provide/vod");
     return MovieRootModel.fromMap(map);
   }
 

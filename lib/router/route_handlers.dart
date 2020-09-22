@@ -43,5 +43,8 @@ var pieceSingleDetailsHandler = Handler(
 /// 视频播放页
 var videoPlayerHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return VideoPlayerWidget();
+      String videoName = params["videoName"].first;
+      String videoUrl = params["videoUrl"].first;
+      String videoPlaySource = params["videoPlaySource"].first;
+  return VideoPlayerWidget(videoName: videoName, videoUrl: videoUrl, videoPlaySource: videoPlaySource);
 });

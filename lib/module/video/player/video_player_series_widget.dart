@@ -3,13 +3,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
 class VideoPlayerSeriesWidget extends StatefulWidget {
+
+  VideoPlayerSeriesWidget({Key key, this.seriesTitles, this.seriesUrls}) : super(key: key);
+
+  /// 播放剧集标题数组
+  List<String> seriesTitles;
+
+  /// 播放剧集地址数组
+  List<String> seriesUrls;
+
   @override
-  _VideoPlayerSeriesWidget createState() => _VideoPlayerSeriesWidget();
+  VideoPlayerSeriesWidgetState createState() => VideoPlayerSeriesWidgetState();
 }
 
-class _VideoPlayerSeriesWidget extends State<VideoPlayerSeriesWidget> {
+class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  /// 外部更新 UI
+  updateSeries(List<String> seriesTitles, List<String> seriesUrls) async {
+      widget.seriesTitles = seriesTitles;
+      widget.seriesUrls = seriesUrls;
+      setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+   // cz_print(context.watch<VideoPlayerChangeNotifier>().seriesTitles, StackTrace.current);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,19 +67,29 @@ class _VideoPlayerSeriesWidget extends State<VideoPlayerSeriesWidget> {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10
+              crossAxisCount: 6,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10
           ),
           itemBuilder: (context, index) {
+
             return Container(
-              height: 80,
+              alignment: Alignment.center,
               color: Colors.primaries[index % Colors.primaries.length],
+              child: Text(widget.seriesTitles[index], style: TextStyle(
+                color: Colors.white,
+                fontSize: ScreenUtil().setSp(22),
+              ),
+                overflow: TextOverflow.ellipsis,
+              ),
             );
           },
-          itemCount: 50,
+          itemCount: widget.seriesTitles.length,
         )
       ],
     );
+
+
+
   }
 }

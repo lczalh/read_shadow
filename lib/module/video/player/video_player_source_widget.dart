@@ -3,11 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
 class VideoPlayerSourceWidget extends StatefulWidget {
+
+  VideoPlayerSourceWidget({Key key, this.allVideoPlaySources, this.tapPlaySourceBlock}) : super(key: key);
+
+  /// 所有视频播放源
+  final List<String> allVideoPlaySources;
+
+  /// 点击播放源回调
+  final Function(int) tapPlaySourceBlock;
+
   @override
   _VideoPlayerSourceWidget createState() => _VideoPlayerSourceWidget();
 }
 
 class _VideoPlayerSourceWidget extends State<VideoPlayerSourceWidget> {
+
+  int _currentPlaySourceIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,21 +53,28 @@ class _VideoPlayerSourceWidget extends State<VideoPlayerSourceWidget> {
           height: ScreenUtil().setHeight(60),
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: EdgeInsets.only(left: 10),
-                width: (ScreenUtil.screenWidth - 60) / 5,
-                color: Theme.of(context).accentColor,
-                child: Text(
-                  '腾讯视频',
-                  style: TextStyle(
-                      color: Colors.white, fontSize: ScreenUtil().setSp(24)),
+              String videoPlaySource = widget.allVideoPlaySources[index];
+              return GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.only(left: 10),
+                  width: (ScreenUtil.screenWidth - 60) / 5,
+                  color: _currentPlaySourceIndex == index ? Theme.of(context).accentColor : Theme.of(context).accentColor.withOpacity(0.5),
+                  child: Text(
+                    videoPlaySource,
+                    style: TextStyle(
+                        color: Colors.white, fontSize: ScreenUtil().setSp(24)),
+                  ),
+                  alignment: Alignment.center,
                 ),
-                alignment: Alignment.center,
-                //Text('111',style: TextStyle(color:  Colors.white),),
+                onTap: () {
+                  _currentPlaySourceIndex = index;
+                  setState(() {});
+                  widget.tapPlaySourceBlock(_currentPlaySourceIndex);
+                },
               );
             },
             scrollDirection: Axis.horizontal,
-            itemCount: 5,
+            itemCount: widget.allVideoPlaySources.length,
           ),
         )
       ],

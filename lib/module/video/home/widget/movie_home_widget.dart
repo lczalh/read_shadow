@@ -39,19 +39,22 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
             Icon(Icons.business),
             GestureDetector(
               child: Container(
-                height: 30,
+                height: ScreenUtil().setHeight(80),
                 width: ScreenUtil().setWidth(500),
                 decoration: BoxDecoration(
-                  border: Border.all( width: 1), //边框
-                  borderRadius: BorderRadius.circular(22),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(ScreenUtil().setHeight(40)),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Icon(Icons.search, size: 20),
+                    Padding(
+                      child: Icon(Icons.search, size: ScreenUtil().setWidth(40), color: Colors.black),
+                      padding: EdgeInsets.only(left: 10),
+                    ),
                     Text(
-                      "请输入电影名称",
-                      style: TextStyle(fontSize: ScreenUtil().setSp(20)),
+                      "影片，任你搜",
+                      style: TextStyle(fontSize: ScreenUtil().setSp(28), color: Colors.black),
                     )
                   ],
                 ),

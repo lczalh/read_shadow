@@ -93,11 +93,15 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
       children: [
         ConstrainedBox(
           child: CachedNetworkImage(
-              fit: BoxFit.cover, imageUrl: model.data.basic.img
-              // placeholder: (context, url) => Icons.add,
-              //errorWidget: (context, url, error) =>
-              // Image.asset("images/app.png"),
-              ),
+            fit: BoxFit.cover,
+            imageUrl: model.data.basic.img,
+            placeholder: (context, url) => Center(
+                child: SpinKitFadingCube(
+              color: Theme.of(context).accentColor,
+            )),
+            errorWidget: (context, url, error) =>
+                Image.asset('images/icon_placeholder_figure.png'),
+          ),
           constraints: new BoxConstraints.expand(),
         ),
 
@@ -150,7 +154,9 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
                   : Container();
             } else if (index == 5) {
               /// 预告与花絮
-              return VideoDetailsFilmCriticsWidget(movieId: widget.movieId,);
+              return VideoDetailsFilmCriticsWidget(
+                movieId: widget.movieId,
+              );
             } else {
               return Text('Item$index');
             }
