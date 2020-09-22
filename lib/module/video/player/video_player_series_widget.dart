@@ -39,7 +39,7 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          margin: EdgeInsets.only(left: 10, right: 10, top: 10),
           child: ShaderMask(
             shaderCallback: (Rect bounds) {
               return LinearGradient(
@@ -68,8 +68,8 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 6,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5
           ),
           itemBuilder: (context, index) {
 
@@ -81,6 +81,8 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
                 fontSize: ScreenUtil().setSp(22),
               ),
                 overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
               ),
             );
           },

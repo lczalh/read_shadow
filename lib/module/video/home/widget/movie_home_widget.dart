@@ -36,25 +36,25 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
         elevation: 0,
         title: Row(
           children: <Widget>[
-            Icon(Icons.business),
+            Icon(Icons.calendar_today, size: ScreenUtil().setWidth(60),),
             GestureDetector(
               child: Container(
-                height: ScreenUtil().setHeight(80),
-                width: ScreenUtil().setWidth(500),
+                height: ScreenUtil().setHeight(60),
+                width: ScreenUtil().setWidth(600),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(ScreenUtil().setHeight(40)),
+                  borderRadius: BorderRadius.circular(ScreenUtil().setHeight(30)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      child: Icon(Icons.search, size: ScreenUtil().setWidth(40), color: Colors.black),
-                      padding: EdgeInsets.only(left: 10),
+                      child: Icon(Icons.search, size: ScreenUtil().setWidth(40), color: Colors.black26),
+                      padding: EdgeInsets.only(left: 10, right: 5),
                     ),
                     Text(
                       "影片，任你搜",
-                      style: TextStyle(fontSize: ScreenUtil().setSp(28), color: Colors.black),
+                      style: TextStyle(fontSize: ScreenUtil().setSp(26), color: Colors.black26, fontWeight: FontWeight.normal),
                     )
                   ],
                 ),
@@ -63,9 +63,8 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
                 CZRouter.cz_push(context, RoutePathRegister.movieSearch);
               },
             ),
-            Icon(Icons.business)
           ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
 //        bottom:
       ),
@@ -75,7 +74,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
             color: Theme.of(context).accentColor,
             height: 44,
             child: TabBar(
-            //  labelColor: Colors.white,
+                //isScrollable: true,
               labelStyle: TextStyle(
                 color: Colors.white,
                 fontSize: ScreenUtil().setSp(28),
@@ -85,7 +84,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
                   color: Colors.white,
                   fontSize: ScreenUtil().setSp(26),
               ),
-              labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              labelPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               tabs: <Widget>[
                 Tab(text: "热门推荐"),
                 Tab(text: "小编强推"),

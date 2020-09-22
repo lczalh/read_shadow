@@ -17,6 +17,7 @@ PODS:
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
+    - Toast
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -39,6 +40,7 @@ PODS:
     - Masonry
     - SDWebImage
     - TXLiteAVSDK_Player
+  - Toast (4.0.0)
   - TXLiteAVSDK_Player (7.7.9458)
 
 DEPENDENCIES:
@@ -55,6 +57,7 @@ SPEC REPOS:
     - Masonry
     - SDWebImage
     - SuperPlayer
+    - Toast
     - TXLiteAVSDK_Player
 
 EXTERNAL SOURCES:
@@ -70,15 +73,16 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   SuperPlayer: 2d5b20253635e19de28f9b1c49810601d0f423be
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TXLiteAVSDK_Player: 7029bd52e0945c31fcd48f4136016531650401a1
 
 PODFILE CHECKSUM: 6f61d0a33e3fabcc5e1958bbb0f2dad74825b1f5
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.0

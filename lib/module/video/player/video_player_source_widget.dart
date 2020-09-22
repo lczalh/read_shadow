@@ -62,7 +62,7 @@ class _VideoPlayerSourceWidget extends State<VideoPlayerSourceWidget> {
                   child: Text(
                     videoPlaySource,
                     style: TextStyle(
-                        color: Colors.white, fontSize: ScreenUtil().setSp(24)),
+                        color: Colors.white, fontSize: ScreenUtil().setSp(26)),
                   ),
                   alignment: Alignment.center,
                 ),

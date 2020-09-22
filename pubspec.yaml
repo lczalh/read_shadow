@@ -38,7 +38,7 @@ dependencies:
   # 加载指示器
   flutter_spinkit: "^4.1.2"
   # 提示框
-  fluttertoast: ^4.0.0
+  fluttertoast: ^7.1.1
   # 调整屏幕和字体大小
   flutter_screenutil: ^2.3.1
   # 路由

@@ -14,7 +14,7 @@ class VideoPlayerOperateWidget extends StatelessWidget {
         children: [
           Container(
             width: (ScreenUtil.screenWidth - 60) / 5,
-            height: ScreenUtil().setHeight(50),
+            height: ScreenUtil().setHeight(60),
             color: Theme.of(context).accentColor,
             child: Text(
               '接口',
@@ -25,7 +25,7 @@ class VideoPlayerOperateWidget extends StatelessWidget {
           ),
           Container(
             width: (ScreenUtil.screenWidth - 60) / 5,
-            height: ScreenUtil().setHeight(50),
+            height: ScreenUtil().setHeight(60),
             color: Theme.of(context).accentColor,
             child: Text(
               '刷新',
@@ -36,7 +36,7 @@ class VideoPlayerOperateWidget extends StatelessWidget {
           ),
           Container(
             width: (ScreenUtil.screenWidth - 60) / 5,
-            height: ScreenUtil().setHeight(50),
+            height: ScreenUtil().setHeight(60),
             color: Theme.of(context).accentColor,
             child: Text(
               '分享',
@@ -47,7 +47,7 @@ class VideoPlayerOperateWidget extends StatelessWidget {
           ),
           Container(
             width: (ScreenUtil.screenWidth - 60) / 5,
-            height: ScreenUtil().setHeight(50),
+            height: ScreenUtil().setHeight(60),
             color: Theme.of(context).accentColor,
             child: Text(
               '上集',
@@ -58,7 +58,7 @@ class VideoPlayerOperateWidget extends StatelessWidget {
           ),
           Container(
             width: (ScreenUtil.screenWidth - 60) / 5,
-            height: ScreenUtil().setHeight(50),
+            height: ScreenUtil().setHeight(60),
             color: Theme.of(context).accentColor,
             child: Text(
               '下集',
