@@ -2,12 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:read_shadow/module/video/home/model/movie_root_model.dart';
 import 'package:read_shadow/network/cz_network.dart';
 import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:read_shadow/router/cz_router.dart';
-import 'package:read_shadow/network/cz_api.dart';
 
 import 'movie_search_model.dart';
 
@@ -125,6 +123,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
               padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
               height: ScreenUtil().setHeight(300),
               width: ScreenUtil.screenWidth,
+              color: Colors.white,
               child: Row(
                 children: <Widget>[
                   /// 图片

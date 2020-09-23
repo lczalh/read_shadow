@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/module/video/home/piece_single/video_piece_single_widget.dart';
 import 'package:read_shadow/module/video/home/recommend/video_recommend_widget.dart';
-import 'package:read_shadow/module/video/home/widget/movie_home_list_widget.dart';
 import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:read_shadow/router/cz_router.dart';

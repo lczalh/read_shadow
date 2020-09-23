@@ -4,13 +4,15 @@ import 'package:flutter_screenutil/screenutil.dart';
 
 class VideoPlayerSeriesWidget extends StatefulWidget {
 
-  VideoPlayerSeriesWidget({Key key, this.seriesTitles, this.seriesUrls}) : super(key: key);
+  VideoPlayerSeriesWidget({Key key, this.seriesTitles, this.seriesUrls, this.tapSeriesBlock}) : super(key: key);
 
   /// 播放剧集标题数组
   List<String> seriesTitles;
 
   /// 播放剧集地址数组
   List<String> seriesUrls;
+
+  final Function(int) tapSeriesBlock;
 
   @override
   VideoPlayerSeriesWidgetState createState() => VideoPlayerSeriesWidgetState();
@@ -73,17 +75,22 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
           ),
           itemBuilder: (context, index) {
 
-            return Container(
-              alignment: Alignment.center,
-              color: Colors.primaries[index % Colors.primaries.length],
-              child: Text(widget.seriesTitles[index], style: TextStyle(
-                color: Colors.white,
-                fontSize: ScreenUtil().setSp(22),
+            return GestureDetector(
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.primaries[index % Colors.primaries.length],
+                child: Text(widget.seriesTitles[index], style: TextStyle(
+                  color: Colors.white,
+                  fontSize: ScreenUtil().setSp(22),
+                ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
               ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
+              onTap: () {
+                widget.tapSeriesBlock(index);
+              },
             );
           },
           itemCount: widget.seriesTitles.length,

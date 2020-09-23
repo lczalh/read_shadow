@@ -17,10 +17,10 @@ class CZVideoPlayerViewFactory: NSObject, FlutterPlatformViewFactory {
     *
     */
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        let argsDict = args as? Dictionary<String, String>
-        let movieTitle = argsDict?["movieTitle"] ?? ""
-        let movieUrl = argsDict?["movieUrl"] ?? ""
-        return CZVideoPlayerView(movieTitle: movieTitle, movieUrl: movieUrl)
+       // let argsDict = args as? Dictionary<String, String>
+//        let movieTitle = argsDict?["movieTitle"] ?? ""
+//        let movieUrl = argsDict?["movieUrl"] ?? ""
+        return CZVideoPlayerView()
     }
     
     //如果需要使用args传参到ios，需要实现这个方法，返回协议。否则会失败。

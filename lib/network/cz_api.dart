@@ -1,8 +1,5 @@
 import 'dart:collection';
-
-import 'package:read_shadow/module/video/home/model/movie_root_model.dart';
 import 'package:read_shadow/module/video/home/recommend/video_recommend_model.dart';
-import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 import 'cz_network.dart';
 
@@ -19,23 +16,7 @@ class CZApi {
   // 请求最大重试次数
   static int _max = 3;
 
-  /*
-    获取视频数据 wd: 搜索内容, p: 页码, cid: 类别
-  */
-  static Future<MovieRootModel> getVideoData(
-      {String wd, int p, String cid}) async {
-    var parames = _configCommonParame();
-    parames['wd'] = wd;
-    parames['p'] = p;
-    parames['cid'] = cid;
-    var map = await CZNetwork()
-        .get(baseUrl: "http://zy.yilans.net", path: "/api.php/provide/vod");
-    return MovieRootModel.fromMap(map);
-  }
 
-  static Future<MovieHomeRecommendRootModel> getRecommendMovieData() {
-
-  }
 }
 
 class CZApiPath {

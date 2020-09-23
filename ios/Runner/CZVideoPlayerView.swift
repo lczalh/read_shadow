@@ -9,30 +9,24 @@ import SuperPlayer
 
 class CZVideoPlayerView: NSObject, FlutterPlatformView {
     
-    init(movieTitle: String, movieUrl: String) {
+    override init() {
         super.init()
         // 监听电影信息
-        NotificationCenter.default.addObserver(self, selector: #selector(movieInfoNotification), name: NSNotification.Name.init(rawValue: movieInfoIdentifier), object: nil)
-        
-        // 设置电影名称
-        superPlayerView.controlView.title = movieTitle
-        // 播放视频
-        superPlayerModel.videoURL = movieUrl
-        superPlayerView.play(with: superPlayerModel)
+        NotificationCenter.default.addObserver(self, selector: #selector(methodChannelNotification), name: NSNotification.Name.init(rawValue: "cz_video_player/method_channel"), object: nil)
+        superPlayerView.delegate = self
     }
     
     // MARK: - 收到电影信息
-    @objc func movieInfoNotification(notification: Notification) {
-        let movieIndoDict = notification.object as! Dictionary<String, Any>
-        // 电影名称
-        let movieTitle = movieIndoDict["movieTitle"] as? String ?? ""
-        // 电影地址
-        let movieUrl = movieIndoDict["movieUrl"] as? String ?? ""
-        // 设置电影名称
-        superPlayerView.controlView.title = movieTitle
-        // 播放视频
-        superPlayerModel.videoURL = movieUrl
-        superPlayerView.play(with: superPlayerModel)
+    @objc func methodChannelNotification(notification: Notification) {
+        if let call = notification.object as? FlutterMethodCall {
+            let arguments = call.arguments as? Dictionary<String, Any> ?? [:]
+            if call.method == "setTitle" {
+                superPlayerView.controlView.title = arguments["title"] as? String
+            } else if call.method == "setUrl" {
+                superPlayerModel.videoURL = arguments["url"] as? String ?? ""
+                superPlayerView.play(with: superPlayerModel)
+            }
+        }
     }
     
     private lazy var containerView: UIImageView = {
@@ -50,7 +44,7 @@ class CZVideoPlayerView: NSObject, FlutterPlatformView {
         let superPlayerViewConfig = SuperPlayerViewConfig()
         superPlayerViewConfig.maxCacheItem = 10000
         view.playerConfig = superPlayerViewConfig
-        view.delegate = self
+        //view.delegate = self
         return view
     }()
     
@@ -66,51 +60,22 @@ class CZVideoPlayerView: NSObject, FlutterPlatformView {
     
 
     deinit {
-        superPlayerView.resetPlayer()
         NotificationCenter.default.removeObserver(self)
+        superPlayerView.resetPlayer()
     }
-    
-//    /// 获取最上层window
-//    private func cz_lastWindow() -> UIWindow? {
-//        for window in UIApplication.shared.windows.reversed() {
-//            if window.isKind(of: UIWindow.self) && window.bounds == UIScreen.main.bounds {
-//                return window
-//            }
-//        }
-//        if #available(iOS 13.0, *) {
-//            return UIApplication.shared.windows.first
-//        } else {
-//            return UIApplication.shared.keyWindow
-//        }
-//    }
-//    
-//    /// 获取最上层的控制器
-//    public func cz_topmostController(_ viewController: UIViewController = (UIApplication.shared.delegate?.window?!.rootViewController)!) -> UIViewController {
-//        if viewController.isKind(of: UINavigationController.self) {
-//            return cz_topmostController((viewController as! UINavigationController).visibleViewController!)
-//        } else if viewController.isKind(of: UITabBarController.self) {
-//            return cz_topmostController((viewController as! UITabBarController).selectedViewController!)
-//        } else {
-//            if (viewController.presentedViewController != nil) {
-//                return cz_topmostController(viewController.presentedViewController!)
-//            } else {
-//                return viewController
-//            }
-//        }
-//    }
 
 }
 
 extension CZVideoPlayerView: SuperPlayerDelegate {
     /// 返回事件
     func superPlayerBackAction(_ player: SuperPlayerView!) {
-        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: superPlayerBackActionIdentifier), object: nil)
+        //NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: superPlayerBackActionIdentifier), object: nil)
         
     }
     
     /// 播放结束通知
     func superPlayerDidEnd(_ player: SuperPlayerView!) {
-        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: superPlayerDidEndIdentifier), object: nil)
+        //NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: superPlayerDidEndIdentifier), object: nil)
     }
     
     /// 全屏改变通知

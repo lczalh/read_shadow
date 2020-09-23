@@ -22,15 +22,15 @@ let superPlayerDidEndIdentifier = "superPlayerDidEndIdentifier"
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
+    // 注册视图
+    self.registrar(forPlugin: "CZVideoPlayerViewFactory")?.register(CZVideoPlayerViewFactory(), withId: "CZVideoPlayerViewFactory")
     
     let controller : FlutterViewController = window?.rootViewController as! FlutterViewController;
    
     // flutter 与 iOS 交互
     let channel = FlutterMethodChannel(name: "cz_video_player/method_channel", binaryMessenger: controller as! FlutterBinaryMessenger)
     channel.setMethodCallHandler { (call, result) in
-        if call.method == movieInfoIdentifier {
-            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: movieInfoIdentifier), object: call.arguments)
-        }
+        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "cz_video_player/method_channel"), object: call)
     }
     
     // iOS主动 与 Flutter 交互
@@ -43,9 +43,6 @@ let superPlayerDidEndIdentifier = "superPlayerDidEndIdentifier"
     // 监听播放结束
     NotificationCenter.default.addObserver(self, selector: #selector(superPlayerDidEnd), name: NSNotification.Name.init(rawValue: superPlayerDidEndIdentifier), object: nil)
     
-    
-    // 注册视图
-    self.registrar(forPlugin: "CZVideoPlayerViewFactory")?.register(CZVideoPlayerViewFactory(), withId: "CZVideoPlayerViewFactory")
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
     
