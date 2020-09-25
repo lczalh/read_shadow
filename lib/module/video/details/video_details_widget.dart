@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/module/video/details/video_details_actors_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_film_critics_widget.dart';
@@ -95,10 +96,10 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
           child: CachedNetworkImage(
             fit: BoxFit.cover,
             imageUrl: model.data.basic.img,
-            placeholder: (context, url) => Center(
-                child: SpinKitFadingCube(
-              color: Theme.of(context).accentColor,
-            )),
+            placeholder: (context, url) =>
+                Image.asset('images/icon_placeholder_figure.png'),
+            cacheManager: DefaultCacheManager(),
+            placeholderFadeInDuration: Duration.zero,
             errorWidget: (context, url, error) =>
                 Image.asset('images/icon_placeholder_figure.png'),
           ),

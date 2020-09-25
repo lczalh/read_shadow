@@ -11,6 +11,7 @@ import 'video_recommend_model.dart';
 
 class HotOnlineDramasWidget extends StatelessWidget {
 
+
   HotOnlineDramasWidget({Key key, this.title, this.listModel}) : super(key: key);
 
   final String title;

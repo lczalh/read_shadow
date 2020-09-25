@@ -26,14 +26,22 @@ class FreeOnlinePlayingWidget extends StatelessWidget {
           child: ShaderMask(
             shaderCallback: (Rect bounds) {
               return LinearGradient(
-                colors: <Color>[Colors.blue, Colors.purple, Colors.red, Colors.pinkAccent, Colors.orange],
+                colors: <Color>[
+                  Colors.blue,
+                  Colors.purple,
+                  Colors.red,
+                  Colors.pinkAccent,
+                  Colors.orange
+                ],
                 tileMode: TileMode.mirror,
               ).createShader(bounds);
             },
             blendMode: BlendMode.srcATop,
             child: Text(
               title,
-              style: TextStyle(fontSize: ScreenUtil().setSp(30), fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: ScreenUtil().setSp(30),
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -51,12 +59,17 @@ class FreeOnlinePlayingWidget extends StatelessWidget {
                   padding: EdgeInsets.only(right: 10),
                   child: GestureDetector(
                       onTap: () {
-                        CZRouter.cz_push(context, RoutePathRegister.videoDetails, params: {"movieName": model.name, "movieId": model.movieId});
+                        CZRouter.cz_push(
+                            context, RoutePathRegister.videoDetails, params: {
+                          "movieName": model.name,
+                          "movieId": model.movieId
+                        });
                       },
                       child: HotOnlineDramasCellWidget(
                           movieName: model.name,
                           movieImageUrl: model.img,
-                          movieDirector: model.commentSpecial)),
+                          movieDirector: model.commentSpecial,
+                          movieRating: model.rating)),
                 ),
               );
             },

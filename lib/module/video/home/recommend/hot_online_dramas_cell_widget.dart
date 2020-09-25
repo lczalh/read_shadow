@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -45,14 +46,15 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   child: ConstrainedBox(
                     child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: movieImageUrl,
-                        placeholder: (context, url) => Center(
-                                child: SpinKitFadingCube(
-                              color: Theme.of(context).accentColor,
-                            )),
-                        errorWidget: (context, url, error) =>
-                            Image.asset('images/icon_placeholder_figure.png')),
+                      fit: BoxFit.cover,
+                      imageUrl: movieImageUrl,
+                      placeholder: (context, url) =>
+                          Image.asset('images/icon_placeholder_figure.png'),
+                      errorWidget: (context, url, error) =>
+                          Image.asset('images/icon_placeholder_figure.png'),
+                      cacheManager: DefaultCacheManager(),
+                      placeholderFadeInDuration: Duration.zero,
+                    ),
                     constraints: new BoxConstraints.expand(),
                   )),
               Positioned(
@@ -85,17 +87,16 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
           child: Text(
             movieName,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: ScreenUtil().setSp(28), fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: ScreenUtil().setSp(28), fontWeight: FontWeight.bold),
           ),
         ),
         Text(
           movieDirector,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-              fontSize: ScreenUtil().setSp(24)),
+          style: TextStyle(fontSize: ScreenUtil().setSp(24)),
         ),
       ],
     );
   }
 }
-

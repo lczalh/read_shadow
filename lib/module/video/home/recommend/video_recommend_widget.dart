@@ -14,8 +14,7 @@ import 'video_recommend_model.dart';
 
 class VideoRecommendWidget extends StatefulWidget {
   @override
-  _VideoRecommendWidgetState createState() =>
-      _VideoRecommendWidgetState();
+  _VideoRecommendWidgetState createState() => _VideoRecommendWidgetState();
 }
 
 class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
@@ -72,43 +71,62 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
   }
 
   _dataWidget(data) {
-    MovieHomeRecommendRootModel model =  MovieHomeRecommendRootModel.fromMap(data);
+    MovieHomeRecommendRootModel model =
+        MovieHomeRecommendRootModel.fromMap(data);
 
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        if (index == 0) { /// 轮播图
-          return VideoRecommendSwiperWidget();
-        } else if (index == 1) {
-          if (model.data.latestOnlinePlaying.movieList != null && model.data.latestOnlinePlaying.movieList.length > 0) {
-            return HotOnlineDramasWidget(title: "最新上线", listModel: model.data.latestOnlinePlaying.movieList ?? [],);
+    if (model.data == null) {
+      return Center(
+        child: Text("暂无数据"),
+      );
+    } else {
+      return ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            /// 轮播图
+            return VideoRecommendSwiperWidget();
+          } else if (index == 1) {
+            if (model.data.latestOnlinePlaying.movieList != null &&
+                model.data.latestOnlinePlaying.movieList.length > 0) {
+              return HotOnlineDramasWidget(
+                title: "最新上线",
+                listModel: model.data.latestOnlinePlaying.movieList ?? [],
+              );
+            } else {
+              return Container();
+            }
+          } else if (index == 2) {
+            if (model.data.freeOnlinePlaying.movieList != null &&
+                model.data.freeOnlinePlaying.movieList.length > 0) {
+              return FreeOnlinePlayingWidget(
+                title: "免费电影",
+                listModel: model.data.freeOnlinePlaying.movieList ?? [],
+              );
+            } else {
+              return Container();
+            }
+          } else if (index == 3) {
+            if (model.data.hotOnlineDramas.movieList != null &&
+                model.data.hotOnlineDramas.movieList.length > 0) {
+              return FreeOnlinePlayingWidget(
+                title: "热门电视剧",
+                listModel: model.data.hotOnlineDramas.movieList ?? [],
+              );
+            } else {
+              return Container();
+            }
           } else {
-            return Container();
+            MovieHomeRecommendArticleListModel
+                movieHomeRecommendArticleListModel =
+                model.data.topicMovieRanking.articleList[index - 4];
+            return TopicMovieRankingWidget(
+                articleListModel: movieHomeRecommendArticleListModel);
           }
-        } else if (index == 2) {
-          if (model.data.freeOnlinePlaying.movieList != null && model.data.freeOnlinePlaying.movieList.length > 0) {
-            return FreeOnlinePlayingWidget(title: "免费电影", listModel: model.data.freeOnlinePlaying.movieList ?? [],);
-          } else {
-            return Container();
-          }
-        } else if (index == 3) {
-          if (model.data.hotOnlineDramas.movieList != null && model.data.hotOnlineDramas.movieList.length > 0) {
-            return FreeOnlinePlayingWidget(title: "热门电视剧", listModel: model.data.hotOnlineDramas.movieList ?? [],);
-          } else {
-            return Container();
-          }
-        } else {
-          cz_print(model.data.topicMovieRanking.articleList.length, StackTrace.current);
-          if (model.data.topicMovieRanking.articleList != null && model.data.topicMovieRanking.articleList.length > 0) {
-            MovieHomeRecommendArticleListModel movieHomeRecommendArticleListModel = model.data.topicMovieRanking.articleList[index - 3];
-            cz_print(movieHomeRecommendArticleListModel.title, StackTrace.current);
-            return TopicMovieRankingWidget(articleListModel: movieHomeRecommendArticleListModel);
-          } else {
-            return Container();
-          }
-        }
-      },
-      itemCount: model.data.topicMovieRanking.articleList.length + 3,
-    );
+        },
+        itemCount: model.data.topicMovieRanking != null &&
+                model.data.topicMovieRanking.articleList.length > 0
+            ? (model.data.topicMovieRanking.articleList.length + 4)
+            : 4,
+      );
+    }
   }
-
 }

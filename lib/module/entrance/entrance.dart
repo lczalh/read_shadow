@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/module/mine/mine_home_widget.dart';
-import 'package:read_shadow/module/video/home/widget/movie_home_widget.dart';
+import 'package:read_shadow/module/video/home/entrance/movie_home_widget.dart';
 
 class Entrance extends StatefulWidget {
   @override

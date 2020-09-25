@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -55,14 +57,13 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   /// 当前播放剧集索引
   int _currentPlaySeriesIndex = 0;
 
-  CZVideoPlayerController _controller;
+  final FijkPlayer fijkPlayer = FijkPlayer();
 
 
   @override
   initState() {
     // TODO: implement initState
     super.initState();
-    _controller = CZVideoPlayerController.initialize();
     Future.delayed(Duration(seconds: 1), () {
       Future(() => _videoPlaySourceParsing())
           .then((value) => _videoUrlParsing());
@@ -115,11 +116,15 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       _allSeriesTitles.add(currentPlaySourceTitles);
       _allSeriesUrls.add(currentPlaySourceUrls);
     }
-    setState(() {
-      _controller.setTitle("2222");
-      _controller.setUrl(
-          "https://m3u8.htv009.com/video.m3u8?v=bHRsd3Q0QjBSVE8yRDB1N3ROamZlSTBsS3JXT0VzNmc=");
-    });
+    _videoPlayUrlParsing(_allSeriesTitles[_currentPlaySourceIndex][_currentPlaySeriesIndex], _allSeriesUrls[_currentPlaySourceIndex][_currentPlaySeriesIndex]);
+    setState(() {});
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    fijkPlayer.release();
   }
 
   @override
@@ -172,17 +177,23 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
               }
             },
             itemCount: 3,
-            padding: EdgeInsets.only(top: ScreenUtil().setHeight(350)),
+            padding: EdgeInsets.only(top: ScreenUtil().setHeight(400)),
           ),
 
           /// 播放器
-          Container(
+          FijkView(player: fijkPlayer,
             width: ScreenUtil.screenWidth,
-            height: ScreenUtil().setHeight(350),
-            child:  CZVideoPlayerWidget(
-              controller: _controller,
-            ),
-          )
+            height: ScreenUtil().setHeight(400),
+            fit: FijkFit.fill,
+            fsFit: FijkFit.fill,
+            // panelBuilder: (FijkPlayer player, FijkData data, BuildContext context, Size viewSize, Rect texturePos) {
+            //   return CustomFijkPanel(
+            //       player: player,
+            //       buildContext: context,
+            //       viewSize: viewSize,
+            //       texturePos: texturePos);
+            // },
+          ),
         ],
       ),
     );
@@ -201,8 +212,9 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       VideoPlayerModel videoPlayerModel = VideoPlayerModel.fromJson(json);
       if (videoPlayerModel.url != null &&
           videoPlayerModel.url.isEmpty == false) {
-        _controller.setTitle(title);
-        _controller.setUrl(videoPlayerModel.url);
+        fijkPlayer.setDataSource(
+            videoPlayerModel.url,
+            autoPlay: true);
       } else {
         Fluttertoast.showToast(
             msg: "视频解析失败",
@@ -223,5 +235,76 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+  }
+}
+
+class CustomFijkPanel extends StatefulWidget {
+  final FijkPlayer player;
+  final BuildContext buildContext;
+  final Size viewSize;
+  final Rect texturePos;
+
+  const CustomFijkPanel({
+    @required this.player,
+    this.buildContext,
+    this.viewSize,
+    this.texturePos,
+  });
+
+  @override
+  _CustomFijkPanelState createState() => _CustomFijkPanelState();
+}
+
+class _CustomFijkPanelState extends State<CustomFijkPanel> {
+
+  FijkPlayer get player => widget.player;
+  bool _playing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.player.addListener(_playerValueChanged);
+  }
+
+  void _playerValueChanged() {
+    FijkValue value = player.value;
+
+    bool playing = (value.state == FijkState.started);
+    if (playing != _playing) {
+      setState(() {
+        _playing = playing;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Rect rect = Rect.fromLTRB(
+        max(0.0, widget.texturePos.left),
+        max(0.0, widget.texturePos.top),
+        min(widget.viewSize.width, widget.texturePos.right),
+        min(widget.viewSize.height, widget.texturePos.bottom));
+
+    return Positioned.fromRect(
+      rect: rect,
+      child: Container(
+        alignment: Alignment.bottomLeft,
+        child: IconButton(
+          icon: Icon(
+            _playing ? Icons.pause : Icons.play_arrow,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            _playing ? widget.player.pause() : widget.player.start();
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    player.removeListener(_playerValueChanged);
   }
 }

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -35,20 +36,15 @@ class TopicMovieRankingWidget extends StatelessWidget {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: Container(
+                    child: CachedNetworkImage(
                       width: ScreenUtil.screenWidth,
                       height: ScreenUtil().setHeight(600),
-                      child: CachedNetworkImage(
-                        // width: context.size.width,
-                        fit: BoxFit.cover,
-                        imageUrl: articleListModel.relatedMovie.img,
-                        placeholder: (context, url) => Center(
-                            child: SpinKitFadingCube(
-                          color: Theme.of(context).accentColor,
-                        )),
-                        errorWidget: (context, url, error) =>
-                            Image.asset('images/icon_placeholder_figure.png'),
-                      ),
+                      fit: BoxFit.cover,
+                      imageUrl: articleListModel.relatedMovie.img,
+                      cacheManager: DefaultCacheManager(),
+                      placeholderFadeInDuration: Duration.zero,
+                      errorWidget: (context, url, error) =>
+                          Image.asset('images/icon_placeholder_figure.png'),
                     )),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5),
@@ -188,7 +184,7 @@ class TopicMovieRankingWidget extends StatelessWidget {
                                 articleListModel.relatedMovies.length ?? 0,
                             viewportFraction: 0.8,
                             scale: 0.8,
-                            autoplay: true,
+                            //autoplay: true,
                           ),
                         ),
                       )

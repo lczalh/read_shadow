@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -29,10 +30,10 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
-                placeholder: (context, url) => Center(
-                    child: SpinKitFadingCube(
-                  color: Theme.of(context).accentColor,
-                )),
+                placeholder: (context, url) =>
+                    Image.asset('images/icon_placeholder_figure.png'),
+                cacheManager: DefaultCacheManager(),
+                placeholderFadeInDuration: Duration.zero,
                 errorWidget: (context, url, error) =>
                     Image.asset('images/icon_placeholder_figure.png'),
               ),

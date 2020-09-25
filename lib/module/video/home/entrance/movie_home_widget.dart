@@ -71,7 +71,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
         children: [
           Container(
             color: Theme.of(context).accentColor,
-            height: 44,
+            height: ScreenUtil().setHeight(60),
             child: TabBar(
                 //isScrollable: true,
               labelStyle: TextStyle(

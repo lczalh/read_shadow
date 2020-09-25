@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/network/cz_network.dart';
@@ -136,10 +137,10 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                         width: ScreenUtil().setWidth(200),
                         fit: BoxFit.cover,
                         imageUrl: searchModel.vodPic,
-                        placeholder: (context, url) => Center(
-                            child: SpinKitFadingCube(
-                              color: Theme.of(context).accentColor,
-                            )),
+                        placeholder: (context, url) =>
+                            Image.asset('images/icon_placeholder_figure.png'),
+                        cacheManager: DefaultCacheManager(),
+                        placeholderFadeInDuration: Duration.zero,
                         errorWidget: (context, url, error) =>
                             Image.asset('images/icon_placeholder_figure.png'),
                       ),

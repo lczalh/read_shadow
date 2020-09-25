@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:read_shadow/router/cz_router.dart';
@@ -47,7 +48,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil.screenWidth,
-    //  height: ScreenUtil().setHeight(350),
+      //  height: ScreenUtil().setHeight(350),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,10 +63,10 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
                     height: ScreenUtil().setHeight(350),
                     fit: BoxFit.cover,
                     imageUrl: movieImageUrl,
-                    placeholder: (context, url) => Center(
-                        child: SpinKitFadingCube(
-                          color: Theme.of(context).accentColor,
-                        )),
+                    placeholder: (context, url) =>
+                        Image.asset('images/icon_placeholder_figure.png'),
+                    cacheManager: DefaultCacheManager(),
+                    placeholderFadeInDuration: Duration.zero,
                     errorWidget: (context, url, error) =>
                         Image.asset('images/icon_placeholder_figure.png'),
                   ),
@@ -84,7 +85,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
               padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
             ),
             onTap: () {
-              CZRouter.cz_push(context, RoutePathRegister.videoPlayer);
+              CZRouter.cz_push(context, RoutePathRegister.movieSearch);
             },
           ),
           Expanded(
