@@ -30,6 +30,7 @@ class RoutePathRegister {
 
     // 注册
     router.define(movieSearch, handler: movieSearchHandler);
+    router.define(videoDetails, handler: videoDetailsHandler);
     router.define(pieceSingleDetails, handler: pieceSingleDetailsHandler);
     router.define(videoPlayer, handler: videoPlayerHandler);
     router.define(loading, handler: loadingHandler);

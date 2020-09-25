@@ -124,7 +124,7 @@ class _CZVideoPlayerWidgetState extends State<CZVideoPlayerWidget> {
 
     if (Platform.isAndroid) {
       ///加载安卓原生视图
-      return Text('这个平台老子不支持');
+      return AndroidView(viewType: 'CZVideoPlayerViewFactory');
     } else if (Platform.isIOS) {
       return UiKitView(
         // creationParams: <String, String>{

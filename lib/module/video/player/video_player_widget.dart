@@ -57,6 +57,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
   CZVideoPlayerController _controller;
 
+
   @override
   initState() {
     // TODO: implement initState
@@ -178,7 +179,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           Container(
             width: ScreenUtil.screenWidth,
             height: ScreenUtil().setHeight(350),
-            child: CZVideoPlayerWidget(
+            child:  CZVideoPlayerWidget(
               controller: _controller,
             ),
           )
