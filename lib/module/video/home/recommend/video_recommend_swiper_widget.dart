@@ -66,36 +66,41 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
   _dataWidget(data) {
     VideoRecommendSwiperModel swiperModel =
         VideoRecommendSwiperModel.fromMap(data);
-    return Container(
-      width: ScreenUtil.screenWidth,
-      height: ScreenUtil().setHeight(350),
-      child: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          VideoRecommendSwiperListElementModel listElementModel =
-              swiperModel.data.list[index];
-          return GestureDetector(
-            onTap: () {
-              CZRouter.cz_push(context, RoutePathRegister.pieceSingleDetails,
-                  params: {"articleId": listElementModel.articleId});
-            },
-            child: CachedNetworkImage(
-              fit: BoxFit.fill,
-              imageUrl: listElementModel.img,
-              placeholder: (context, url) => Image.asset('images/icon_placeholder_figure.png'),
-              cacheManager: DefaultCacheManager(),
-              errorWidget: (context, url, error) =>
-                  Image.asset('images/icon_placeholder_figure.png'),
-            ),
-          );
-        },
-        // itemHeight: ScreenUtil().setHeight(200),
-        // itemWidth: ScreenUtil().setWidth(50),
-        itemCount: swiperModel.data.list.length,
-        autoplay: true,
-        // viewportFraction: 0.8,
-        //scale: 0.8,
-        //layout: SwiperLayout.TINDER,
-      ),
-    );
+    if (swiperModel.data != null && swiperModel.data.list.length > 0) {
+      return Container(
+        width: ScreenUtil.screenWidth,
+        height: ScreenUtil().setHeight(350),
+        child: Swiper(
+          itemBuilder: (BuildContext context, int index) {
+            VideoRecommendSwiperListElementModel listElementModel =
+            swiperModel.data.list[index];
+            return GestureDetector(
+              onTap: () {
+                CZRouter.cz_push(context, RoutePathRegister.pieceSingleDetails,
+                    params: {"articleId": listElementModel.articleId});
+              },
+              child: CachedNetworkImage(
+                fit: BoxFit.fill,
+                imageUrl: listElementModel.img,
+                placeholder: (context, url) => Image.asset('images/icon_placeholder_figure.png'),
+                cacheManager: DefaultCacheManager(),
+                errorWidget: (context, url, error) =>
+                    Image.asset('images/icon_placeholder_figure.png'),
+              ),
+            );
+          },
+          // itemHeight: ScreenUtil().setHeight(200),
+          // itemWidth: ScreenUtil().setWidth(50),
+          itemCount: swiperModel.data.list.length,
+          autoplay: true,
+          // viewportFraction: 0.8,
+          //scale: 0.8,
+          //layout: SwiperLayout.TINDER,
+        ),
+      );
+    } else {
+      return Center();
+    }
+
   }
 }

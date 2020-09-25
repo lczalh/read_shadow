@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:read_shadow/components/loading/cz_loading_widget.dart';
+import 'package:read_shadow/components/loading/cz_loading_toast.dart';
 import 'package:read_shadow/module/video/details/video_details_widget.dart';
 import 'package:read_shadow/module/video/piece_single_details/video_piece_single_details_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_widget.dart';
@@ -41,11 +41,4 @@ var videoPlayerHandler = Handler(
       videoName: videoName,
       videoUrl: videoUrl,
       videoPlaySource: videoPlaySource);
-});
-
-///
-var loadingHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-
-  return CZLoadingWidget();
 });

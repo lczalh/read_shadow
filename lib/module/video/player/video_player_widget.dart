@@ -1,25 +1,17 @@
 import 'dart:async';
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:read_shadow/components/loading/cz_loading_widget.dart';
-import 'package:read_shadow/components/video_player/cz_video_player_widget.dart';
+import 'package:read_shadow/components/loading/cz_loading_toast.dart';
 import 'package:read_shadow/module/video/player/video_player_model.dart';
 import 'package:read_shadow/module/video/player/video_player_operate_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_series_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_source_widget.dart';
-import 'package:read_shadow/network/cz_network.dart';
-import 'package:read_shadow/router/cz_router.dart';
-import 'package:read_shadow/router/route_path_register.dart';
-import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   VideoPlayerWidget(
@@ -58,7 +50,6 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   int _currentPlaySeriesIndex = 0;
 
   final FijkPlayer fijkPlayer = FijkPlayer();
-
 
   @override
   initState() {
@@ -116,9 +107,10 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       _allSeriesTitles.add(currentPlaySourceTitles);
       _allSeriesUrls.add(currentPlaySourceUrls);
     }
-    _videoPlayUrlParsing(_allSeriesTitles[_currentPlaySourceIndex][_currentPlaySeriesIndex], _allSeriesUrls[_currentPlaySourceIndex][_currentPlaySeriesIndex]);
     setState(() {});
-
+    _videoPlayUrlParsing(
+        _allSeriesTitles[_currentPlaySourceIndex][_currentPlaySeriesIndex],
+        _allSeriesUrls[_currentPlaySourceIndex][_currentPlaySeriesIndex]);
   }
 
   @override
@@ -148,10 +140,23 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                         tapPlaySourceBlock: (index) async {
                           _currentPlaySourceIndex = index;
 
+                          /// 获取当前播放源的所有剧集
+                          var titles =
+                              _allSeriesTitles[_currentPlaySourceIndex];
+                          var urls = _allSeriesUrls[_currentPlaySourceIndex];
+
+                          /// 判断当前播放源的集数 是否大于等于 当前播放的集数 否则 将当前剧集重置为0
+                          if (titles.length - 1 > _currentPlaySeriesIndex) {
+                            _currentPlaySeriesIndex = 0;
+                          }
+
                           /// 更新剧集数据
                           _videoPlayerWidgetKey.currentState.updateSeries(
-                              _allSeriesTitles[_currentPlaySourceIndex],
-                              _allSeriesUrls[_currentPlaySourceIndex]);
+                              titles, urls, _currentPlaySeriesIndex);
+
+                          /// 解析播放
+                          _videoPlayUrlParsing(titles[_currentPlaySeriesIndex],
+                              urls[_currentPlaySeriesIndex]);
                         },
                       )
                     : Container();
@@ -163,6 +168,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                         key: _videoPlayerWidgetKey,
                         seriesTitles: _allSeriesTitles[_currentPlaySourceIndex],
                         seriesUrls: _allSeriesUrls[_currentPlaySourceIndex],
+                        currentSeriesIndex: _currentPlaySeriesIndex,
                         tapSeriesBlock: (index) async {
                           String title =
                               _allSeriesTitles[_currentPlaySourceIndex][index];
@@ -170,7 +176,8 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                               _allSeriesUrls[_currentPlaySourceIndex][index];
 
                           /// 解析视频播放地址
-                          _videoPlayUrlParsing("${widget.videoName}$title", url);
+                          _videoPlayUrlParsing(
+                              "${widget.videoName}$title", url);
                         },
                       )
                     : Container();
@@ -181,7 +188,8 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           ),
 
           /// 播放器
-          FijkView(player: fijkPlayer,
+          FijkView(
+            player: fijkPlayer,
             width: ScreenUtil.screenWidth,
             height: ScreenUtil().setHeight(400),
             fit: FijkFit.fill,
@@ -201,23 +209,22 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
   /// 视频播放地址解析
   _videoPlayUrlParsing(String title, String url) async {
+    //  CZLoadingToast.show('资源解析中', context);
     var httpClient = new HttpClient();
-    var uri = new Uri.http('user.htv009.com', '/json', {
-      'url': url
-    });
+    var uri = new Uri.http('user.htv009.com', '/json', {'url': url});
     var request = await httpClient.getUrl(uri);
     var response = await request.close();
     if (response.statusCode == HttpStatus.ok) {
       var json = await response.transform(utf8.decoder).join();
       VideoPlayerModel videoPlayerModel = VideoPlayerModel.fromJson(json);
+      CZLoadingToast.dismiss();
       if (videoPlayerModel.url != null &&
           videoPlayerModel.url.isEmpty == false) {
-        fijkPlayer.setDataSource(
-            videoPlayerModel.url,
-            autoPlay: true);
+        await fijkPlayer.reset();
+        fijkPlayer.setDataSource(videoPlayerModel.url, autoPlay: true);
       } else {
         Fluttertoast.showToast(
-            msg: "视频解析失败",
+            msg: "资源解析失败",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -226,6 +233,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
             fontSize: 16.0);
       }
     } else {
+      CZLoadingToast.dismiss();
       Fluttertoast.showToast(
           msg: "服务器异常：${response.statusCode}",
           toastLength: Toast.LENGTH_SHORT,
@@ -256,7 +264,6 @@ class CustomFijkPanel extends StatefulWidget {
 }
 
 class _CustomFijkPanelState extends State<CustomFijkPanel> {
-
   FijkPlayer get player => widget.player;
   bool _playing = false;
 

@@ -4,13 +4,16 @@ import 'package:flutter_screenutil/screenutil.dart';
 
 class VideoPlayerSeriesWidget extends StatefulWidget {
 
-  VideoPlayerSeriesWidget({Key key, this.seriesTitles, this.seriesUrls, this.tapSeriesBlock}) : super(key: key);
+  VideoPlayerSeriesWidget({Key key, this.seriesTitles, this.seriesUrls, this.currentSeriesIndex, this.tapSeriesBlock}) : super(key: key);
 
   /// 播放剧集标题数组
   List<String> seriesTitles;
 
   /// 播放剧集地址数组
   List<String> seriesUrls;
+
+  /// 当前播放的剧集索引
+  int currentSeriesIndex = 0;
 
   final Function(int) tapSeriesBlock;
 
@@ -28,9 +31,10 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
   }
 
   /// 外部更新 UI
-  updateSeries(List<String> seriesTitles, List<String> seriesUrls) async {
+  updateSeries(List<String> seriesTitles, List<String> seriesUrls, currentSeriesIndex) async {
       widget.seriesTitles = seriesTitles;
       widget.seriesUrls = seriesUrls;
+      widget.currentSeriesIndex = currentSeriesIndex;
       setState(() {});
   }
 
@@ -78,7 +82,7 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
             return GestureDetector(
               child: Container(
                 alignment: Alignment.center,
-                color: Colors.primaries[index % Colors.primaries.length],
+                color: widget.currentSeriesIndex == index ? Theme.of(context).accentColor : Theme.of(context).accentColor.withOpacity(0.5), //Colors.primaries[index % Colors.primaries.length]
                 child: Text(widget.seriesTitles[index], style: TextStyle(
                   color: Colors.white,
                   fontSize: ScreenUtil().setSp(22),
@@ -89,7 +93,9 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
                 ),
               ),
               onTap: () {
-                widget.tapSeriesBlock(index);
+                widget.currentSeriesIndex = index;
+                widget.tapSeriesBlock(widget.currentSeriesIndex);
+                setState(() {});
               },
             );
           },

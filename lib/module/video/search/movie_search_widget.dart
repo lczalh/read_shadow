@@ -16,13 +16,20 @@ class MovieSearchWidget extends StatefulWidget {
 }
 
 class _MovieSearchWidgetState extends State<MovieSearchWidget> {
-  //  搜索列表数据
+  ///  搜索列表数据
   List<MovieSearchListElementModel> searchModels = [];
 
+  /// TextField 焦点
+ // FocusNode _focusNode = FocusNode();
+
   @override
-  void setState(fn) {
-    // TODO: implement setState
-    super.setState(fn);
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    /// 延迟 获取输入框焦点
+   // Future.delayed(Duration.zero).then((value) => FocusScope.of(context).requestFocus(_focusNode));
+
   }
 
   @override
@@ -62,6 +69,8 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                             color: Colors.black26),
                         border: InputBorder.none,
                       ),
+                     // focusNode: _focusNode,
+                      autofocus:true,
                       style: TextStyle(fontSize: ScreenUtil().setSp(26)),
                       onChanged: (value) async {
                         searchModels.clear();

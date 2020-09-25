@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // // 全局配置子树下的SmartRefresher,下面列举几个特别重要的属性
     return MaterialApp(
+      /// 移除 debug 模式下右上角“DEBUG”标识
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -38,6 +40,18 @@ class MyApp extends StatelessWidget {
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      builder: (context, child) => Scaffold(
+        body: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus &&
+                currentFocus.focusedChild != null) {
+              FocusManager.instance.primaryFocus.unfocus();
+            }
+          },
+          child: child,
+        ),
       ),
       home: Entrance(),
     );
