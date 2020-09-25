@@ -85,7 +85,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
               padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
             ),
             onTap: () {
-              CZRouter.cz_push(context, RoutePathRegister.movieSearch);
+              CZRouter.cz_push(context, RoutePathRegister.movieSearch, params: {"searchName": movieName});
             },
           ),
           Expanded(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -11,6 +13,11 @@ import 'package:read_shadow/router/cz_router.dart';
 import 'movie_search_model.dart';
 
 class MovieSearchWidget extends StatefulWidget {
+  MovieSearchWidget({Key key, this.searchName}) : super(key: key);
+
+  /// 搜索名称
+  final String searchName;
+
   @override
   _MovieSearchWidgetState createState() => _MovieSearchWidgetState();
 }
@@ -19,17 +26,32 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
   ///  搜索列表数据
   List<MovieSearchListElementModel> searchModels = [];
 
-  /// TextField 焦点
- // FocusNode _focusNode = FocusNode();
+  TextEditingController _textEditingController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    /// 延迟 获取输入框焦点
-   // Future.delayed(Duration.zero).then((value) => FocusScope.of(context).requestFocus(_focusNode));
-
+    _textEditingController = new TextEditingController(text: widget.searchName);
+    _textEditingController.addListener(() async {
+      searchModels.clear();
+      if (_textEditingController.text.isEmpty == false) {
+        await CZNetwork().get(
+            baseUrl: "http://zy.yilans.net",
+            path: "/api.php/provide/vod",
+            params: {
+              "ac": "detail",
+              "wd": _textEditingController.text
+            }).then((map) {
+          MovieSearchModel model = MovieSearchModel.fromMap(map);
+          for (MovieSearchListElementModel searchModel in model.list) {
+            searchModels.add(searchModel);
+          }
+        }).catchError((error) => {cz_print(error, StackTrace.current)});
+      }
+      setState(() {});
+    });
   }
 
   @override
@@ -39,6 +61,16 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            GestureDetector(
+              child: Icon(
+                Platform.isIOS == true ? Icons.arrow_back_ios : Icons.arrow_back,
+                color: Colors.white,
+               // size: ScreenUtil().setWidth(40),
+              ),
+              onTap: () {
+                CZRouter.pop(context);
+              },
+            ),
             Container(
               height: ScreenUtil().setHeight(60),
               width: ScreenUtil().setWidth(600),
@@ -58,8 +90,8 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                   ),
                   Expanded(
                     child: TextField(
+                      controller: _textEditingController,
                       decoration: InputDecoration(
-                        // filled: true,
                         hintText: '影片，任你搜',
                         hintMaxLines: 1,
                         contentPadding: EdgeInsets.only(bottom: 0),
@@ -69,57 +101,14 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                             color: Colors.black26),
                         border: InputBorder.none,
                       ),
-                     // focusNode: _focusNode,
-                      autofocus:true,
+                      // focusNode: _focusNode,
+                      autofocus: true,
                       style: TextStyle(fontSize: ScreenUtil().setSp(26)),
-                      onChanged: (value) async {
-                        searchModels.clear();
-                        if (value.isEmpty == false) {
-                          CZNetwork().get(
-                              baseUrl: "http://zy.yilans.net",
-                              path: "/api.php/provide/vod",
-                              params: {
-                                "ac": "detail",
-                                "wd": value
-                              }).then((map) {
-                            cz_print(map, StackTrace.current);
-                            MovieSearchModel model =
-                                MovieSearchModel.fromMap(map);
-                            for (MovieSearchListElementModel searchModel
-                                in model.list) {
-                              searchModels.add(searchModel);
-                            }
-                            setState(() {
-                              // ignore: unnecessary_statements
-                              this.searchModels;
-                            });
-                          }).catchError(
-                              (error) => {cz_print(error, StackTrace.current)});
-                        } else {
-                          setState(() {
-                            // ignore: unnecessary_statements
-                            this.searchModels;
-                          });
-                        }
-
-                        cz_print(value, StackTrace.current);
-                      },
                     ),
                   )
                 ],
               ),
             ),
-            GestureDetector(
-              child: Text(
-                '取消',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: ScreenUtil().setSp(32)),
-              ),
-              onTap: () {
-                CZRouter.pop(context);
-              },
-            )
           ],
         ),
         //backgroundColor: Colors.black,
@@ -130,7 +119,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
           final searchModel = searchModels[index];
           return GestureDetector(
             child: Container(
-              padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
+              padding: EdgeInsets.only(left: 10, top: 10, right: 10),
               height: ScreenUtil().setHeight(300),
               width: ScreenUtil.screenWidth,
               color: Colors.white,
@@ -138,8 +127,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                 children: <Widget>[
                   /// 图片
                   Padding(
-                    padding:
-                    EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.only(right: 10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: CachedNetworkImage(
@@ -157,7 +145,9 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                   ),
 
                   Container(
-                    width: ScreenUtil.screenWidth - ScreenUtil().setWidth(200) - 30,
+                    width: ScreenUtil.screenWidth -
+                        ScreenUtil().setWidth(200) -
+                        30,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -167,45 +157,50 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                             "${searchModel.vodName}(${searchModel.vodYear})",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: ScreenUtil().setSp(30),),
+                              fontSize: ScreenUtil().setSp(28),
+                            ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           padding: EdgeInsets.only(right: 10),
                         ),
+
                         /// 更新至
                         Padding(
                           child: Text(
                             searchModel.vodRemarks,
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(26)),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(24)),
+                            maxLines: 1,
                           ),
                           padding: EdgeInsets.only(top: 5, right: 10),
                         ),
+
                         /// 类型，地区
                         Padding(
                           child: Text(
                             "${searchModel.vodClass}，${searchModel.vodArea}",
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(26)),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(24)),
+                            maxLines: 1,
                           ),
                           padding: EdgeInsets.only(top: 5, right: 10),
                         ),
+
                         /// 导演
                         Padding(
                           child: Text(
                             "导演：${searchModel.vodDirector}",
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(26)),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(24)),
+                            maxLines: 1,
                           ),
                           padding: EdgeInsets.only(top: 5, right: 10),
                         ),
+
                         /// 主演
                         Padding(
                           child: Text(
                             "主演：${searchModel.vodActor}",
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(26)),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(24)),
+                            maxLines: 2,
                           ),
                           padding: EdgeInsets.only(top: 5, right: 10),
                         ),
@@ -218,16 +213,21 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
               ),
             ),
             onTap: () {
-              if (searchModel.vodPlayUrl == null || searchModel.vodPlayUrl.isEmpty == true) {
+              if (searchModel.vodPlayUrl == null ||
+                  searchModel.vodPlayUrl.isEmpty == true) {
                 /// 提示播放地址不存在
                 return;
               }
-              if (searchModel.vodPlayFrom == null || searchModel.vodPlayFrom.isEmpty == true) {
+              if (searchModel.vodPlayFrom == null ||
+                  searchModel.vodPlayFrom.isEmpty == true) {
                 /// 提示播放源不存在
                 return;
               }
-              CZRouter.cz_push(context, RoutePathRegister.videoPlayer, params: {"videoName": searchModel.vodName,
-              "videoUrl": searchModel.vodPlayUrl, "videoPlaySource": searchModel.vodPlayFrom});
+              CZRouter.cz_push(context, RoutePathRegister.videoPlayer, params: {
+                "videoName": searchModel.vodName,
+                "videoUrl": searchModel.vodPlayUrl,
+                "videoPlaySource": searchModel.vodPlayFrom
+              });
             },
           );
         },

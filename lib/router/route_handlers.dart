@@ -9,15 +9,15 @@ import 'package:read_shadow/module/video/search/movie_search_widget.dart';
 // 电影搜索
 var movieSearchHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  print(params);
-  return MovieSearchWidget();
+      String searchName = params["searchName"]?.first;
+  return MovieSearchWidget(searchName: searchName);
 });
 
 /// 视频详情
 var videoDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  String movieName = params["movieName"].first;
-  int movieId = int.parse(params["movieId"].first);
+  String movieName = params["movieName"]?.first;
+  int movieId = int.parse(params["movieId"]?.first);
   return VideoDetailsWidget(
     movieName: movieName,
     movieId: movieId,
@@ -27,16 +27,16 @@ var videoDetailsHandler = Handler(
 /// 片单详情
 var pieceSingleDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  int articleId = int.parse(params["articleId"].first);
+  int articleId = int.parse(params["articleId"]?.first);
   return VideoPieceSingleDetailsWidget(articleId: articleId);
 });
 
 /// 视频播放页
 var videoPlayerHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  String videoName = params["videoName"].first;
-  String videoUrl = params["videoUrl"].first;
-  String videoPlaySource = params["videoPlaySource"].first;
+  String videoName = params["videoName"]?.first;
+  String videoUrl = params["videoUrl"]?.first;
+  String videoPlaySource = params["videoPlaySource"]?.first;
   return VideoPlayerWidget(
       videoName: videoName,
       videoUrl: videoUrl,
