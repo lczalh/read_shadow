@@ -71,6 +71,7 @@ class _VideoRecommendWidgetState extends State<VideoRecommendWidget>
   }
 
   _dataWidget(data) {
+    if (data == null) { return Container(); }
     MovieHomeRecommendRootModel model =
         MovieHomeRecommendRootModel.fromMap(data);
 

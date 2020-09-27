@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -118,12 +119,12 @@ class _VideoDetailsAdvanceTidbitsWidget
                               width: ScreenUtil().setWidth(50),
                               height: ScreenUtil().setWidth(50),
                               imageUrl: miniListModel.img,
-                              placeholder: (context, url) => Center(
-                                  child: SpinKitFadingCube(
-                                color: Theme.of(context).accentColor,
-                              )),
+                              placeholder: (context, url) => Image.asset(
+                                'images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                               errorWidget: (context, url, error) => Image.asset(
-                                  'images/icon_placeholder_figure.png'),
+                                  'images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                              cacheManager: DefaultCacheManager(),
+                              placeholderFadeInDuration: Duration.zero,
                               fit: BoxFit.cover,
                               color: Colors.black,
                             ),

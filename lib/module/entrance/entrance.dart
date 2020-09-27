@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:read_shadow/module/category/entrance/category_entrance_widget.dart';
 import 'package:read_shadow/module/mine/mine_home_widget.dart';
 import 'package:read_shadow/module/video/home/entrance/movie_home_widget.dart';
 
@@ -15,10 +16,6 @@ class _EntranceState extends State<Entrance> {
 
   int _currentIndex = 0;
 
-  // 默认颜色
-  Color _defaultColor = Colors.yellow;
-  // 选中颜色
-  Color _activeColor = Colors.blue;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +25,7 @@ class _EntranceState extends State<Entrance> {
         controller: _pageController,
         children: [
           MovieHomeWidget(),
+          CategoryEntranceWidget(),
           MineHomeWidget(),
         ],
       ),
@@ -43,56 +41,55 @@ class _EntranceState extends State<Entrance> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.access_alarms,
-              color: _defaultColor,
+              Icons.home,
+              color: Colors.black26,
             ),
             activeIcon: Icon(
-              Icons.ac_unit,
-              color: _activeColor,
+              Icons.home,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
-              "电影",
+              "首页",
               style: TextStyle(
-                color: _currentIndex == 0 ? _activeColor : _defaultColor
+                color: _currentIndex == 0 ? Theme.of(context).accentColor : Colors.black26
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.category,
+              color: Colors.black26,
+            ),
+            activeIcon: Icon(
+              Icons.category,
+              color: Theme.of(context).accentColor,
+            ),
+            title: Text(
+              "筛选",
+              style: TextStyle(
+                  color: _currentIndex == 1 ? Theme.of(context).accentColor : Colors.black26
               ),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.accessible_forward,
-              color: _defaultColor,
+              color: Colors.black26,
             ),
             activeIcon: Icon(
               Icons.account_balance,
-              color: _activeColor,
+              color: Theme.of(context).accentColor,
             ),
             title: Text(
               "我的",
               style: TextStyle(
-                  color: _currentIndex == 1 ? _activeColor : _defaultColor
+                  color: _currentIndex == 2 ? Theme.of(context).accentColor : Colors.black26
               ),
             ),
           ),
         ],
       ),
     );
-//    return CupertinoTabScaffold(
-//      tabBar: CupertinoTabBar(
-//        items: [
-//          BottomNavigationBarItem(title: Text("电影"), icon: Icon(Icons.menu)),
-//          BottomNavigationBarItem(
-//              title: Text("我的"), icon: Icon(Icons.business)),
-//        ],
-//      ),
-//      tabBuilder: (BuildContext context, int index) {
-//        switch (index) {
-//          case 0:
-//            return MovieHomeWidget();
-//          case 1:
-//            return MineHomeWidget();
-//        }
-//      },
-//    );
   }
 
    // ScreenUtil配置

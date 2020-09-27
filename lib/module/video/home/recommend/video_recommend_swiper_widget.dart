@@ -9,6 +9,7 @@ import 'package:read_shadow/module/video/home/recommend/video_recommend_swiper_m
 import 'package:read_shadow/network/cz_network.dart';
 import 'package:read_shadow/router/cz_router.dart';
 import 'package:read_shadow/router/route_path_register.dart';
+import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 
 class VideoRecommendSwiperWidget extends StatefulWidget {
   @override
@@ -64,6 +65,9 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
   }
 
   _dataWidget(data) {
+    if (data == null) {
+      return Container();
+    }
     VideoRecommendSwiperModel swiperModel =
         VideoRecommendSwiperModel.fromMap(data);
     if (swiperModel.data != null && swiperModel.data.list.length > 0) {
@@ -82,10 +86,10 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
               child: CachedNetworkImage(
                 fit: BoxFit.fill,
                 imageUrl: listElementModel.img,
-                placeholder: (context, url) => Image.asset('images/icon_placeholder_figure.png'),
+                placeholder: (context, url) => Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                 cacheManager: DefaultCacheManager(),
                 errorWidget: (context, url, error) =>
-                    Image.asset('images/icon_placeholder_figure.png'),
+                    Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
               ),
             );
           },

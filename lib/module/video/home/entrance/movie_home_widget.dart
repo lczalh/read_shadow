@@ -99,6 +99,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
           Expanded(
             child: TabBarView(
               controller: tabController,
+              physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 VideoRecommendWidget(),
                 VideoPieceSingleWidget(channelId: 1,),

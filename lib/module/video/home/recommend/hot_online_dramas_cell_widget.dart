@@ -49,9 +49,9 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
                       fit: BoxFit.cover,
                       imageUrl: movieImageUrl,
                       placeholder: (context, url) =>
-                          Image.asset('images/icon_placeholder_figure.png'),
+                          Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                       errorWidget: (context, url, error) =>
-                          Image.asset('images/icon_placeholder_figure.png'),
+                          Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                       cacheManager: DefaultCacheManager(),
                       placeholderFadeInDuration: Duration.zero,
                     ),

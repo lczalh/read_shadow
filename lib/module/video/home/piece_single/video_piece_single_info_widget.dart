@@ -36,11 +36,11 @@ class VideoPieceSingleInfoWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: pieceSingleImageUrl,
                     placeholder: (context, url) =>
-                        Image.asset('images/icon_placeholder_figure.png'),
+                        Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                     cacheManager: DefaultCacheManager(),
                     placeholderFadeInDuration: Duration.zero,
                     errorWidget: (context, url, error) =>
-                        Image.asset('images/icon_placeholder_figure.png')),
+                        Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,)),
                 constraints: new BoxConstraints.expand(),
               )),
         ),

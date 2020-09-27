@@ -97,11 +97,11 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
             fit: BoxFit.cover,
             imageUrl: model.data.basic.img,
             placeholder: (context, url) =>
-                Image.asset('images/icon_placeholder_figure.png'),
+                Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
             cacheManager: DefaultCacheManager(),
             placeholderFadeInDuration: Duration.zero,
             errorWidget: (context, url, error) =>
-                Image.asset('images/icon_placeholder_figure.png'),
+                Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
           ),
           constraints: new BoxConstraints.expand(),
         ),

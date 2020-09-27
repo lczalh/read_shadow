@@ -37,7 +37,9 @@ var videoPlayerHandler = Handler(
   String videoName = params["videoName"]?.first;
   String videoUrl = params["videoUrl"]?.first;
   String videoPlaySource = params["videoPlaySource"]?.first;
+  String videoImage = params["videoImage"]?.first;
   return VideoPlayerWidget(
+      videoImage: videoImage,
       videoName: videoName,
       videoUrl: videoUrl,
       videoPlaySource: videoPlaySource);

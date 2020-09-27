@@ -65,7 +65,6 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
               child: Icon(
                 Platform.isIOS == true ? Icons.arrow_back_ios : Icons.arrow_back,
                 color: Colors.white,
-               // size: ScreenUtil().setWidth(40),
               ),
               onTap: () {
                 CZRouter.pop(context);
@@ -73,7 +72,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
             ),
             Container(
               height: ScreenUtil().setHeight(60),
-              width: ScreenUtil().setWidth(600),
+              width: ScreenUtil().setWidth(630),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(ScreenUtil().setHeight(30)),
@@ -135,11 +134,11 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                         fit: BoxFit.cover,
                         imageUrl: searchModel.vodPic,
                         placeholder: (context, url) =>
-                            Image.asset('images/icon_placeholder_figure.png'),
+                            Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                         cacheManager: DefaultCacheManager(),
                         placeholderFadeInDuration: Duration.zero,
                         errorWidget: (context, url, error) =>
-                            Image.asset('images/icon_placeholder_figure.png'),
+                            Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                       ),
                     ),
                   ),
@@ -224,6 +223,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                 return;
               }
               CZRouter.cz_push(context, RoutePathRegister.videoPlayer, params: {
+                "videoImage": searchModel.vodPic,
                 "videoName": searchModel.vodName,
                 "videoUrl": searchModel.vodPlayUrl,
                 "videoPlaySource": searchModel.vodPlayFrom

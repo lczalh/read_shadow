@@ -30,13 +30,13 @@ class VideoPlayerSeriesWidgetState extends State<VideoPlayerSeriesWidget> {
 
   }
 
-  /// 外部更新 UI
-  updateSeries(List<String> seriesTitles, List<String> seriesUrls, currentSeriesIndex) async {
-      widget.seriesTitles = seriesTitles;
-      widget.seriesUrls = seriesUrls;
-      widget.currentSeriesIndex = currentSeriesIndex;
-      setState(() {});
-  }
+  // /// 外部更新 UI
+  // updateSeries(List<String> seriesTitles, List<String> seriesUrls, currentSeriesIndex) async {
+  //     widget.seriesTitles = seriesTitles;
+  //     widget.seriesUrls = seriesUrls;
+  //     widget.currentSeriesIndex = currentSeriesIndex;
+  //     setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
