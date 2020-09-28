@@ -120,9 +120,9 @@ class _VideoDetailsAdvanceTidbitsWidget
                               height: ScreenUtil().setWidth(50),
                               imageUrl: miniListModel.img,
                               placeholder: (context, url) => Image.asset(
-                                'images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                                'assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                               errorWidget: (context, url, error) => Image.asset(
-                                  'images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                                  'assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                               cacheManager: DefaultCacheManager(),
                               placeholderFadeInDuration: Duration.zero,
                               fit: BoxFit.cover,
@@ -237,7 +237,7 @@ class _VideoDetailsAdvanceTidbitsWidget
                                 )),
                                 errorWidget: (context, url, error) =>
                                     Image.asset(
-                                        'images/icon_placeholder_figure.png'),
+                                        'assets/images/icon_placeholder_figure.png'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(

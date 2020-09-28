@@ -31,11 +31,11 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
                 placeholder: (context, url) =>
-                    Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                    Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                 cacheManager: DefaultCacheManager(),
                 placeholderFadeInDuration: Duration.zero,
                 errorWidget: (context, url, error) =>
-                    Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                    Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
               ),
               constraints: new BoxConstraints.expand(),
             )),

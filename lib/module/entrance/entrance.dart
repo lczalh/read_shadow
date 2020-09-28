@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:read_shadow/module/category/entrance/category_entrance_widget.dart';
-import 'package:read_shadow/module/mine/mine_home_widget.dart';
 import 'package:read_shadow/module/video/home/entrance/movie_home_widget.dart';
 
 class Entrance extends StatefulWidget {
@@ -26,7 +25,6 @@ class _EntranceState extends State<Entrance> {
         children: [
           MovieHomeWidget(),
           CategoryEntranceWidget(),
-          MineHomeWidget(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -68,22 +66,6 @@ class _EntranceState extends State<Entrance> {
               "筛选",
               style: TextStyle(
                   color: _currentIndex == 1 ? Theme.of(context).accentColor : Colors.black26
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.accessible_forward,
-              color: Colors.black26,
-            ),
-            activeIcon: Icon(
-              Icons.account_balance,
-              color: Theme.of(context).accentColor,
-            ),
-            title: Text(
-              "我的",
-              style: TextStyle(
-                  color: _currentIndex == 2 ? Theme.of(context).accentColor : Colors.black26
               ),
             ),
           ),

@@ -44,7 +44,7 @@ class TopicMovieRankingWidget extends StatelessWidget {
                       cacheManager: DefaultCacheManager(),
                       placeholderFadeInDuration: Duration.zero,
                       errorWidget: (context, url, error) =>
-                          Image.asset('images/icon_placeholder_figure.png'),
+                          Image.asset('assets/images/icon_placeholder_figure.png'),
                     )),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5),

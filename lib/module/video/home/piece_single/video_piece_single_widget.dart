@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:read_shadow/module/video/home/piece_single/video_piece_single_info_widget.dart';
 import 'package:read_shadow/module/video/home/piece_single/video_piece_single_model.dart';
 import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_cell_widget.dart';
@@ -29,22 +29,18 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
   // var _future;
 
   // 记录当前页数
-  int currentPage = 0;
+  int _currentPageIndex = 0;
 
   /// 存储所有列表模型
   List<VideoPieceSingleListElementModel> listModel = [];
 
-  EasyRefreshController _controller;
-  ScrollController _scrollController;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: true);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = EasyRefreshController();
-    _scrollController = ScrollController();
-    //cz_print(widget.channelId, StackTrace.current);
-    //cz_print(currentPage, StackTrace.current);
   }
 
   getVideoPieceSingleModel() {
@@ -53,60 +49,43 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
         path: "/movieList/channel/list.api",
         params: {
           "channelId": widget.channelId,
-          "pageIndex": currentPage,
+          "pageIndex": _currentPageIndex,
           "pageSize": "30"
         }).then((map) {
       VideoPieceSingleModel videoPieceSingleModel =
           VideoPieceSingleModel.fromMap(map);
-      if (currentPage == 1) listModel.clear();
+      if (_currentPageIndex == 1) listModel.clear();
       for (VideoPieceSingleListElementModel model
           in videoPieceSingleModel.data.list) {
         listModel.add(model);
       }
       setState(() {});
-      _controller.finishRefresh();
-      _controller.finishLoad();
-    }).catchError((error) {
-      _controller.finishRefresh();
-      _controller.finishLoad();
-    });
+    }).catchError((error) {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return EasyRefresh(
-      firstRefresh: true,
-      firstRefreshWidget: Center(
-          child: SpinKitFadingCube(
-        color: Theme.of(context).accentColor,
-      )),
-      enableControlFinishRefresh: true,
-      enableControlFinishLoad: true,
-      // topBouncing: true,
-      //bottomBouncing: true,
-      controller: _controller,
-      scrollController: _scrollController,
-      emptyWidget: listModel.length == 0
-          ? Center(
-              child: Text(
-                "暂无片单更新",
-                // style: TextStyle(
-                //fontSize: ScreenUtil().setSp(30), color: Colors.grey[400]),
-              ),
-            )
-          : null,
-      header: ClassicalHeader(),
-      footer: ClassicalFooter(
-        enableInfiniteLoad: true,
-      ),
+    return SmartRefresher(
+      enablePullDown: true,
+      enablePullUp: true,
+      controller: _refreshController,
+      onRefresh: () async {
+        _currentPageIndex = 1;
+        await getVideoPieceSingleModel();
+        _refreshController.refreshCompleted();
+      },
+      onLoading: () async {
+        _currentPageIndex += 1;
+        await getVideoPieceSingleModel();
+        _refreshController.loadComplete();
+      },
       child: GridView.builder(
-        padding: EdgeInsets.all(10),
-        shrinkWrap: true,
+        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: ScreenUtil().setWidth(1),
           crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
+          mainAxisSpacing: 3,
+          childAspectRatio: ScreenUtil().setWidth(1),
         ),
         itemBuilder: (context, index) {
           VideoPieceSingleListElementModel model = listModel[index];
@@ -123,16 +102,59 @@ class _VideoPieceSingleWidget extends State<VideoPieceSingleWidget>
         },
         itemCount: listModel.length,
       ),
-      onRefresh: () async {
-        currentPage = 1;
-        cz_print(currentPage, StackTrace.current);
-        getVideoPieceSingleModel();
-      },
-      onLoad: () async {
-        currentPage += 1;
-        cz_print(currentPage, StackTrace.current);
-        getVideoPieceSingleModel();
-      },
     );
+
+    //   EasyRefresh.custom(
+    //   firstRefresh: true,
+    //   firstRefreshWidget: Center(
+    //       child: SpinKitFadingCube(
+    //     color: Theme.of(context).accentColor,
+    //   )),
+    //   // scrollController: _scrollController,
+    //   emptyWidget: listModel.length > 0 ? Center(
+    //     child: Text(
+    //       "暂无片单更新",
+    //       // style: TextStyle(
+    //       //fontSize: ScreenUtil().setSp(30), color: Colors.grey[400]),
+    //     ),
+    //   ) : null,
+    //   header: SpaceHeader(),
+    //   footer: ClassicalFooter(
+    //     enableInfiniteLoad: true,
+    //   ),
+    //   slivers: <Widget>[
+    //     SliverPadding(
+    //       padding: EdgeInsets.all(10),
+    //       sliver: listModel.length > 0 ? SliverGrid(
+    //         // padding: EdgeInsets.all(10),
+    //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //           crossAxisCount: 3, crossAxisSpacing: 5, mainAxisSpacing: 3, childAspectRatio: ScreenUtil().setWidth(1),),
+    //         delegate:
+    //         SliverChildBuilderDelegate((BuildContext context, int index) {
+    //           VideoPieceSingleListElementModel model = listModel[index];
+    //           return GestureDetector(
+    //               onTap: () {
+    //                 CZRouter.cz_push(
+    //                     context, RoutePathRegister.pieceSingleDetails,
+    //                     params: {"articleId": model.articleId});
+    //               },
+    //               child: VideoPieceSingleInfoWidget(
+    //                 pieceSingleName: model.title,
+    //                 pieceSingleImageUrl: model.movieImg,
+    //                 pieceSingleNum: model.movieCount,
+    //               ));
+    //         }, childCount: listModel.length),
+    //       ) : null,
+    //     )
+    //   ],
+    //   onRefresh: () async {
+    //     currentPage = 1;
+    //     await getVideoPieceSingleModel();
+    //   },
+    //   onLoad: () async {
+    //     currentPage += 1;
+    //     await getVideoPieceSingleModel();
+    //   },
+    // );
   }
 }

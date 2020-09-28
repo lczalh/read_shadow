@@ -1,18 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:read_shadow/module/category/entrance/category_entrance_model.dart';
+import 'package:read_shadow/module/video/home/recommend/hot_online_dramas_cell_widget.dart';
 import 'package:read_shadow/network/cz_network.dart';
+import 'package:read_shadow/router/cz_router.dart';
+import 'package:read_shadow/router/route_path_register.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+    as extended;
 
 class CategoryEntranceWidget extends StatefulWidget {
   @override
   _CategoryEntranceWidgetState createState() => _CategoryEntranceWidgetState();
 }
 
-class _CategoryEntranceWidgetState extends State<CategoryEntranceWidget> with AutomaticKeepAliveClientMixin {
-
+class _CategoryEntranceWidgetState extends State<CategoryEntranceWidget>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -141,128 +147,188 @@ class _CategoryEntranceWidgetState extends State<CategoryEntranceWidget> with Au
   /// 当前其它类型索引
   int _currentOtherTypeIndex = 0;
 
-  var _future;
+  // 记录当前页数
+  int _currentPageIndex = 0;
+
+  /// 搜索列表数据
+  List<CategoryEntranceMovieModelListModel> _movieModelList = [];
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: true);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _future = getRecommendMovieData();
   }
 
-  getRecommendMovieData() async {
-    return await CZNetwork().get(
-        baseUrl: "https://ticket-api-m.mtime.cn",
-        path: "/search/movieFilter.api");
+  getSearchMovieData() {
+    var _currentAreaType =
+        _currentAreaTypeIndex == 0 ? -1 : _areaTypes[_currentAreaTypeIndex];
+    var _currentPlotType =
+        _currentPlotTypeIndex == 0 ? -1 : _plotTypes[_currentPlotTypeIndex];
+    var _currentOtherType = _currentOtherTypeIndex;
+    var _currentVideoType = _currentVideoTypeIndex + 1;
+    var _currentYearType = _currentYearTypeIndex == 0
+        ? -1
+        : "${_yearTypes[_currentYearTypeIndex]}-${_yearTypes[_currentYearTypeIndex]}";
+
+    /// https://ticket-api-m.mtime.cn/search/movieFilter.api?areas=-1&genreTypes=-1&onlineFree=1&pageIndex=1&searchType=1&sortMethod=1&sortType=0&years=-1
+    Map<String, dynamic> params = {
+      /// 地区：-1 全部地区 其它：中国
+      "areas": _currentAreaType,
+
+      /// 剧情类型 -1所有类型 其它：恐怖
+      "genreTypes": _currentPlotType,
+
+      /// 付费类型 3所有
+      "onlineFree": 3,
+      "pageIndex": _currentPageIndex,
+
+      /// 1电影 2电视剧
+      "searchType": _currentVideoType,
+      "sortMethod": 1,
+
+      /// 0热度 1评分 2时间
+      "sortType": _currentOtherType,
+
+      /// -1 全部年代 其它 2019-2019
+      "years": _currentYearType
+    };
+    print(params);
+    CZNetwork()
+        .get(
+            baseUrl: "https://ticket-api-m.mtime.cn",
+            path: "/search/movieFilter.api",
+            params: params)
+        .then((map) {
+      CategoryEntranceModel categoryEntranceModel =
+          CategoryEntranceModel.fromMap(map);
+      if (_currentPageIndex == 1) {
+        _movieModelList.clear();
+      }
+      if (categoryEntranceModel.data != null) {
+        for (CategoryEntranceMovieModelListModel listModel
+            in categoryEntranceModel.data.movieModelList) {
+          _movieModelList.add(listModel);
+        }
+      } else {}
+
+      setState(() {});
+    }).catchError((error) {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("筛选"),
-        ),
-        body: FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            var widget;
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                widget = _loadingErrorWidget();
-              } else {
-                widget = _dataWidget(snapshot.data);
-              }
-            } else {
-              widget = _loadingWidget();
-            }
-            return widget;
-          },
-        )
-    );
-  }
-
-  _loadingWidget() {
-    return Center(
-        child: SpinKitFadingCube(
-          color: Theme.of(context).accentColor,
-        ));
-  }
-
-  _loadingErrorWidget() {
-    return Center(
-      child: Text('数据加载失败，请重试。'),
-    );
-  }
-
-  _dataWidget(data) {
-    return NestedScrollView(
-        headerSliverBuilder:
-            (BuildContext context, bool innerBoxIsScrolled) {
+      appBar: AppBar(
+        title: Text("筛选"),
+      ),
+      body: extended.NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
-            SliverAppBar(
+            new SliverAppBar(
               backgroundColor: Colors.white,
-              expandedHeight: ScreenUtil().setHeight(350),
-              flexibleSpace: Column(
-                children: [
-                  VideoTypeFilterWidget(
-                    currentTypeIndex: _currentVideoTypeIndex,
-                    types: _videoTypes,
-                    tapTypeBlock: (index) {
-                      _currentVideoTypeIndex = index;
-                      setState(() {});
-                    },
-                  ),
-                  VideoTypeFilterWidget(
-                    currentTypeIndex: _currentAreaTypeIndex,
-                    types: _areaTypes,
-                    tapTypeBlock: (index) {
-                      _currentAreaTypeIndex = index;
-                      setState(() {});
-                    },
-                  ),
-                  VideoTypeFilterWidget(
-                    currentTypeIndex: _currentPlotTypeIndex,
-                    types: _plotTypes,
-                    tapTypeBlock: (index) {
-                      _currentPlotTypeIndex = index;
-                      setState(() {});
-                    },
-                  ),
-                  VideoTypeFilterWidget(
-                    currentTypeIndex: _currentYearTypeIndex,
-                    types: _yearTypes,
-                    tapTypeBlock: (index) {
-                      _currentYearTypeIndex = index;
-                      setState(() {});
-                    },
-                  ),
-                  //
-                  VideoTypeFilterWidget(
-                    currentTypeIndex: _currentOtherTypeIndex,
-                    types: _otherTypes,
-                    tapTypeBlock: (index) {
-                      _currentOtherTypeIndex = index;
-                      setState(() {});
-                    },
-                  ),
-                ],
+              expandedHeight: ScreenUtil().setHeight(360),
+              flexibleSpace: FlexibleSpaceBar(
+                background: Column(
+                  children: [
+                    VideoTypeFilterWidget(
+                      currentTypeIndex: _currentVideoTypeIndex,
+                      types: _videoTypes,
+                      tapTypeBlock: (index) {
+                        _currentVideoTypeIndex = index;
+                        _currentPageIndex = 1;
+                        getSearchMovieData();
+                      },
+                    ),
+                    VideoTypeFilterWidget(
+                      currentTypeIndex: _currentAreaTypeIndex,
+                      types: _areaTypes,
+                      tapTypeBlock: (index) {
+                        _currentAreaTypeIndex = index;
+                        _currentPageIndex = 1;
+                        getSearchMovieData();
+                      },
+                    ),
+                    VideoTypeFilterWidget(
+                      currentTypeIndex: _currentPlotTypeIndex,
+                      types: _plotTypes,
+                      tapTypeBlock: (index) {
+                        _currentPlotTypeIndex = index;
+                        _currentPageIndex = 1;
+                        getSearchMovieData();
+                      },
+                    ),
+                    VideoTypeFilterWidget(
+                      currentTypeIndex: _currentYearTypeIndex,
+                      types: _yearTypes,
+                      tapTypeBlock: (index) {
+                        _currentYearTypeIndex = index;
+                        _currentPageIndex = 1;
+                        getSearchMovieData();
+                      },
+                    ),
+                    VideoTypeFilterWidget(
+                      currentTypeIndex: _currentOtherTypeIndex,
+                      types: _otherTypes,
+                      tapTypeBlock: (index) {
+                        _currentOtherTypeIndex = index;
+                        _currentPageIndex = 1;
+                        getSearchMovieData();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ];
         },
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-          ),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Container(
-              height: 80,
-              color: Colors.primaries[index % Colors.primaries.length],
-            );
-          },
-          itemCount: 50,
-        ));
+        body: extended.NestedScrollViewInnerScrollPositionKeyWidget(
+          Key('EasyRefresh'),
+          SmartRefresher(
+              enablePullDown: true,
+              enablePullUp: true,
+              controller: _refreshController,
+              onRefresh: () async {
+                _currentPageIndex = 1;
+                await getSearchMovieData();
+                _refreshController.refreshCompleted();
+              },
+              onLoading: () async {
+                _currentPageIndex += 1;
+                await getSearchMovieData();
+                _refreshController.loadComplete();
+              },
+              child: GridView.builder(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: ScreenUtil().setWidth(1.1),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  var model = _movieModelList[index];
+                  return GestureDetector(
+                      onTap: () {
+                        CZRouter.cz_push(
+                            context, RoutePathRegister.videoDetails, params: {
+                          "movieName": model.titleCn,
+                          "movieId": model.movieId
+                        });
+                      },
+                      child: HotOnlineDramasCellWidget(
+                          movieName: model.titleCn,
+                          movieImageUrl: model.img,
+                          movieDirector: model.titleEn,
+                          movieRating: "${model.ratingFinal}"));
+                },
+                itemCount: _movieModelList.length,
+              )),
+        ),
+      ),
+    );
   }
 }
 
@@ -298,64 +364,28 @@ class _VideoTypeFilterWidgetState extends State<VideoTypeFilterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-        width: ScreenUtil.screenWidth,
-        height: ScreenUtil().setHeight(70),
-        child: TabBar(
-          controller: _controller,
-          isScrollable: true,
-          labelColor: Theme.of(context).accentColor,
-          labelStyle: TextStyle(fontSize: ScreenUtil().setSp(26)),
-          unselectedLabelColor: Colors.black26,
-          tabs: widget.types.map((text) {
-            return Text(text);
-          }).toList(),
-          indicator: BoxDecoration(
-            borderRadius:
-                BorderRadius.all(Radius.circular(ScreenUtil().setHeight(35))),
-            border: Border.all(color: Theme.of(context).accentColor),
-          ),
+    return Container(
+      padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+      width: ScreenUtil.screenWidth,
+      height: ScreenUtil().setHeight(70),
+      child: TabBar(
+        controller: _controller,
+        isScrollable: true,
+        labelColor: Theme.of(context).accentColor,
+        labelStyle: TextStyle(fontSize: ScreenUtil().setSp(26)),
+        unselectedLabelColor: Colors.black26,
+        tabs: widget.types.map((text) {
+          return Text(text);
+        }).toList(),
+        indicator: BoxDecoration(
+          borderRadius:
+              BorderRadius.all(Radius.circular(ScreenUtil().setHeight(35))),
+          border: Border.all(color: Theme.of(context).accentColor),
         ),
+        onTap: (index) {
+          widget.tapTypeBlock(index);
+        },
       ),
     );
-
-    //   Container(
-    //   // alignment: Alignment.center,
-    //   width: ScreenUtil.screenWidth,
-    //  height: ScreenUtil().setHeight(70),
-    //   child: ListView.builder(
-    //     itemBuilder: (BuildContext context, int index) {
-    //       String type = types[index];
-    //       return GestureDetector(
-    //         child: Container(
-    //           alignment: Alignment.center,
-    //           margin: EdgeInsets.only(left: 10, top: 10),
-    //           width: ScreenUtil().setWidth(120),
-    //           height: ScreenUtil().setHeight(70),
-    //           //  color: Colors.yellow,
-    //           child: Text(
-    //             type,
-    //             style: TextStyle(
-    //                 color: currentTypeIndex == index ? Theme.of(context).accentColor : Colors.black26, fontSize: ScreenUtil().setSp(26)),
-    //             maxLines: 1,
-    //             overflow: TextOverflow.ellipsis,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             borderRadius: BorderRadius.all(
-    //                 Radius.circular(ScreenUtil().setHeight(35))),
-    //             border: Border.all(color: currentTypeIndex == index ? Theme.of(context).accentColor : Colors.transparent),
-    //           ),
-    //         ),
-    //         onTap: () {
-    //           tapTypeBlock(index);
-    //         },
-    //       );
-    //     },
-    //     scrollDirection: Axis.horizontal,
-    //     itemCount: types.length,
-    //   ),
-    // );
   }
 }

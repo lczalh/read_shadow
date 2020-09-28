@@ -86,10 +86,10 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
               child: CachedNetworkImage(
                 fit: BoxFit.fill,
                 imageUrl: listElementModel.img,
-                placeholder: (context, url) => Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                placeholder: (context, url) => Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                 cacheManager: DefaultCacheManager(),
                 errorWidget: (context, url, error) =>
-                    Image.asset('images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                    Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
               ),
             );
           },
