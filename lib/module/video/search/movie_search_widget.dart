@@ -63,7 +63,9 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
           children: <Widget>[
             GestureDetector(
               child: Icon(
-                Platform.isIOS == true ? Icons.arrow_back_ios : Icons.arrow_back,
+                Platform.isIOS == true
+                    ? Icons.arrow_back_ios
+                    : Icons.arrow_back,
                 color: Colors.white,
               ),
               onTap: () {
@@ -113,14 +115,12 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
         //backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
       ),
-      body: ListView.separated(
+      body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           final searchModel = searchModels[index];
           return GestureDetector(
             child: Container(
               padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-              height: ScreenUtil().setHeight(300),
-              width: ScreenUtil.screenWidth,
               color: Colors.white,
               child: Row(
                 children: <Widget>[
@@ -131,18 +131,22 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                       borderRadius: BorderRadius.circular(5),
                       child: CachedNetworkImage(
                         width: ScreenUtil().setWidth(200),
+                        height: ScreenUtil().setHeight(290),
                         fit: BoxFit.cover,
                         imageUrl: searchModel.vodPic,
-                        placeholder: (context, url) =>
-                            Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                        placeholder: (context, url) => Image.asset(
+                          'assets/images/icon_placeholder_figure.png',
+                          fit: BoxFit.cover,
+                        ),
                         cacheManager: DefaultCacheManager(),
                         placeholderFadeInDuration: Duration.zero,
-                        errorWidget: (context, url, error) =>
-                            Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                        errorWidget: (context, url, error) => Image.asset(
+                          'assets/images/icon_placeholder_figure.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-
                   Container(
                     width: ScreenUtil.screenWidth -
                         ScreenUtil().setWidth(200) -
@@ -231,14 +235,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
             },
           );
         },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            height: 0,
-            indent: 15,
-            endIndent: 15,
-            color: Colors.white70,
-          );
-        },
+        itemExtent: ScreenUtil().setHeight(300),
         itemCount: searchModels.length,
       ),
     );

@@ -1,3 +1,4 @@
+// import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:read_shadow/router/route_path_register.dart';
@@ -7,6 +8,7 @@ import 'package:read_shadow/router/application.dart';
 import 'module/entrance/entrance.dart';
 
 void main() {
+ // FirebaseAdMob.instance.initialize(appId: "ca-app-pub-7194032995143004~6052577691");
   // 配置路由
   final router = Router();
   RoutePathRegister.configureRoutes(router);

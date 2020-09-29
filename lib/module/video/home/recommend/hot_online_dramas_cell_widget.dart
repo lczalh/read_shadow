@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -68,13 +69,13 @@ class HotOnlineDramasCellWidget extends StatelessWidget {
                       color: Color.fromRGBO(0, 0, 0, 0.8),
                       child: Center(
                         child: Text(
-                          "评分：${movieRating == null || movieRating.isEmpty == true ? "0" : movieRating}",
+                          "评分：${movieRating == null || movieRating.isEmpty == true ? 0 : double.parse(movieRating).abs()}",
                           style: TextStyle(
                               color: Colors.white,
                               backgroundColor: Color.fromRGBO(0, 0, 0, 0.7),
                               fontSize: ScreenUtil().setSp(20),
                               fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                          //textAlign: TextAlign.center,
                         ),
                       )),
                 ),

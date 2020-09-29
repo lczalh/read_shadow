@@ -113,20 +113,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.2.1"
-  flare_dart:
-    dependency: transitive
-    description:
-      name: flare_dart
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.3.4"
-  flare_flutter:
-    dependency: "direct main"
-    description:
-      name: flare_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.6"
   fluro:
     dependency: "direct main"
     description:
@@ -139,6 +125,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_app_upgrade:
+    dependency: "direct main"
+    description:
+      name: flutter_app_upgrade
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -240,6 +233,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.8"
+  mime:
+    dependency: transitive
+    description:
+      name: mime
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.9.7"
   octo_image:
     dependency: transitive
     description:
@@ -247,6 +247,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.0"
+  package_info:
+    dependency: "direct main"
+    description:
+      name: package_info
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.3"
   path:
     dependency: transitive
     description:
@@ -338,6 +345,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.24.1"
+  share:
+    dependency: "direct main"
+    description:
+      name: share
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.5+2"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -66,7 +66,7 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
               Row(
                 children: [
                   RatingBar(
-                    initialRating: double.parse(score == null || score.isEmpty == true ? "0.0" : score) / 2.0,
+                    initialRating: double.parse(score == null || score.isEmpty == true ? "0.0" : score).abs() / 2.0,
                     minRating: 0,
                     direction: Axis.horizontal,
                     allowHalfRating: true,
@@ -75,7 +75,6 @@ class TopicMovieRankingCellWidget extends StatelessWidget {
                     itemBuilder: (context, _) => Icon(
                       Icons.star,
                       color: Colors.amber,
-                      //size: ScreenUtil().setWidth(10),
                     ),
                     itemSize: ScreenUtil().setWidth(25),
                   ),

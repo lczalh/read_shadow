@@ -17,6 +17,7 @@ import 'package:read_shadow/module/video/player/video_player_series_widget.dart'
 import 'package:read_shadow/module/video/player/video_player_source_widget.dart';
 import 'package:read_shadow/network/cz_network.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
+import 'package:share/share.dart';
 
 enum _VideoParsingStatus {
   parsing,
@@ -73,6 +74,9 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   /// 当前播放剧集索引
   int _currentPlaySeriesIndex = 0;
 
+  /// 当前接口索引
+  int _currentInterfaceIndex = 0;
+
   final FijkPlayer _fijkPlayer = FijkPlayer();
 
   /// 解析状态
@@ -86,6 +90,34 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       Future(() => _videoPlaySourceParsing())
           .then((value) => _videoUrlParsing());
     });
+
+    _fijkPlayer.addListener(_fijkValueListener);
+  }
+
+  /// 监听播放状态
+  void _fijkValueListener() {
+    FijkValue fijkValue = _fijkPlayer.value;
+    print(fijkValue.completed);
+    print(fijkValue.fullScreen);
+    // if (fijkValue.completed == true) {
+    //   if (fijkValue.fullScreen == true) {
+    //     _fijkPlayer.exitFullScreen();
+    //   }
+    // }
+    // double width = _vWidth;
+    // double height = _vHeight;
+    //
+    // if (value.prepared) {
+    //   width = value.size.width;
+    //   height = value.size.height;
+    // }
+    //
+    // if (width != _vWidth || height != _vHeight) {
+    //   setState(() {
+    //     _vWidth = width;
+    //     _vHeight = height;
+    //   });
+    // }
   }
 
   /// 视频播放源解析
@@ -141,6 +173,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   @override
   void dispose() {
     super.dispose();
+    _fijkPlayer.removeListener(_fijkValueListener);
     _fijkPlayer.release();
   }
 
@@ -160,6 +193,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                     ? VideoPlayerOperateWidget(
                         seriesTitles: _allSeriesTitles[_currentPlaySourceIndex],
                         seriesUrls: _allSeriesUrls[_currentPlaySourceIndex],
+                        currentInterfaceIndex: _currentInterfaceIndex,
                         currentSeriesIndex: _currentPlaySeriesIndex,
                         firstPartBlcok: () {
                           _currentPlaySeriesIndex -= 1;
@@ -175,38 +209,15 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                           /// 解析播放
                           _videoPlayUrlParsing();
                         },
-                        interfaceBlock: () {
-                          Fluttertoast.showToast(
-                              msg: "此功能暂不可用",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Theme.of(context).accentColor,
-                              textColor: Colors.white,
-                              fontSize: ScreenUtil().setSp(26)
-                          );
+                        interfaceBlock: (index) {
+                          _currentInterfaceIndex = index;
+                          _videoPlayUrlParsing();
                         },
                         refreshBlock: () {
-                          Fluttertoast.showToast(
-                              msg: "此功能暂不可用",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Theme.of(context).accentColor,
-                              textColor: Colors.white,
-                              fontSize: ScreenUtil().setSp(26)
-                          );
+                          _videoPlayUrlParsing();
                         },
                         shareBlock: () {
-                          Fluttertoast.showToast(
-                              msg: "此功能暂不可用",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Theme.of(context).accentColor,
-                              textColor: Colors.white,
-                              fontSize: ScreenUtil().setSp(26)
-                          );
+                          Share.share('http://movie.letaoshijie.com/letaoshijie.apk');
                         },
                       )
                     : Container();
@@ -243,9 +254,6 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                         currentSeriesIndex: _currentPlaySeriesIndex,
                         tapSeriesBlock: (index) async {
                           _currentPlaySeriesIndex = index;
-
-                          //  setState(() {});
-
                           /// 解析视频播放地址
                           _videoPlayUrlParsing();
                         },
@@ -281,11 +289,11 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                       fit: BoxFit.cover,
                       imageUrl: widget.videoImage ?? "",
                       placeholder: (context, url) => Image.asset(
-                        'images/icon_placeholder_figure.png',
+                        'assets/images/icon_placeholder_figure.png',
                         fit: BoxFit.cover,
                       ),
                       errorWidget: (context, url, error) => Image.asset(
-                        'images/icon_placeholder_figure.png',
+                        'assets/images/icon_placeholder_figure.png',
                         fit: BoxFit.cover,
                       ),
                       cacheManager: DefaultCacheManager(),
@@ -330,9 +338,23 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   /// 视频播放地址解析
   _videoPlayUrlParsing() async {
     _isParseState = _VideoParsingStatus.parsing;
-
+    /// 重置播放器
+    await _fijkPlayer.reset();
     /// 重置UI
     setState(() {});
+
+    String baseUrl;
+    String path;
+    if (_currentInterfaceIndex == 0) {
+      baseUrl = "json.itono.cn";
+      path = "/";
+    } else if (_currentInterfaceIndex == 1) {
+      baseUrl = "user.htv009.com";
+      path = "/json";
+    } else if (_currentInterfaceIndex == 2) {
+      baseUrl = "js.voooe.cn";
+      path = "/1787799317json";
+    }
 
     String title =
         _allSeriesTitles[_currentPlaySourceIndex][_currentPlaySeriesIndex];
@@ -340,19 +362,19 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
         _allSeriesUrls[_currentPlaySourceIndex][_currentPlaySeriesIndex];
 
     var httpClient = new HttpClient();
-    var uri = new Uri.http('user.htv009.com', '/json', {'url': url});
+    var uri = new Uri.http(baseUrl, path, {'url': url});
     try {
       var request = await httpClient.getUrl(uri);
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
-        var json = await response.transform(utf8.decoder).join();
-        VideoPlayerModel videoPlayerModel = VideoPlayerModel.fromJson(json);
-        if (videoPlayerModel.url != null &&
-            videoPlayerModel.url.isEmpty == false) {
-          cz_print(videoPlayerModel.url, StackTrace.current);
+        var playJson = await response.transform(utf8.decoder).join();
+        Map<String, dynamic>  playMap = json.decode(playJson);
+        var playUrl = playMap["url"];
+        if (playUrl != null &&
+            playUrl.isEmpty == false) {
+          cz_print(playUrl, StackTrace.current);
           _isParseState = _VideoParsingStatus.parsingSuccess;
-          await _fijkPlayer.reset();
-          _fijkPlayer.setDataSource(videoPlayerModel.url, autoPlay: true);
+          _fijkPlayer.setDataSource(playUrl, autoPlay: true);
         } else {
           _isParseState = _VideoParsingStatus.parseFailure;
         }
