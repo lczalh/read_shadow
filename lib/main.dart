@@ -1,6 +1,7 @@
 // import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:read_shadow/router/application.dart';
@@ -23,7 +24,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // // 全局配置子树下的SmartRefresher,下面列举几个特别重要的属性
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       /// 移除 debug 模式下右上角“DEBUG”标识
       debugShowCheckedModeBanner: false,

@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -79,6 +80,10 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
   final FijkPlayer _fijkPlayer = FijkPlayer();
 
+  StreamSubscription _currentPosSubs;
+
+  Duration _currentPos;
+
   /// 解析状态
   _VideoParsingStatus _isParseState = _VideoParsingStatus.parsing;
 
@@ -92,18 +97,37 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
     });
 
     _fijkPlayer.addListener(_fijkValueListener);
+
+    ///
+    _currentPosSubs = _fijkPlayer.onCurrentPosUpdate.listen((currentPlayTime) {
+      cz_print(_fijkPlayer.value.duration, StackTrace.current);
+      cz_print(currentPlayTime, StackTrace.current);
+      /// 当前时间等于总时间则播放完成
+      if (currentPlayTime > Duration(seconds: 1) && _fijkPlayer.value.duration > Duration(seconds: 1) && currentPlayTime == _fijkPlayer.value.duration) {
+        /// 若当前是全屏状态 则关闭全屏
+        if (_fijkPlayer.value.fullScreen == true) {
+          _fijkPlayer.exitFullScreen();
+        }
+        /// 自动解析下一级
+        if (_currentPlaySeriesIndex < _allSeriesTitles[_currentPlaySourceIndex].length - 1) {
+          _currentPlaySeriesIndex += 1;
+          _videoPlayUrlParsing();
+        }
+      }
+    });
   }
 
   /// 监听播放状态
   void _fijkValueListener() {
-    FijkValue fijkValue = _fijkPlayer.value;
-    print(fijkValue.completed);
-    print(fijkValue.fullScreen);
+    // FijkValue fijkValue = _fijkPlayer.value;
+    // cz_print(fijkValue.completed, StackTrace.current);
+    // cz_print(fijkValue.fullScreen, StackTrace.current);
     // if (fijkValue.completed == true) {
     //   if (fijkValue.fullScreen == true) {
     //     _fijkPlayer.exitFullScreen();
     //   }
     // }
+
     // double width = _vWidth;
     // double height = _vHeight;
     //
@@ -173,6 +197,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   @override
   void dispose() {
     super.dispose();
+    _currentPosSubs?.cancel();
     _fijkPlayer.removeListener(_fijkValueListener);
     _fijkPlayer.release();
   }
@@ -217,7 +242,8 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                           _videoPlayUrlParsing();
                         },
                         shareBlock: () {
-                          Share.share('http://movie.letaoshijie.com/letaoshijie.apk');
+                          Share.share(
+                              'http://movie.letaoshijie.com/letaoshijie.apk');
                         },
                       )
                     : Container();
@@ -238,6 +264,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                           if (titles.length - 1 > _currentPlaySeriesIndex) {
                             _currentPlaySeriesIndex = 0;
                           }
+
                           /// 解析播放
                           _videoPlayUrlParsing();
                         },
@@ -254,6 +281,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
                         currentSeriesIndex: _currentPlaySeriesIndex,
                         tapSeriesBlock: (index) async {
                           _currentPlaySeriesIndex = index;
+
                           /// 解析视频播放地址
                           _videoPlayUrlParsing();
                         },
@@ -338,8 +366,10 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   /// 视频播放地址解析
   _videoPlayUrlParsing() async {
     _isParseState = _VideoParsingStatus.parsing;
+
     /// 重置播放器
     await _fijkPlayer.reset();
+
     /// 重置UI
     setState(() {});
 
@@ -368,10 +398,9 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
         var playJson = await response.transform(utf8.decoder).join();
-        Map<String, dynamic>  playMap = json.decode(playJson);
+        Map<String, dynamic> playMap = json.decode(playJson);
         var playUrl = playMap["url"];
-        if (playUrl != null &&
-            playUrl.isEmpty == false) {
+        if (playUrl != null && playUrl.isEmpty == false) {
           cz_print(playUrl, StackTrace.current);
           _isParseState = _VideoParsingStatus.parsingSuccess;
           _fijkPlayer.setDataSource(playUrl, autoPlay: true);
@@ -389,72 +418,113 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   }
 }
 
-// class CustomFijkPanel extends StatefulWidget {
-//   final FijkPlayer player;
-//   final BuildContext buildContext;
-//   final Size viewSize;
-//   final Rect texturePos;
-//
-//   const CustomFijkPanel({
-//     @required this.player,
-//     this.buildContext,
-//     this.viewSize,
-//     this.texturePos,
-//   });
-//
-//   @override
-//   _CustomFijkPanelState createState() => _CustomFijkPanelState();
-// }
-//
-// class _CustomFijkPanelState extends State<CustomFijkPanel> {
-//   FijkPlayer get player => widget.player;
-//   bool _playing = false;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     widget.player.addListener(_playerValueChanged);
-//   }
-//
-//   void _playerValueChanged() {
-//     FijkValue value = player.value;
-//
-//     bool playing = (value.state == FijkState.started);
-//     if (playing != _playing) {
-//       setState(() {
-//         _playing = playing;
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Rect rect = Rect.fromLTRB(
-//         max(0.0, widget.texturePos.left),
-//         max(0.0, widget.texturePos.top),
-//         min(widget.viewSize.width, widget.texturePos.right),
-//         min(widget.viewSize.height, widget.texturePos.bottom));
-//
-//     return Positioned.fromRect(
-//       rect: rect,
-//       child: Container(
-//         alignment: Alignment.bottomLeft,
-//         child: IconButton(
-//           icon: Icon(
-//             _playing ? Icons.pause : Icons.play_arrow,
-//             color: Colors.white,
-//           ),
-//           onPressed: () {
-//             _playing ? widget.player.pause() : widget.player.start();
-//           },
-//         ),
-//       ),
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     player.removeListener(_playerValueChanged);
-//   }
-// }
+class CustomFijkPanel extends StatefulWidget {
+  final FijkPlayer player;
+  final BuildContext buildContext;
+  final Size viewSize;
+  final Rect texturePos;
+
+  const CustomFijkPanel({
+    @required this.player,
+    this.buildContext,
+    this.viewSize,
+    this.texturePos,
+  });
+
+  @override
+  _CustomFijkPanelState createState() => _CustomFijkPanelState();
+}
+
+class _CustomFijkPanelState extends State<CustomFijkPanel> {
+  FijkPlayer get player => widget.player;
+  bool _playing = false;
+
+  StreamSubscription _currentPlayTimePosSubs;
+  String _currentPlayTime;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.player.addListener(_playerValueChanged);
+    /// 监听当前播放时间
+    _currentPlayTimePosSubs = widget.player.onCurrentPosUpdate.listen((currentPlayTime) {
+      List<String> parts = currentPlayTime.toString().split(":");
+      _currentPlayTime = "${parts[0]}:${parts[1]}:${parts[1].split(":").first}";
+      setState(() {});
+    });
+  }
+
+  void _playerValueChanged() {
+    FijkValue value = player.value;
+
+    bool playing = (value.state == FijkState.started);
+    if (playing != _playing) {
+      setState(() {
+        _playing = playing;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Rect rect = Rect.fromLTRB(
+        max(0.0, widget.texturePos.left),
+        max(0.0, widget.texturePos.top),
+        min(widget.viewSize.width, widget.texturePos.right),
+        min(widget.viewSize.height, widget.texturePos.bottom));
+
+
+    return Positioned.fromRect(
+      rect: rect,
+      child: Container(
+        color: Colors.red,
+        alignment: Alignment.bottomLeft,
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.blue,
+          height: ScreenUtil().setHeight(60),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(
+                  _playing ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  _playing ? widget.player.pause() : widget.player.start();
+                },
+              ),
+              Text(_currentPlayTime),
+              Slider(
+                value: 0,
+                onChanged: (v){
+                },
+              ),
+              Text("00:00", style: TextStyle(
+                backgroundColor: Colors.purple
+              ),),
+              IconButton(
+                icon: Icon(
+                  Icons.fullscreen,
+                  //_playing ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // _playing ? widget.player.pause() : widget.player.start();
+                },
+              ),
+            ],
+          ),
+        )
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    player.removeListener(_playerValueChanged);
+  }
+}
