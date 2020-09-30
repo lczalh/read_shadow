@@ -57,6 +57,7 @@ dependencies:
   fijkplayer: ^0.8.7
   # APP更新
   flutter_app_upgrade: ^1.1.0
+  #upgrader: ^2.6.0
   # 查询一个应用程序包的信息
   package_info: ^0.4.3
   # 分享

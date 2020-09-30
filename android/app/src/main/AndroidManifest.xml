@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="package_name.read_shadow">
-    <!-- io.flutter.app.FlutterApplication is an android.app.Application that
+    <!--
+    package_name.read_shadow
+    io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
@@ -17,7 +19,7 @@
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true"/>
         <activity
-            android:name=".MainActivity"
+            android:name="package_name.read_shadow.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -53,7 +55,7 @@
             android:value="2" />
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="package_name.read_shadow.fileprovider"
+            android:authorities="com.read.shadow.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

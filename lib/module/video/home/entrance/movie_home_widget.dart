@@ -50,11 +50,13 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
   @override
   void initState() {
     if (Platform.isAndroid) {
+      _getAPPUpdateState();
       /// 检查APP更新
       AppUpgrade.appUpgrade(
         context,
         _getAPPUpdateState(),
         iosAppId: '',
+        progressBarColor: Colors.red
       );
     }
     // TODO: implement initState
@@ -82,6 +84,7 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       /// 当前版本号
       String currentVersion = packageInfo.version;
+
       if (newVersion != currentVersion) {
         return AppUpgradeInfo(
           title: '${readShadowUpdateModel.title}v${readShadowUpdateModel.version}',

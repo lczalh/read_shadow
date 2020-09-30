@@ -35,7 +35,6 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
 
     _textEditingController = new TextEditingController(text: widget.searchName);
     _textEditingController.addListener(() async {
-      searchModels.clear();
       if (_textEditingController.text.isEmpty == false) {
         await CZNetwork().get(
             baseUrl: "http://zy.yilans.net",
@@ -45,10 +44,15 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
               "wd": _textEditingController.text
             }).then((map) {
           MovieSearchModel model = MovieSearchModel.fromMap(map);
+          searchModels.clear();
           for (MovieSearchListElementModel searchModel in model.list) {
             searchModels.add(searchModel);
           }
-        }).catchError((error) => {cz_print(error, StackTrace.current)});
+        }).catchError((error)  {
+          searchModels.clear();
+        });
+      } else {
+        searchModels.clear();
       }
       setState(() {});
     });

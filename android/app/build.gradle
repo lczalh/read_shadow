@@ -28,7 +28,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/yumingming/Desktop/read_shadow/android/key.jks')
+            storeFile file('../../../read_shadow/android/key.jks')
             storePassword '824092805'
             keyAlias '824092805'
             keyPassword '824092805'
@@ -47,9 +47,9 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-//        ndk {
-//            abiFilters 'armeabi', 'armeabi-v7a'//'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'mips', 'mips64', 'arm64-v8a'
-//        }
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
     }
 
     buildTypes {
@@ -57,8 +57,10 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
-            minifyEnabled true
+            minifyEnabled false //删除无用代码
+            shrinkResources false //删除无用资源
             useProguard true
+
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

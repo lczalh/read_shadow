@@ -29,6 +29,8 @@ PODS:
   - CocoaLumberjack (3.6.2):
     - CocoaLumberjack/Core (= 3.6.2)
   - CocoaLumberjack/Core (3.6.2)
+  - device_info (0.0.1):
+    - Flutter
   - fijkplayer (0.8.7):
     - BIJKPlayer (~> 0.7.8)
     - Flutter
@@ -72,6 +74,8 @@ PODS:
     - PromisesObjC (~> 1.2)
   - Flutter (1.0.0)
   - flutter_app_upgrade (0.0.1):
+    - Flutter
+  - flutter_device_locale (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
@@ -125,42 +129,50 @@ PODS:
     - Flutter
   - PINCache (2.3)
   - PromisesObjC (1.2.10)
-  - SDWebImage (5.9.2):
-    - SDWebImage/Core (= 5.9.2)
-  - SDWebImage/Core (5.9.2)
+  - SDWebImage (5.9.1):
+    - SDWebImage/Core (= 5.9.1)
+  - SDWebImage/Core (5.9.1)
   - share (0.0.1):
+    - Flutter
+  - shared_preferences (0.0.1):
     - Flutter
   - SocketRocket (0.5.1)
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
-  - SuperPlayer (3.3.1):
+  - SuperPlayer (3.3.0):
     - AFNetworking
     - Masonry
     - SDWebImage
-    - SuperPlayer/Player (= 3.3.1)
-  - SuperPlayer/Player (3.3.1):
+    - SuperPlayer/Player (= 3.3.0)
+  - SuperPlayer/Player (3.3.0):
     - AFNetworking
     - Masonry
     - SDWebImage
-    - TXLiteAVSDK_Player (= 7.8.9518)
+    - TXLiteAVSDK_Player
   - Toast (4.0.0)
-  - TXLiteAVSDK_Player (7.8.9518)
+  - TXLiteAVSDK_Player (7.7.9458)
+  - url_launcher (0.0.1):
+    - Flutter
   - WebRTCDatachannel (0.0.1)
 
 DEPENDENCIES:
   - cdnbye (from `.symlinks/plugins/cdnbye/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
   - fijkplayer (from `.symlinks/plugins/fijkplayer/ios`)
   - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_app_upgrade (from `.symlinks/plugins/flutter_app_upgrade/ios`)
+  - flutter_device_locale (from `.symlinks/plugins/flutter_device_locale/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - share (from `.symlinks/plugins/share/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - SuperPlayer
+  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
   trunk:
@@ -195,6 +207,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cdnbye:
     :path: ".symlinks/plugins/cdnbye/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
   fijkplayer:
     :path: ".symlinks/plugins/fijkplayer/ios"
   firebase_admob:
@@ -205,6 +219,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_app_upgrade:
     :path: ".symlinks/plugins/flutter_app_upgrade/ios"
+  flutter_device_locale:
+    :path: ".symlinks/plugins/flutter_device_locale/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   package_info:
@@ -213,8 +229,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   share:
     :path: ".symlinks/plugins/share/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  url_launcher:
+    :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -223,6 +243,7 @@ SPEC CHECKSUMS:
   CDNByeSDK: 3337c7b9af244e7987d731c34c85e8dabaeb3e3a
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   fijkplayer: 0c8728bf3b222203e1fddb08f6899719d88b2b6d
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
   firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
@@ -233,6 +254,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_app_upgrade: a62fbe2a09a2176a7b44211c8355adfcfb969779
+  flutter_device_locale: 94fbcacb38980dc1a9e31eb4ee8ae6d1c3a73042
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
@@ -247,15 +269,17 @@ SPEC CHECKSUMS:
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
-  SDWebImage: 0b42b8719ab0c5257177d5894306e8a336b21cbb
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  SuperPlayer: e2546119ded40d324dadb4405d1a5e634855bc11
+  SuperPlayer: 2d5b20253635e19de28f9b1c49810601d0f423be
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TXLiteAVSDK_Player: e0d60dacec8ef210de78641b9125121be3aad1e2
+  TXLiteAVSDK_Player: 7029bd52e0945c31fcd48f4136016531650401a1
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   WebRTCDatachannel: acddf02a4ed2f825ececd2e64cbf971c0a209ceb
 
 PODFILE CHECKSUM: 8bd7fd64d2863ce1eef19fceb064155baf188ae6
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.0
