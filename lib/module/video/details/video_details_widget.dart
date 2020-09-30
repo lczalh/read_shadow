@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:read_shadow/components/empty/cz_empty_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_actors_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_film_critics_widget.dart';
 import 'package:read_shadow/module/video/details/video_details_basic_info_widget.dart';
@@ -61,7 +62,7 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
         builder: (context, snapshot) {
           var widget;
           if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
+            if (snapshot.hasError || snapshot.data == null) {
               widget = _loadingErrorWidget();
             } else {
               widget = _dataWidget(snapshot.data);
@@ -83,9 +84,10 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
   }
 
   _loadingErrorWidget() {
-    return Center(
-      child: Text('数据加载失败，请重试。'),
-    );
+    return CZEmptyWidget(content: "似乎已断开与互联网的连接", buttonTitle: "重新加载", tapBlock: () {
+      _future = getRecommendMovieData();
+      setState(() {});
+    },);
   }
 
   _dataWidget(data) {

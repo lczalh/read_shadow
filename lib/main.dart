@@ -1,4 +1,5 @@
 // import 'package:firebase_admob/firebase_admob.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,16 +7,17 @@ import 'package:read_shadow/router/route_path_register.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:read_shadow/router/application.dart';
 
+import 'macro/read_shadow_macro.dart';
 import 'module/entrance/entrance.dart';
 
 void main() {
- // FirebaseAdMob.instance.initialize(appId: "ca-app-pub-7194032995143004~6052577691");
   // 配置路由
   final router = Router();
   RoutePathRegister.configureRoutes(router);
   Application.router = router;
   cz_print(router, StackTrace.current);
   runApp(MyApp());
+  FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
  // SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
  // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
@@ -62,4 +64,6 @@ class MyApp extends StatelessWidget {
       home: Entrance(),
     );
   }
+
+
 }

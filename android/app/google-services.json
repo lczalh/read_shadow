@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "303947920344",
+    "firebase_url": "https://letaoshijie-b6de8.firebaseio.com",
+    "project_id": "letaoshijie-b6de8",
+    "storage_bucket": "letaoshijie-b6de8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303947920344:android:737ad40afe94c2e7b1b8ad",
+        "android_client_info": {
+          "package_name": "com.read.shadow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303947920344-gj7g96i5ludl7r4cmjpsunrknjuv33cr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxXzUY6rZx--7EKMtgP372ie6v36C-NjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303947920344-gj7g96i5ludl7r4cmjpsunrknjuv33cr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303947920344-80upgsocvj31daee69ag9oq8tv5r6k5m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.read.shadow"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7194032995143004~8363517700"
+    }
+  ],
+  "configuration_version": "1"
+}

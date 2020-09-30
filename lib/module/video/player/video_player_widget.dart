@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cdnbye/cdnbye.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -91,6 +92,8 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   initState() {
     // TODO: implement initState
     super.initState();
+    // Init p2p engine
+    _initEngine();
     Future.delayed(Duration(seconds: 1), () {
       Future(() => _videoPlaySourceParsing())
           .then((value) => _videoUrlParsing());
@@ -142,6 +145,13 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
     //     _vHeight = height;
     //   });
     // }
+  }
+
+  _initEngine() async {
+    await Cdnbye.init(
+        "xsspVPvMg",
+        config: P2pConfig.byDefault()
+    );
   }
 
   /// 视频播放源解析
@@ -401,9 +411,10 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
         Map<String, dynamic> playMap = json.decode(playJson);
         var playUrl = playMap["url"];
         if (playUrl != null && playUrl.isEmpty == false) {
-          cz_print(playUrl, StackTrace.current);
+          var cdnUrl = await Cdnbye.parseStreamURL(playUrl);
+          cz_print(cdnUrl, StackTrace.current);
           _isParseState = _VideoParsingStatus.parsingSuccess;
-          _fijkPlayer.setDataSource(playUrl, autoPlay: true);
+          _fijkPlayer.setDataSource(cdnUrl, autoPlay: true);
         } else {
           _isParseState = _VideoParsingStatus.parseFailure;
         }

@@ -61,24 +61,30 @@ class TopicMovieRankingWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // 标题 和 共多少部
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            articleListModel.title,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ScreenUtil().setSp(26),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "共${articleListModel.movieCount}部",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: ScreenUtil().setSp(20),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              articleListModel.title,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: ScreenUtil().setSp(26),
+                                  fontWeight: FontWeight.bold),
                             ),
-                          )
-                        ],
+                            Text(
+                              "共${articleListModel.movieCount}部",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ScreenUtil().setSp(20),
+                              ),
+                            )
+                          ],
+                        ),
+                        onTap: () {
+                          CZRouter.cz_push(context, RoutePathRegister.pieceSingleDetails,
+                              params: {"articleId": articleListModel.articleId});
+                        },
                       ),
 
                       // 名称 和评分

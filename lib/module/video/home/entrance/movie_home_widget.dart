@@ -1,10 +1,12 @@
 import 'dart:io';
 
 // import 'package:firebase_admob/firebase_admob.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_upgrade/flutter_app_upgrade.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:package_info/package_info.dart';
+import 'package:read_shadow/macro/read_shadow_macro.dart';
 import 'package:read_shadow/module/video/home/entrance/read_shadow_update_model.dart';
 import 'package:read_shadow/module/video/home/piece_single/video_piece_single_widget.dart';
 import 'package:read_shadow/module/video/home/recommend/video_recommend_widget.dart';
@@ -19,11 +21,31 @@ class MovieHomeWidget extends StatefulWidget {
 }
 
 class _MovieHomeWidgetState extends State<MovieHomeWidget>
-    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin, WidgetsBindingObserver {
   TabController tabController;
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    /// 应用从后台进入
+    if (state == AppLifecycleState.resumed) {
+      // InterstitialAd _interstitial = InterstitialAd(
+      //   adUnitId: getInsertAdsId(),
+      //   listener: (MobileAdEvent event) {
+      //     print("InterstitialAd event is $event");
+      //   },
+      // );
+      // _interstitial
+      //   ..load()
+      //   ..show(
+      //     anchorType: AnchorType.bottom,
+      //     anchorOffset: 0.0,
+      //     horizontalCenterOffset: 0.0,
+      //   );
+    }
+  }
 
   @override
   void initState() {
@@ -37,31 +59,17 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
     }
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     tabController = TabController(
       length: 5,
       vsync: this,
     );
+  }
 
-    // // MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    // //   keywords: <String>['flutterio', 'beautiful apps'],
-    // //   contentUrl: 'https://flutter.io',
-    // //   birthday: DateTime.now(),
-    // //   childDirected: false,
-    // //   designedForFamilies: false,
-    // //   gender: MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
-    // //   testDevices: <String>[], // Android emulators are considered test devices
-    // // );
-    //
-    // InterstitialAd myInterstitial = InterstitialAd(
-    //   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-    //   // https://developers.google.com/admob/android/test-ads
-    //   // https://developers.google.com/admob/ios/test-ads
-    //   adUnitId: InterstitialAd.testAdUnitId,
-    //   //targetingInfo: targetingInfo,
-    //   listener: (MobileAdEvent event) {
-    //     print("InterstitialAd event is $event");
-    //   },
-    // );
+  void dispose() {
+    super.dispose();
+    tabController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   Future<AppUpgradeInfo> _getAPPUpdateState() async {
