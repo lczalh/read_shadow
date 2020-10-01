@@ -83,8 +83,6 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
   StreamSubscription _currentPosSubs;
 
-  Duration _currentPos;
-
   /// 解析状态
   _VideoParsingStatus _isParseState = _VideoParsingStatus.parsing;
 
@@ -99,7 +97,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           .then((value) => _videoUrlParsing());
     });
 
-    _fijkPlayer.addListener(_fijkValueListener);
+    // _fijkPlayer.addListener(_fijkValueListener);
 
     ///
     _currentPosSubs = _fijkPlayer.onCurrentPosUpdate.listen((currentPlayTime) {
@@ -120,32 +118,32 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
     });
   }
 
-  /// 监听播放状态
-  void _fijkValueListener() {
-    // FijkValue fijkValue = _fijkPlayer.value;
-    // cz_print(fijkValue.completed, StackTrace.current);
-    // cz_print(fijkValue.fullScreen, StackTrace.current);
-    // if (fijkValue.completed == true) {
-    //   if (fijkValue.fullScreen == true) {
-    //     _fijkPlayer.exitFullScreen();
-    //   }
-    // }
-
-    // double width = _vWidth;
-    // double height = _vHeight;
-    //
-    // if (value.prepared) {
-    //   width = value.size.width;
-    //   height = value.size.height;
-    // }
-    //
-    // if (width != _vWidth || height != _vHeight) {
-    //   setState(() {
-    //     _vWidth = width;
-    //     _vHeight = height;
-    //   });
-    // }
-  }
+  // /// 监听播放状态
+  // void _fijkValueListener() {
+  //   // FijkValue fijkValue = _fijkPlayer.value;
+  //   // cz_print(fijkValue.completed, StackTrace.current);
+  //   // cz_print(fijkValue.fullScreen, StackTrace.current);
+  //   // if (fijkValue.completed == true) {
+  //   //   if (fijkValue.fullScreen == true) {
+  //   //     _fijkPlayer.exitFullScreen();
+  //   //   }
+  //   // }
+  //
+  //   // double width = _vWidth;
+  //   // double height = _vHeight;
+  //   //
+  //   // if (value.prepared) {
+  //   //   width = value.size.width;
+  //   //   height = value.size.height;
+  //   // }
+  //   //
+  //   // if (width != _vWidth || height != _vHeight) {
+  //   //   setState(() {
+  //   //     _vWidth = width;
+  //   //     _vHeight = height;
+  //   //   });
+  //   // }
+  // }
 
   _initEngine() async {
     await Cdnbye.init(
@@ -208,7 +206,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   void dispose() {
     super.dispose();
     _currentPosSubs?.cancel();
-    _fijkPlayer.removeListener(_fijkValueListener);
+    // _fijkPlayer.removeListener(_fijkValueListener);
     _fijkPlayer.release();
   }
 

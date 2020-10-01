@@ -125,27 +125,27 @@ PODS:
     - Flutter
   - PINCache (2.3)
   - PromisesObjC (1.2.10)
-  - SDWebImage (5.9.1):
-    - SDWebImage/Core (= 5.9.1)
-  - SDWebImage/Core (5.9.1)
+  - SDWebImage (5.9.2):
+    - SDWebImage/Core (= 5.9.2)
+  - SDWebImage/Core (5.9.2)
   - share (0.0.1):
     - Flutter
   - SocketRocket (0.5.1)
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
-  - SuperPlayer (3.3.0):
+  - SuperPlayer (3.3.1):
     - AFNetworking
     - Masonry
     - SDWebImage
-    - SuperPlayer/Player (= 3.3.0)
-  - SuperPlayer/Player (3.3.0):
+    - SuperPlayer/Player (= 3.3.1)
+  - SuperPlayer/Player (3.3.1):
     - AFNetworking
     - Masonry
     - SDWebImage
-    - TXLiteAVSDK_Player
+    - TXLiteAVSDK_Player (= 7.8.9518)
   - Toast (4.0.0)
-  - TXLiteAVSDK_Player (7.7.9458)
+  - TXLiteAVSDK_Player (7.8.9518)
   - WebRTCDatachannel (0.0.1)
 
 DEPENDENCIES:
@@ -247,13 +247,13 @@ SPEC CHECKSUMS:
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
-  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
+  SDWebImage: 0b42b8719ab0c5257177d5894306e8a336b21cbb
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  SuperPlayer: 2d5b20253635e19de28f9b1c49810601d0f423be
+  SuperPlayer: e2546119ded40d324dadb4405d1a5e634855bc11
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TXLiteAVSDK_Player: 7029bd52e0945c31fcd48f4136016531650401a1
+  TXLiteAVSDK_Player: e0d60dacec8ef210de78641b9125121be3aad1e2
   WebRTCDatachannel: acddf02a4ed2f825ececd2e64cbf971c0a209ceb
 
 PODFILE CHECKSUM: 8bd7fd64d2863ce1eef19fceb064155baf188ae6
