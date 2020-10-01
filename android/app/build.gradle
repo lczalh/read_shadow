@@ -48,9 +48,9 @@ android {
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a"
-        }
+//        ndk {
+//            abiFilters "armeabi", "armeabi-v7a"
+//        }
     }
 
     buildTypes {
