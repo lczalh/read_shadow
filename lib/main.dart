@@ -61,7 +61,10 @@ class MyApp extends StatelessWidget {
           child: child,
         ),
       ),
-      home: Entrance(),
+      home: AndroidView(
+        viewType: 'CZVideoPlayerViewFactory',
+      )
+      //Entrance(),
     );
   }
 
