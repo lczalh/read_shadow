@@ -16,7 +16,11 @@ void main() {
   RoutePathRegister.configureRoutes(router);
   Application.router = router;
   cz_print(router, StackTrace.current);
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized(); //必须要添加这个进行初始化 否则下面会错误
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(new MyApp());
+  });
   FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
  // SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
  // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
@@ -26,10 +30,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
     return MaterialApp(
       /// 移除 debug 模式下右上角“DEBUG”标识
       debugShowCheckedModeBanner: false,
@@ -61,18 +65,7 @@ class MyApp extends StatelessWidget {
           child: child,
         ),
       ),
-      home: Container(
-        width: 300,
-        height: 300,
-       // color: Colors.purple,
-        alignment: Alignment.center,
-        child: AndroidView(
-          viewType: 'CZVideoPlayerViewFactory',
-        ),
-      )
-
-
-      //Entrance(),
+      home: Entrance(),
     );
   }
 

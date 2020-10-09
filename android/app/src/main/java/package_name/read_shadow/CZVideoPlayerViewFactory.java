@@ -1,14 +1,21 @@
 package package_name.read_shadow;
 
+import android.app.Activity;
 import android.content.Context;
 
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.StandardMessageCodec;
 import io.flutter.plugin.platform.PlatformView;
 import io.flutter.plugin.platform.PlatformViewFactory;
 
 public class CZVideoPlayerViewFactory extends PlatformViewFactory {
-    public CZVideoPlayerViewFactory() {
+
+    private final Activity activity;
+   // private final BinaryMessenger messenger;
+
+    public CZVideoPlayerViewFactory(Activity activity) {
         super(StandardMessageCodec.INSTANCE);
+        this.activity = activity;
     }
 
     /**
@@ -20,7 +27,7 @@ public class CZVideoPlayerViewFactory extends PlatformViewFactory {
      */
     @Override
     public PlatformView create(Context context, int viewId, Object args) {
-        return new CZVideoPlayerView(context, viewId, args);
+        return new CZVideoPlayerView(this.activity, viewId, args);
     }
 
 }

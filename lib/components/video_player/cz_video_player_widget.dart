@@ -126,14 +126,7 @@ class _CZVideoPlayerWidgetState extends State<CZVideoPlayerWidget> {
       ///加载安卓原生视图
       return AndroidView(viewType: 'CZVideoPlayerViewFactory');
     } else if (Platform.isIOS) {
-      return UiKitView(
-        // creationParams: <String, String>{
-        //   "movieTitle": widget.movieTitle,
-        //   "movieUrl": widget.movieUrl,
-        // },
-        // creationParamsCodec: const StandardMessageCodec(),
-        viewType: "CZVideoPlayerViewFactory",
-      );
+      return UiKitView(viewType: "CZVideoPlayerViewFactory",);
     } else {
       return Text('这个平台老子不支持');
     }

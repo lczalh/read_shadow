@@ -4,15 +4,19 @@ import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cdnbye/cdnbye.dart';
-import 'package:fijkplayer/fijkplayer.dart';
+// import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+// import 'package:flutter_tencentplayer/controller/tencent_player_controller.dart';
+// import 'package:flutter_tencentplayer/model/player_config.dart';
+// import 'package:flutter_tencentplayer/view/tencent_player.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:read_shadow/components/loading/cz_loading_toast.dart';
+import 'package:read_shadow/components/video_player/cz_video_player_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_model.dart';
 import 'package:read_shadow/module/video/player/video_player_operate_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_series_widget.dart';
@@ -79,9 +83,14 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   /// 当前接口索引
   int _currentInterfaceIndex = 0;
 
-  final FijkPlayer _fijkPlayer = FijkPlayer();
+ // final FijkPlayer _fijkPlayer = FijkPlayer();
 
-  StreamSubscription _currentPosSubs;
+  // TencentPlayerController tencentPlayerController;
+  //
+  // VoidCallback listener;
+
+
+  // StreamSubscription _currentPosSubs;
 
   /// 解析状态
   _VideoParsingStatus _isParseState = _VideoParsingStatus.parsing;
@@ -92,6 +101,14 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
     super.initState();
     // Init p2p engine
     _initEngine();
+
+    // tencentPlayerController = TencentPlayerController.network('http://file.jinxianyun.com/testhaha.mp4', playerConfig: PlayerConfig());
+    //   // ..initialize().then((_) {
+    //   //   setState(() {});
+    //   // });
+    // tencentPlayerController.addListener(listener);
+    // setState(() {});
+
     Future.delayed(Duration(seconds: 1), () {
       Future(() => _videoPlaySourceParsing())
           .then((value) => _videoUrlParsing());
@@ -100,22 +117,22 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
     // _fijkPlayer.addListener(_fijkValueListener);
 
     ///
-    _currentPosSubs = _fijkPlayer.onCurrentPosUpdate.listen((currentPlayTime) {
-      cz_print(_fijkPlayer.value.duration, StackTrace.current);
-      cz_print(currentPlayTime, StackTrace.current);
-      /// 当前时间等于总时间则播放完成
-      if (currentPlayTime > Duration(seconds: 1) && _fijkPlayer.value.duration > Duration(seconds: 1) && currentPlayTime == _fijkPlayer.value.duration) {
-        /// 若当前是全屏状态 则关闭全屏
-        if (_fijkPlayer.value.fullScreen == true) {
-          _fijkPlayer.exitFullScreen();
-        }
-        /// 自动解析下一级
-        if (_currentPlaySeriesIndex < _allSeriesTitles[_currentPlaySourceIndex].length - 1) {
-          _currentPlaySeriesIndex += 1;
-          _videoPlayUrlParsing();
-        }
-      }
-    });
+    // _currentPosSubs = _fijkPlayer.onCurrentPosUpdate.listen((currentPlayTime) {
+    //   cz_print(_fijkPlayer.value.duration, StackTrace.current);
+    //   cz_print(currentPlayTime, StackTrace.current);
+    //   /// 当前时间等于总时间则播放完成
+    //   if (currentPlayTime > Duration(seconds: 1) && _fijkPlayer.value.duration > Duration(seconds: 1) && currentPlayTime == _fijkPlayer.value.duration) {
+    //     /// 若当前是全屏状态 则关闭全屏
+    //     if (_fijkPlayer.value.fullScreen == true) {
+    //       _fijkPlayer.exitFullScreen();
+    //     }
+    //     /// 自动解析下一级
+    //     if (_currentPlaySeriesIndex < _allSeriesTitles[_currentPlaySourceIndex].length - 1) {
+    //       _currentPlaySeriesIndex += 1;
+    //       _videoPlayUrlParsing();
+    //     }
+    //   }
+    // });
   }
 
   // /// 监听播放状态
@@ -205,9 +222,9 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   @override
   void dispose() {
     super.dispose();
-    _currentPosSubs?.cancel();
+ //   _currentPosSubs?.cancel();
     // _fijkPlayer.removeListener(_fijkValueListener);
-    _fijkPlayer.release();
+   // _fijkPlayer.release();
   }
 
   @override
@@ -303,20 +320,11 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
           /// 播放器
           _isParseState == _VideoParsingStatus.parsingSuccess
-              ? FijkView(
-                  player: _fijkPlayer,
-                  width: ScreenUtil.screenWidth,
-                  height: ScreenUtil().setHeight(400),
-                  fit: FijkFit.cover,
-                  fsFit: FijkFit.cover,
-                  // panelBuilder: (FijkPlayer player, FijkData data, BuildContext context, Size viewSize, Rect texturePos) {
-                  //   return CustomFijkPanel(
-                  //       player: player,
-                  //       buildContext: context,
-                  //       viewSize: viewSize,
-                  //       texturePos: texturePos);
-                  // },
-                )
+              ? Container(
+           // width: ScreenUtil.screenWidth,
+            //height: ScreenUtil().setHeight(400),
+            child: CZVideoPlayerWidget(),
+          )
               : Stack(
                   children: [
                     CachedNetworkImage(
@@ -376,7 +384,9 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
     _isParseState = _VideoParsingStatus.parsing;
 
     /// 重置播放器
-    await _fijkPlayer.reset();
+    //  tencentPlayerController?.removeListener(listener);
+    // tencentPlayerController?.pause();
+  //  await _fijkPlayer.reset();
 
     /// 重置UI
     setState(() {});
@@ -412,7 +422,14 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           var cdnUrl = await Cdnbye.parseStreamURL(playUrl);
           cz_print(cdnUrl, StackTrace.current);
           _isParseState = _VideoParsingStatus.parsingSuccess;
-          _fijkPlayer.setDataSource(cdnUrl, autoPlay: true);
+          // tencentPlayerController = TencentPlayerController.network(cdnUrl, playerConfig: PlayerConfig(autoPlay: true));
+          // tencentPlayerController?.initialize()?.then((_) {
+          //   cz_print(11111, StackTrace.current);
+          //   setState(() {});
+          // });
+          // setState(() {});
+         // tencentPlayerController?.addListener(listener);
+         // _fijkPlayer.setDataSource(cdnUrl, autoPlay: true);
         } else {
           _isParseState = _VideoParsingStatus.parseFailure;
         }
