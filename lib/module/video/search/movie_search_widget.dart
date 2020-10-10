@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_orientation/auto_orientation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -32,7 +33,7 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    AutoOrientation.portraitUpMode();
     _textEditingController = new TextEditingController(text: widget.searchName);
     _textEditingController.addListener(() async {
       if (_textEditingController.text.isEmpty == false) {

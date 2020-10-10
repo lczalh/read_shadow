@@ -1,4 +1,5 @@
 // import 'package:firebase_admob/firebase_admob.dart';
+import 'package:auto_orientation/auto_orientation.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +16,8 @@ void main() {
   final router = Router();
   RoutePathRegister.configureRoutes(router);
   Application.router = router;
-  cz_print(router, StackTrace.current);
-  WidgetsFlutterBinding.ensureInitialized(); //必须要添加这个进行初始化 否则下面会错误
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(new MyApp());
-  });
+  runApp(new MyApp());
   FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
- // SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
- // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.portraitDown,
+    //   //DeviceOrientation.portraitDown,
     // ]);
     return MaterialApp(
       /// 移除 debug 模式下右上角“DEBUG”标识

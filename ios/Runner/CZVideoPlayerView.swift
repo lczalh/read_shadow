@@ -9,24 +9,35 @@ import SuperPlayer
 
 class CZVideoPlayerView: NSObject, FlutterPlatformView {
     
-    override init() {
-        super.init()
-        // 监听电影信息
-        NotificationCenter.default.addObserver(self, selector: #selector(methodChannelNotification), name: NSNotification.Name.init(rawValue: "cz_video_player/method_channel"), object: nil)
-        superPlayerView.delegate = self
-    }
+    var flutterViewController: FlutterViewController!
     
-    // MARK: - 收到电影信息
-    @objc func methodChannelNotification(notification: Notification) {
-        if let call = notification.object as? FlutterMethodCall {
+    // 传递信息的回调
+    var eventSink: FlutterEventSink?
+    
+    init(controller: FlutterViewController) {
+        super.init()
+        flutterViewController = controller
+        
+        // iOS主动 与 Flutter 交互
+        let eventChannel = FlutterEventChannel(name: "cz_video_player/event_channel", binaryMessenger: flutterViewController as! FlutterBinaryMessenger)
+        eventChannel.setStreamHandler(self)
+        
+        
+        // flutter 与 iOS 交互
+        let channel = FlutterMethodChannel(name: "cz_video_player/method_channel", binaryMessenger: flutterViewController as! FlutterBinaryMessenger)
+        channel.setMethodCallHandler {[weak self] (call, result) in
             let arguments = call.arguments as? Dictionary<String, Any> ?? [:]
             if call.method == "setTitle" {
-                superPlayerView.controlView.title = arguments["title"] as? String
-            } else if call.method == "setUrl" {
-                superPlayerModel.videoURL = arguments["url"] as? String ?? ""
-                superPlayerView.play(with: superPlayerModel)
+                self?.superPlayerView.controlView.title = arguments["title"] as? String
+            } else if call.method == "play" {
+                self?.superPlayerModel.videoURL = arguments["url"] as? String ?? ""
+                self?.superPlayerView.play(with: self?.superPlayerModel)
+            } else if call.method == "pause" {
+                self?.superPlayerView.pause()
             }
         }
+        
+       // superPlayerView.delegate = self
     }
     
     private lazy var containerView: UIImageView = {
@@ -44,7 +55,7 @@ class CZVideoPlayerView: NSObject, FlutterPlatformView {
         let superPlayerViewConfig = SuperPlayerViewConfig()
         superPlayerViewConfig.maxCacheItem = 10000
         view.playerConfig = superPlayerViewConfig
-        //view.delegate = self
+        view.delegate = self
         return view
     }()
     
@@ -58,9 +69,32 @@ class CZVideoPlayerView: NSObject, FlutterPlatformView {
         return containerView
     }
     
+//    // 告知Flutter 点击了返回按钮
+//    @objc func superPlayerBackAction(notification: Notification) {
+//        if eventSink != nil {
+//            eventSink!(
+//                [
+//                "type":"superPlayerBackAction",
+//                "value": ""
+//                ]
+//            )
+//        }
+//    }
+//
+//    // 告知Flutter 视频播放结束
+//    @objc func superPlayerDidEnd(notification: Notification) {
+//        if eventSink != nil {
+//            eventSink!(
+//                [
+//                    "type":"superPlayerDidEnd",
+//                    "value": ""
+//                ]
+//            )
+//        }
+//    }
+    
 
     deinit {
-        NotificationCenter.default.removeObserver(self)
         superPlayerView.resetPlayer()
     }
 
@@ -69,17 +103,44 @@ class CZVideoPlayerView: NSObject, FlutterPlatformView {
 extension CZVideoPlayerView: SuperPlayerDelegate {
     /// 返回事件
     func superPlayerBackAction(_ player: SuperPlayerView!) {
-        //NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: superPlayerBackActionIdentifier), object: nil)
-        
+        if eventSink != nil {
+            eventSink!(
+                [
+                "type":"superPlayerBackAction",
+                "value": ""
+                ]
+            )
+        }
     }
     
     /// 播放结束通知
     func superPlayerDidEnd(_ player: SuperPlayerView!) {
-        //NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: superPlayerDidEndIdentifier), object: nil)
+        if eventSink != nil {
+            eventSink!(
+                [
+                    "type":"superPlayerDidEnd",
+                    "value": ""
+                ]
+            )
+        }
     }
     
     /// 全屏改变通知
     func superPlayerFullScreenChanged(_ player: SuperPlayerView!) {
         
     }
+}
+
+extension CZVideoPlayerView: FlutterStreamHandler {
+
+    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+        eventSink = events
+        return nil
+    }
+
+    func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        return nil
+    }
+
+
 }

@@ -14,7 +14,8 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - BIJKPlayer (0.7.8)
+  - auto_orientation (0.0.1):
+    - Flutter
   - cdnbye (0.0.1):
     - CDNByeSDK (~> 1.8.0)
     - Flutter
@@ -29,9 +30,6 @@ PODS:
   - CocoaLumberjack (3.6.2):
     - CocoaLumberjack/Core (= 3.6.2)
   - CocoaLumberjack/Core (3.6.2)
-  - fijkplayer (0.8.7):
-    - BIJKPlayer (~> 0.7.8)
-    - Flutter
   - Firebase/AdMob (6.33.0):
     - Firebase/CoreOnly
     - Google-Mobile-Ads-SDK (~> 7.63)
@@ -146,11 +144,13 @@ PODS:
     - TXLiteAVSDK_Player (= 7.8.9518)
   - Toast (4.0.0)
   - TXLiteAVSDK_Player (7.8.9518)
+  - video_player (0.0.1):
+    - Flutter
   - WebRTCDatachannel (0.0.1)
 
 DEPENDENCIES:
+  - auto_orientation (from `.symlinks/plugins/auto_orientation/ios`)
   - cdnbye (from `.symlinks/plugins/cdnbye/ios`)
-  - fijkplayer (from `.symlinks/plugins/fijkplayer/ios`)
   - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
@@ -161,11 +161,11 @@ DEPENDENCIES:
   - share (from `.symlinks/plugins/share/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - SuperPlayer
+  - video_player (from `.symlinks/plugins/video_player/ios`)
 
 SPEC REPOS:
   trunk:
     - AFNetworking
-    - BIJKPlayer
     - CDNByeSDK
     - CocoaAsyncSocket
     - CocoaLumberjack
@@ -193,10 +193,10 @@ SPEC REPOS:
     - WebRTCDatachannel
 
 EXTERNAL SOURCES:
+  auto_orientation:
+    :path: ".symlinks/plugins/auto_orientation/ios"
   cdnbye:
     :path: ".symlinks/plugins/cdnbye/ios"
-  fijkplayer:
-    :path: ".symlinks/plugins/fijkplayer/ios"
   firebase_admob:
     :path: ".symlinks/plugins/firebase_admob/ios"
   firebase_core:
@@ -215,15 +215,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  BIJKPlayer: 464bcb8d263331228758bfa34b45d00f399c9fb8
-  cdnbye: 83c9ff4118b826d39e99ea1c21c4dfee4f7264af
+  auto_orientation: 2941c44ebe5c3d41016001597ab03e81a92a26ce
+  cdnbye: 600d12a5d59532021057d8571a9c92f8d3a2b989
   CDNByeSDK: 3337c7b9af244e7987d731c34c85e8dabaeb3e3a
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
-  fijkplayer: 0c8728bf3b222203e1fddb08f6899719d88b2b6d
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
   firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
   firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
@@ -254,8 +255,9 @@ SPEC CHECKSUMS:
   SuperPlayer: e2546119ded40d324dadb4405d1a5e634855bc11
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TXLiteAVSDK_Player: e0d60dacec8ef210de78641b9125121be3aad1e2
+  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   WebRTCDatachannel: acddf02a4ed2f825ececd2e64cbf971c0a209ceb
 
 PODFILE CHECKSUM: 8bd7fd64d2863ce1eef19fceb064155baf188ae6
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1

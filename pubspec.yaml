@@ -56,6 +56,8 @@ dependencies:
   # 播放器
   #fijkplayer: ^0.8.7
   #flutter_tencentplayer: ^0.11.0
+  video_player: ^0.11.0
+  auto_orientation: ^1.0.6
   # APP更新
   flutter_app_upgrade: ^1.1.0
   #upgrader: ^2.6.0

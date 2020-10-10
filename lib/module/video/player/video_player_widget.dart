@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:auto_orientation/auto_orientation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cdnbye/cdnbye.dart';
+
 // import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +13,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 // import 'package:flutter_tencentplayer/controller/tencent_player_controller.dart';
 // import 'package:flutter_tencentplayer/model/player_config.dart';
 // import 'package:flutter_tencentplayer/view/tencent_player.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:read_shadow/components/loading/cz_loading_toast.dart';
-import 'package:read_shadow/components/video_player/cz_video_player_widget.dart';
+import 'package:read_shadow/components/video_player/cz_video_player_widget_test.dart';
+import 'package:read_shadow/module/video/player/cz_video_player_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_model.dart';
 import 'package:read_shadow/module/video/player/video_player_operate_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_series_widget.dart';
@@ -24,6 +28,8 @@ import 'package:read_shadow/module/video/player/video_player_source_widget.dart'
 import 'package:read_shadow/network/cz_network.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:share/share.dart';
+import 'package:video_player/video_player.dart';
+import 'package:read_shadow/module/video/player/cz_video_player_widget.dart';
 
 enum _VideoParsingStatus {
   parsing,
@@ -83,90 +89,43 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   /// 当前接口索引
   int _currentInterfaceIndex = 0;
 
- // final FijkPlayer _fijkPlayer = FijkPlayer();
+  ///
+  // VideoPlayerController _videoPlayerController;
 
-  // TencentPlayerController tencentPlayerController;
-  //
-  // VoidCallback listener;
-
-
-  // StreamSubscription _currentPosSubs;
+  CZSuperPlayerController czSuperPlayerController;
 
   /// 解析状态
   _VideoParsingStatus _isParseState = _VideoParsingStatus.parsing;
+
+  /// 当前播放地址
+  String _currentPlayUrl;
 
   @override
   initState() {
     // TODO: implement initState
     super.initState();
+   // AutoOrientation.portraitUpMode();
     // Init p2p engine
     _initEngine();
 
-    // tencentPlayerController = TencentPlayerController.network('http://file.jinxianyun.com/testhaha.mp4', playerConfig: PlayerConfig());
-    //   // ..initialize().then((_) {
-    //   //   setState(() {});
-    //   // });
-    // tencentPlayerController.addListener(listener);
-    // setState(() {});
+    /// 初始化视频控制器
+    czSuperPlayerController = CZSuperPlayerController.initialize();
+    /// 监听是否点击了返回按钮
+    czSuperPlayerController.playBackBlock = () {
+      cz_print("111111", StackTrace.current);
+    };
 
     Future.delayed(Duration(seconds: 1), () {
       Future(() => _videoPlaySourceParsing())
           .then((value) => _videoUrlParsing());
     });
 
-    // _fijkPlayer.addListener(_fijkValueListener);
 
-    ///
-    // _currentPosSubs = _fijkPlayer.onCurrentPosUpdate.listen((currentPlayTime) {
-    //   cz_print(_fijkPlayer.value.duration, StackTrace.current);
-    //   cz_print(currentPlayTime, StackTrace.current);
-    //   /// 当前时间等于总时间则播放完成
-    //   if (currentPlayTime > Duration(seconds: 1) && _fijkPlayer.value.duration > Duration(seconds: 1) && currentPlayTime == _fijkPlayer.value.duration) {
-    //     /// 若当前是全屏状态 则关闭全屏
-    //     if (_fijkPlayer.value.fullScreen == true) {
-    //       _fijkPlayer.exitFullScreen();
-    //     }
-    //     /// 自动解析下一级
-    //     if (_currentPlaySeriesIndex < _allSeriesTitles[_currentPlaySourceIndex].length - 1) {
-    //       _currentPlaySeriesIndex += 1;
-    //       _videoPlayUrlParsing();
-    //     }
-    //   }
-    // });
   }
 
-  // /// 监听播放状态
-  // void _fijkValueListener() {
-  //   // FijkValue fijkValue = _fijkPlayer.value;
-  //   // cz_print(fijkValue.completed, StackTrace.current);
-  //   // cz_print(fijkValue.fullScreen, StackTrace.current);
-  //   // if (fijkValue.completed == true) {
-  //   //   if (fijkValue.fullScreen == true) {
-  //   //     _fijkPlayer.exitFullScreen();
-  //   //   }
-  //   // }
-  //
-  //   // double width = _vWidth;
-  //   // double height = _vHeight;
-  //   //
-  //   // if (value.prepared) {
-  //   //   width = value.size.width;
-  //   //   height = value.size.height;
-  //   // }
-  //   //
-  //   // if (width != _vWidth || height != _vHeight) {
-  //   //   setState(() {
-  //   //     _vWidth = width;
-  //   //     _vHeight = height;
-  //   //   });
-  //   // }
-  // }
 
   _initEngine() async {
-    await Cdnbye.init(
-        "xsspVPvMg",
-        config: P2pConfig.byDefault()
-    );
+    await Cdnbye.init("xsspVPvMg", config: P2pConfig.byDefault());
   }
 
   /// 视频播放源解析
@@ -215,24 +174,21 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       _allSeriesTitles.add(currentPlaySourceTitles);
       _allSeriesUrls.add(currentPlaySourceUrls);
     }
-    //  setState(() {});
+
     _videoPlayUrlParsing();
   }
 
   @override
   void dispose() {
     super.dispose();
- //   _currentPosSubs?.cancel();
-    // _fijkPlayer.removeListener(_fijkValueListener);
-   // _fijkPlayer.release();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.videoName),
-      ),
+      // appBar: AppBar(
+      //   title: Text(widget.videoName),
+      // ),
       body: Stack(
         children: [
           ListView.builder(
@@ -315,65 +271,128 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
               }
             },
             itemCount: 3,
-            padding: EdgeInsets.only(top: ScreenUtil().setHeight(400)),
+            padding: EdgeInsets.only(top: ScreenUtil().setHeight(400) + ScreenUtil.statusBarHeight),
           ),
 
           /// 播放器
-          _isParseState == _VideoParsingStatus.parsingSuccess
-              ? Container(
-           // width: ScreenUtil.screenWidth,
-            //height: ScreenUtil().setHeight(400),
-            child: CZVideoPlayerWidget(),
-          )
-              : Stack(
-                  children: [
-                    CachedNetworkImage(
-                      width: ScreenUtil.screenWidth,
-                      height: ScreenUtil().setHeight(400),
-                      fit: BoxFit.cover,
-                      imageUrl: widget.videoImage ?? "",
-                      placeholder: (context, url) => Image.asset(
-                        'assets/images/icon_placeholder_figure.png',
-                        fit: BoxFit.cover,
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/icon_placeholder_figure.png',
-                        fit: BoxFit.cover,
-                      ),
-                      cacheManager: DefaultCacheManager(),
-                      placeholderFadeInDuration: Duration.zero,
+          Container(
+            width: ScreenUtil.screenWidth,
+            height: ScreenUtil().setHeight(400),
+            margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
+            child: Stack(
+                children: [
+                  CZVideoPlayerWidgetTest(),
+                  Offstage(
+                    offstage: _isParseState == _VideoParsingStatus.parsingSuccess ? true : false,
+                    child: Stack(
+                      children: [
+                        CachedNetworkImage(
+                          width: ScreenUtil.screenWidth,
+                          height: ScreenUtil().setHeight(400),
+                          fit: BoxFit.cover,
+                          imageUrl: widget.videoImage ?? "",
+                          placeholder: (context, url) => Image.asset(
+                            'assets/images/icon_placeholder_figure.png',
+                            fit: BoxFit.cover,
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/icon_placeholder_figure.png',
+                            fit: BoxFit.cover,
+                          ),
+                          cacheManager: DefaultCacheManager(),
+                          placeholderFadeInDuration: Duration.zero,
+                        ),
+                        Container(
+                            width: ScreenUtil.screenWidth,
+                            height: ScreenUtil().setHeight(400),
+                            color: Colors.black.withOpacity(0.5),
+                            child: _isParseState == _VideoParsingStatus.parsing
+                                ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SpinKitFadingCube(color: Colors.white),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: ScreenUtil().setHeight(40)),
+                                  child: Text(
+                                    "解析中，请稍后",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: ScreenUtil().setSp(26)),
+                                  ),
+                                )
+                              ],
+                            )
+                                : Center(
+                              child: Text(
+                                "解析失败，请更换接口",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: ScreenUtil().setSp(26)),
+                              ),
+                            )
+                        ),
+                      ],
                     ),
-                    Container(
-                        width: ScreenUtil.screenWidth,
-                        height: ScreenUtil().setHeight(400),
-                        color: Colors.black.withOpacity(0.5),
-                        child: _isParseState == _VideoParsingStatus.parsing
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SpinKitFadingCube(color: Colors.white),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: ScreenUtil().setHeight(40)),
-                                    child: Text(
-                                      "解析中，请稍后",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: ScreenUtil().setSp(26)),
-                                    ),
-                                  )
-                                ],
-                              )
-                            : Center(
-                                child: Text(
-                                  "解析失败，请更换接口",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: ScreenUtil().setSp(26)),
-                                ),
-                              )),
-                  ],
-                )
+                  )
+                ],
+            ),
+          )
+
+
+          // _isParseState == _VideoParsingStatus.parsingSuccess
+          //     ? CZVideoPlayerWidgetTest()
+          //     :
+          //     Stack(
+          //         children: [
+          //           CachedNetworkImage(
+          //             width: ScreenUtil.screenWidth,
+          //             height: ScreenUtil().setHeight(400),
+          //             fit: BoxFit.cover,
+          //             imageUrl: widget.videoImage ?? "",
+          //             placeholder: (context, url) => Image.asset(
+          //               'assets/images/icon_placeholder_figure.png',
+          //               fit: BoxFit.cover,
+          //             ),
+          //             errorWidget: (context, url, error) => Image.asset(
+          //               'assets/images/icon_placeholder_figure.png',
+          //               fit: BoxFit.cover,
+          //             ),
+          //             cacheManager: DefaultCacheManager(),
+          //             placeholderFadeInDuration: Duration.zero,
+          //           ),
+          //           Container(
+          //               width: ScreenUtil.screenWidth,
+          //               height: ScreenUtil().setHeight(400),
+          //               color: Colors.black.withOpacity(0.5),
+          //               child: _isParseState == _VideoParsingStatus.parsing
+          //                   ? Column(
+          //                       mainAxisAlignment: MainAxisAlignment.center,
+          //                       children: [
+          //                         SpinKitFadingCube(color: Colors.white),
+          //                         Padding(
+          //                           padding: EdgeInsets.only(
+          //                               top: ScreenUtil().setHeight(40)),
+          //                           child: Text(
+          //                             "解析中，请稍后",
+          //                             style: TextStyle(
+          //                                 color: Colors.white,
+          //                                 fontSize: ScreenUtil().setSp(26)),
+          //                           ),
+          //                         )
+          //                       ],
+          //                     )
+          //                   : Center(
+          //                       child: Text(
+          //                         "解析失败，请更换接口",
+          //                         style: TextStyle(
+          //                             color: Colors.white,
+          //                             fontSize: ScreenUtil().setSp(26)),
+          //                       ),
+          //                     )
+          //           ),
+          //         ],
+          //       )
         ],
       ),
     );
@@ -383,10 +402,8 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   _videoPlayUrlParsing() async {
     _isParseState = _VideoParsingStatus.parsing;
 
-    /// 重置播放器
-    //  tencentPlayerController?.removeListener(listener);
-    // tencentPlayerController?.pause();
-  //  await _fijkPlayer.reset();
+    /// 暂停播放器
+    czSuperPlayerController.pause();
 
     /// 重置UI
     setState(() {});
@@ -419,17 +436,11 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
         Map<String, dynamic> playMap = json.decode(playJson);
         var playUrl = playMap["url"];
         if (playUrl != null && playUrl.isEmpty == false) {
-          var cdnUrl = await Cdnbye.parseStreamURL(playUrl);
-          cz_print(cdnUrl, StackTrace.current);
+          _currentPlayUrl = await Cdnbye.parseStreamURL(playUrl);
+          cz_print(_currentPlayUrl, StackTrace.current);
           _isParseState = _VideoParsingStatus.parsingSuccess;
-          // tencentPlayerController = TencentPlayerController.network(cdnUrl, playerConfig: PlayerConfig(autoPlay: true));
-          // tencentPlayerController?.initialize()?.then((_) {
-          //   cz_print(11111, StackTrace.current);
-          //   setState(() {});
-          // });
-          // setState(() {});
-         // tencentPlayerController?.addListener(listener);
-         // _fijkPlayer.setDataSource(cdnUrl, autoPlay: true);
+          czSuperPlayerController.play(_currentPlayUrl);
+          czSuperPlayerController.setTitle("${widget.videoName}-$title");
         } else {
           _isParseState = _VideoParsingStatus.parseFailure;
         }
@@ -442,115 +453,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
 
     setState(() {});
   }
+
+
 }
 
-// class CustomFijkPanel extends StatefulWidget {
-//   final FijkPlayer player;
-//   final BuildContext buildContext;
-//   final Size viewSize;
-//   final Rect texturePos;
-//
-//   const CustomFijkPanel({
-//     @required this.player,
-//     this.buildContext,
-//     this.viewSize,
-//     this.texturePos,
-//   });
-//
-//   @override
-//   _CustomFijkPanelState createState() => _CustomFijkPanelState();
-// }
-//
-// class _CustomFijkPanelState extends State<CustomFijkPanel> {
-//   FijkPlayer get player => widget.player;
-//   bool _playing = false;
-//
-//   StreamSubscription _currentPlayTimePosSubs;
-//   String _currentPlayTime;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     widget.player.addListener(_playerValueChanged);
-//     /// 监听当前播放时间
-//     _currentPlayTimePosSubs = widget.player.onCurrentPosUpdate.listen((currentPlayTime) {
-//       List<String> parts = currentPlayTime.toString().split(":");
-//       _currentPlayTime = "${parts[0]}:${parts[1]}:${parts[1].split(":").first}";
-//       setState(() {});
-//     });
-//   }
-//
-//   void _playerValueChanged() {
-//     FijkValue value = player.value;
-//
-//     bool playing = (value.state == FijkState.started);
-//     if (playing != _playing) {
-//       setState(() {
-//         _playing = playing;
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Rect rect = Rect.fromLTRB(
-//         max(0.0, widget.texturePos.left),
-//         max(0.0, widget.texturePos.top),
-//         min(widget.viewSize.width, widget.texturePos.right),
-//         min(widget.viewSize.height, widget.texturePos.bottom));
-//
-//
-//     return Positioned.fromRect(
-//       rect: rect,
-//       child: Container(
-//         color: Colors.red,
-//         alignment: Alignment.bottomLeft,
-//         child: Container(
-//           alignment: Alignment.center,
-//           color: Colors.blue,
-//           height: ScreenUtil().setHeight(60),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               IconButton(
-//                 icon: Icon(
-//                   _playing ? Icons.pause : Icons.play_arrow,
-//                   color: Colors.white,
-//                 ),
-//                 onPressed: () {
-//                   _playing ? widget.player.pause() : widget.player.start();
-//                 },
-//               ),
-//               Text(_currentPlayTime),
-//               Slider(
-//                 value: 0,
-//                 onChanged: (v){
-//                 },
-//               ),
-//               Text("00:00", style: TextStyle(
-//                 backgroundColor: Colors.purple
-//               ),),
-//               IconButton(
-//                 icon: Icon(
-//                   Icons.fullscreen,
-//                   //_playing ? Icons.pause : Icons.play_arrow,
-//                   color: Colors.white,
-//                 ),
-//                 onPressed: () {
-//                   // _playing ? widget.player.pause() : widget.player.start();
-//                 },
-//               ),
-//             ],
-//           ),
-//         )
-//       ),
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     player.removeListener(_playerValueChanged);
-//   }
-// }
