@@ -16,9 +16,9 @@ PODS:
     - AFNetworking/NSURLSession
   - BIJKPlayer (0.7.8)
   - cdnbye (0.0.1):
-    - CDNByeSDK (~> 1.8.0)
+    - CDNByeSDK (= 1.10.0)
     - Flutter
-  - CDNByeSDK (1.8.1):
+  - CDNByeSDK (1.10.0):
     - CocoaAsyncSocket (~> 7.6)
     - CocoaLumberjack (~> 3.5)
     - GCDWebServer (~> 3.5)
@@ -219,8 +219,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   BIJKPlayer: 464bcb8d263331228758bfa34b45d00f399c9fb8
-  cdnbye: 83c9ff4118b826d39e99ea1c21c4dfee4f7264af
-  CDNByeSDK: 3337c7b9af244e7987d731c34c85e8dabaeb3e3a
+  cdnbye: ff2fc79c28728314828a02250ecfd20c88ada9bc
+  CDNByeSDK: 2a1df62a549901c14e83f0196aa9edb273c56c55
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   fijkplayer: 0c8728bf3b222203e1fddb08f6899719d88b2b6d
@@ -258,4 +258,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8bd7fd64d2863ce1eef19fceb064155baf188ae6
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1

@@ -30,7 +30,7 @@ class VideoDetailsActorsWidget extends StatelessWidget {
               //textAlign: TextAlign.center,
             )),
         Container(
-          height: ScreenUtil().setHeight(240),
+          height: ScreenUtil().setHeight(260),
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               VideoDetailsActorModel actorModel = actorModels[index];

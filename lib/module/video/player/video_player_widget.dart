@@ -59,7 +59,6 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidget extends State<VideoPlayerWidget> {
-  // GlobalKey<VideoPlayerSeriesWidgetState> _videoPlayerWidgetKey = GlobalKey();
 
   /// 所有视频播放源
   List<String> _allVideoPlaySources = [];
@@ -97,8 +96,6 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           .then((value) => _videoUrlParsing());
     });
 
-    // _fijkPlayer.addListener(_fijkValueListener);
-
     ///
     _currentPosSubs = _fijkPlayer.onCurrentPosUpdate.listen((currentPlayTime) {
       cz_print(_fijkPlayer.value.duration, StackTrace.current);
@@ -117,33 +114,6 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
       }
     });
   }
-
-  // /// 监听播放状态
-  // void _fijkValueListener() {
-  //   // FijkValue fijkValue = _fijkPlayer.value;
-  //   // cz_print(fijkValue.completed, StackTrace.current);
-  //   // cz_print(fijkValue.fullScreen, StackTrace.current);
-  //   // if (fijkValue.completed == true) {
-  //   //   if (fijkValue.fullScreen == true) {
-  //   //     _fijkPlayer.exitFullScreen();
-  //   //   }
-  //   // }
-  //
-  //   // double width = _vWidth;
-  //   // double height = _vHeight;
-  //   //
-  //   // if (value.prepared) {
-  //   //   width = value.size.width;
-  //   //   height = value.size.height;
-  //   // }
-  //   //
-  //   // if (width != _vWidth || height != _vHeight) {
-  //   //   setState(() {
-  //   //     _vWidth = width;
-  //   //     _vHeight = height;
-  //   //   });
-  //   // }
-  // }
 
   _initEngine() async {
     await Cdnbye.init(
@@ -427,113 +397,3 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
   }
 }
 
-// class CustomFijkPanel extends StatefulWidget {
-//   final FijkPlayer player;
-//   final BuildContext buildContext;
-//   final Size viewSize;
-//   final Rect texturePos;
-//
-//   const CustomFijkPanel({
-//     @required this.player,
-//     this.buildContext,
-//     this.viewSize,
-//     this.texturePos,
-//   });
-//
-//   @override
-//   _CustomFijkPanelState createState() => _CustomFijkPanelState();
-// }
-//
-// class _CustomFijkPanelState extends State<CustomFijkPanel> {
-//   FijkPlayer get player => widget.player;
-//   bool _playing = false;
-//
-//   StreamSubscription _currentPlayTimePosSubs;
-//   String _currentPlayTime;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     widget.player.addListener(_playerValueChanged);
-//     /// 监听当前播放时间
-//     _currentPlayTimePosSubs = widget.player.onCurrentPosUpdate.listen((currentPlayTime) {
-//       List<String> parts = currentPlayTime.toString().split(":");
-//       _currentPlayTime = "${parts[0]}:${parts[1]}:${parts[1].split(":").first}";
-//       setState(() {});
-//     });
-//   }
-//
-//   void _playerValueChanged() {
-//     FijkValue value = player.value;
-//
-//     bool playing = (value.state == FijkState.started);
-//     if (playing != _playing) {
-//       setState(() {
-//         _playing = playing;
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Rect rect = Rect.fromLTRB(
-//         max(0.0, widget.texturePos.left),
-//         max(0.0, widget.texturePos.top),
-//         min(widget.viewSize.width, widget.texturePos.right),
-//         min(widget.viewSize.height, widget.texturePos.bottom));
-//
-//
-//     return Positioned.fromRect(
-//       rect: rect,
-//       child: Container(
-//         color: Colors.red,
-//         alignment: Alignment.bottomLeft,
-//         child: Container(
-//           alignment: Alignment.center,
-//           color: Colors.blue,
-//           height: ScreenUtil().setHeight(60),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               IconButton(
-//                 icon: Icon(
-//                   _playing ? Icons.pause : Icons.play_arrow,
-//                   color: Colors.white,
-//                 ),
-//                 onPressed: () {
-//                   _playing ? widget.player.pause() : widget.player.start();
-//                 },
-//               ),
-//               Text(_currentPlayTime),
-//               Slider(
-//                 value: 0,
-//                 onChanged: (v){
-//                 },
-//               ),
-//               Text("00:00", style: TextStyle(
-//                 backgroundColor: Colors.purple
-//               ),),
-//               IconButton(
-//                 icon: Icon(
-//                   Icons.fullscreen,
-//                   //_playing ? Icons.pause : Icons.play_arrow,
-//                   color: Colors.white,
-//                 ),
-//                 onPressed: () {
-//                   // _playing ? widget.player.pause() : widget.player.start();
-//                 },
-//               ),
-//             ],
-//           ),
-//         )
-//       ),
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     player.removeListener(_playerValueChanged);
-//   }
-// }

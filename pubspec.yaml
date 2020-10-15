@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.1+1
+version: 1.0.2+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -67,7 +67,7 @@ dependencies:
   # 谷歌广告 https://developers.google.com/admob/ios/quick-start，https://apps.admob.com/v2/apps/list?pli=1
   firebase_admob: ^0.9.3+4
   # p2p加速
-  cdnbye: ^0.7.0
+  cdnbye: ^0.8.1
   #video_player: ^0.10.12+2
   #video_player: ^0.10.12+2
   # 包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储
