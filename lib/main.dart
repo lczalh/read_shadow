@@ -1,5 +1,4 @@
-// import 'package:firebase_admob/firebase_admob.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,7 @@ void main() {
   Application.router = router;
   cz_print(router, StackTrace.current);
   runApp(MyApp());
-  FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
+  //FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
  // SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
  // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }

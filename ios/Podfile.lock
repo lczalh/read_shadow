@@ -1,19 +1,4 @@
 PODS:
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
-    - AFNetworking/NSURLSession
   - BIJKPlayer (0.7.8)
   - cdnbye (0.0.1):
     - CDNByeSDK (= 1.10.0)
@@ -32,44 +17,6 @@ PODS:
   - fijkplayer (0.8.7):
     - BIJKPlayer (~> 0.7.8)
     - Flutter
-  - Firebase/AdMob (6.33.0):
-    - Firebase/CoreOnly
-    - Google-Mobile-Ads-SDK (~> 7.63)
-  - Firebase/Core (6.33.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.8.3)
-  - Firebase/CoreOnly (6.33.0):
-    - FirebaseCore (= 6.10.3)
-  - firebase_admob (0.0.1):
-    - Firebase/AdMob
-    - Firebase/Core
-    - Flutter
-  - firebase_core (0.0.1):
-    - Firebase/Core
-    - Flutter
-  - FirebaseAnalytics (6.8.3):
-    - FirebaseCore (~> 6.10)
-    - FirebaseInstallations (~> 1.6)
-    - GoogleAppMeasurement (= 6.8.3)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
-    - GoogleUtilities/MethodSwizzler (~> 6.7)
-    - GoogleUtilities/Network (~> 6.7)
-    - "GoogleUtilities/NSData+zlib (~> 6.7)"
-    - nanopb (~> 1.30906.0)
-  - FirebaseCore (6.10.3):
-    - FirebaseCoreDiagnostics (~> 1.6)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/Logger (~> 6.7)
-  - FirebaseCoreDiagnostics (1.7.0):
-    - GoogleDataTransport (~> 7.4)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/Logger (~> 6.7)
-    - nanopb (~> 1.30906.0)
-  - FirebaseInstallations (1.7.0):
-    - FirebaseCore (~> 6.10)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/UserDefaults (~> 6.7)
-    - PromisesObjC (~> 1.2)
   - Flutter (1.0.0)
   - flutter_app_upgrade (0.0.1):
     - Flutter
@@ -82,77 +29,23 @@ PODS:
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
-  - Google-Mobile-Ads-SDK (7.66.0):
-    - GoogleAppMeasurement (~> 6.0)
-    - GoogleUserMessagingPlatform (~> 1.1)
-  - GoogleAppMeasurement (6.8.3):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
-    - GoogleUtilities/MethodSwizzler (~> 6.7)
-    - GoogleUtilities/Network (~> 6.7)
-    - "GoogleUtilities/NSData+zlib (~> 6.7)"
-    - nanopb (~> 1.30906.0)
-  - GoogleDataTransport (7.4.0):
-    - nanopb (~> 1.30906.0)
-  - GoogleUserMessagingPlatform (1.2.0)
-  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.7.2):
-    - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (6.7.2):
-    - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.7.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.7.2):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.7.2)"
-  - GoogleUtilities/Reachability (6.7.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.7.2):
-    - GoogleUtilities/Logger
-  - Masonry (1.1.0)
-  - nanopb (1.30906.0):
-    - nanopb/decode (= 1.30906.0)
-    - nanopb/encode (= 1.30906.0)
-  - nanopb/decode (1.30906.0)
-  - nanopb/encode (1.30906.0)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
   - PINCache (2.3)
-  - PromisesObjC (1.2.10)
-  - SDWebImage (5.9.2):
-    - SDWebImage/Core (= 5.9.2)
-  - SDWebImage/Core (5.9.2)
   - share (0.0.1):
     - Flutter
   - SocketRocket (0.5.1)
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
-  - SuperPlayer (3.3.1):
-    - AFNetworking
-    - Masonry
-    - SDWebImage
-    - SuperPlayer/Player (= 3.3.1)
-  - SuperPlayer/Player (3.3.1):
-    - AFNetworking
-    - Masonry
-    - SDWebImage
-    - TXLiteAVSDK_Player (= 7.8.9518)
   - Toast (4.0.0)
-  - TXLiteAVSDK_Player (7.8.9518)
   - WebRTCDatachannel (0.0.1)
 
 DEPENDENCIES:
   - cdnbye (from `.symlinks/plugins/cdnbye/ios`)
   - fijkplayer (from `.symlinks/plugins/fijkplayer/ios`)
-  - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
-  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_app_upgrade (from `.symlinks/plugins/flutter_app_upgrade/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -160,36 +53,18 @@ DEPENDENCIES:
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
-  - SuperPlayer
 
 SPEC REPOS:
   trunk:
-    - AFNetworking
     - BIJKPlayer
     - CDNByeSDK
     - CocoaAsyncSocket
     - CocoaLumberjack
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseCore
-    - FirebaseCoreDiagnostics
-    - FirebaseInstallations
     - FMDB
     - GCDWebServer
-    - Google-Mobile-Ads-SDK
-    - GoogleAppMeasurement
-    - GoogleDataTransport
-    - GoogleUserMessagingPlatform
-    - GoogleUtilities
-    - Masonry
-    - nanopb
     - PINCache
-    - PromisesObjC
-    - SDWebImage
     - SocketRocket
-    - SuperPlayer
     - Toast
-    - TXLiteAVSDK_Player
     - WebRTCDatachannel
 
 EXTERNAL SOURCES:
@@ -197,10 +72,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/cdnbye/ios"
   fijkplayer:
     :path: ".symlinks/plugins/fijkplayer/ios"
-  firebase_admob:
-    :path: ".symlinks/plugins/firebase_admob/ios"
-  firebase_core:
-    :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
   flutter_app_upgrade:
@@ -217,45 +88,26 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
 
 SPEC CHECKSUMS:
-  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   BIJKPlayer: 464bcb8d263331228758bfa34b45d00f399c9fb8
   cdnbye: ff2fc79c28728314828a02250ecfd20c88ada9bc
   CDNByeSDK: 2a1df62a549901c14e83f0196aa9edb273c56c55
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   fijkplayer: 0c8728bf3b222203e1fddb08f6899719d88b2b6d
-  Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
-  firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
-  firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
-  FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
-  FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
-  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
-  FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_app_upgrade: a62fbe2a09a2176a7b44211c8355adfcfb969779
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
-  GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
-  GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
-  GoogleUserMessagingPlatform: c85530d930ba509583aa5a6d50a10aca22cf8502
-  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
-  SDWebImage: 0b42b8719ab0c5257177d5894306e8a336b21cbb
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  SuperPlayer: e2546119ded40d324dadb4405d1a5e634855bc11
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TXLiteAVSDK_Player: e0d60dacec8ef210de78641b9125121be3aad1e2
   WebRTCDatachannel: acddf02a4ed2f825ececd2e64cbf971c0a209ceb
 
-PODFILE CHECKSUM: 8bd7fd64d2863ce1eef19fceb064155baf188ae6
+PODFILE CHECKSUM: 3c375a77df1e0aa45f602d1eaa720db75d18cfc4
 
 COCOAPODS: 1.9.1
