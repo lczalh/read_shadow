@@ -366,7 +366,7 @@ class _VideoTypeFilterWidgetState extends State<VideoTypeFilterWidget> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-      width: ScreenUtil.screenWidth,
+      width: ScreenUtil().screenWidth,
       height: ScreenUtil().setHeight(70),
       child: TabBar(
         controller: _controller,

@@ -19,7 +19,7 @@ class HotOnlinePlayingWidget extends StatelessWidget {
       children: [
         Container(
           // color: Colors.blue,
-          width: ScreenUtil.screenWidth,
+          width: ScreenUtil().screenWidth,
           height: ScreenUtil().setHeight(60),
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),

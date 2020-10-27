@@ -159,12 +159,12 @@ class _VideoPieceSingleDetailsWidget
                           height: ScreenUtil().setHeight(300),
                           fit: BoxFit.cover,
                           imageUrl: movieModel.img,
-                          placeholder: (context, url) =>
-                              Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                          // placeholder: (context, url) =>
+                          //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                           cacheManager: DefaultCacheManager(),
                           placeholderFadeInDuration: Duration.zero,
-                          errorWidget: (context, url, error) =>
-                              Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                          // errorWidget: (context, url, error) =>
+                          //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                         ),
 
                         /// 片单信息

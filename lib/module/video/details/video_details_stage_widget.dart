@@ -44,12 +44,12 @@ class VideoDetailsStageWidget extends StatelessWidget {
             return CachedNetworkImage(
               imageUrl: listElementModel.imgUrl,
               fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+              // placeholder: (context, url) =>
+              //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
               cacheManager: DefaultCacheManager(),
               placeholderFadeInDuration: Duration.zero,
-              errorWidget: (context, url, error) =>
-                  Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+              // errorWidget: (context, url, error) =>
+              //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
             );
           },
           itemCount: listElementModels.length,

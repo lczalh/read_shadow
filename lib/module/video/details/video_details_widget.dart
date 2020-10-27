@@ -98,12 +98,12 @@ class _VideoDetailsWidgetState extends State<VideoDetailsWidget>
           child: CachedNetworkImage(
             fit: BoxFit.cover,
             imageUrl: model.data.basic.img,
-            placeholder: (context, url) =>
-                Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+            // placeholder: (context, url) =>
+            //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
             cacheManager: DefaultCacheManager(),
             placeholderFadeInDuration: Duration.zero,
-            errorWidget: (context, url, error) =>
-                Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+            // errorWidget: (context, url, error) =>
+            //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
           ),
           constraints: new BoxConstraints.expand(),
         ),

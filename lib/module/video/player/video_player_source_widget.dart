@@ -57,7 +57,7 @@ class _VideoPlayerSourceWidget extends State<VideoPlayerSourceWidget> {
               return GestureDetector(
                 child: Container(
                   margin: EdgeInsets.only(left: 10),
-                  width: (ScreenUtil.screenWidth - 60) / 5,
+                  width: (ScreenUtil().screenWidth - 60) / 5,
                   color: _currentPlaySourceIndex == index ? Theme.of(context).accentColor : Theme.of(context).accentColor.withOpacity(0.5),
                   child: Text(
                     videoPlaySource,

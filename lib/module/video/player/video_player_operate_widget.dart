@@ -68,7 +68,7 @@ class _VideoPlayerOperateWidgetState extends State<VideoPlayerOperateWidget> {
         children: [
           GestureDetector(
             child: Container(
-              width: (ScreenUtil.screenWidth - 60) / 5,
+              width: (ScreenUtil().screenWidth - 60) / 5,
               height: ScreenUtil().setHeight(60),
               color: Theme.of(context).accentColor,
               child: Text(
@@ -147,7 +147,7 @@ class _VideoPlayerOperateWidgetState extends State<VideoPlayerOperateWidget> {
           ),
           GestureDetector(
             child: Container(
-              width: (ScreenUtil.screenWidth - 60) / 5,
+              width: (ScreenUtil().screenWidth - 60) / 5,
               height: ScreenUtil().setHeight(60),
               color: Theme.of(context).accentColor,
               child: Text(
@@ -163,7 +163,7 @@ class _VideoPlayerOperateWidgetState extends State<VideoPlayerOperateWidget> {
           ),
           GestureDetector(
             child: Container(
-              width: (ScreenUtil.screenWidth - 60) / 5,
+              width: (ScreenUtil().screenWidth - 60) / 5,
               height: ScreenUtil().setHeight(60),
               color: Theme.of(context).accentColor,
               child: Text(
@@ -179,7 +179,7 @@ class _VideoPlayerOperateWidgetState extends State<VideoPlayerOperateWidget> {
           ),
           GestureDetector(
             child: Container(
-              width: (ScreenUtil.screenWidth - 60) / 5,
+              width: (ScreenUtil().screenWidth - 60) / 5,
               height: ScreenUtil().setHeight(60),
               color: widget.currentSeriesIndex == 0
                   ? Theme.of(context).accentColor.withOpacity(0.5)
@@ -200,7 +200,7 @@ class _VideoPlayerOperateWidgetState extends State<VideoPlayerOperateWidget> {
           ),
           GestureDetector(
             child: Container(
-              width: (ScreenUtil.screenWidth - 60) / 5,
+              width: (ScreenUtil().screenWidth - 60) / 5,
               height: ScreenUtil().setHeight(60),
               color: widget.seriesTitles.length - 1 == widget.currentSeriesIndex
                   ? Theme.of(context).accentColor.withOpacity(0.5)

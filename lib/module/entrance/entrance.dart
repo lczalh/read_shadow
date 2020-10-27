@@ -76,7 +76,9 @@ class _EntranceState extends State<Entrance> {
 
    // ScreenUtil配置
   void screenUtilConfig(BuildContext context) {
-    ScreenUtil.init(context, width: 750, height: 1334);
+    ScreenUtil.init(context, designSize: Size(750, 1334));
+    //ScreenUtil.init(context)
+    //ScreenUtil.init(context, width: 750, height: 1334);
   }
 
 }

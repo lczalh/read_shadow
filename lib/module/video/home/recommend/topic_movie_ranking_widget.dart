@@ -37,19 +37,19 @@ class TopicMovieRankingWidget extends StatelessWidget {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: CachedNetworkImage(
-                      width: ScreenUtil.screenWidth,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(600),
                       fit: BoxFit.cover,
                       imageUrl: articleListModel.relatedMovie.img,
                       cacheManager: DefaultCacheManager(),
                       placeholderFadeInDuration: Duration.zero,
-                      errorWidget: (context, url, error) =>
-                          Image.asset('assets/images/icon_placeholder_figure.png'),
+                      // errorWidget: (context, url, error) =>
+                      //     Image.asset('assets/images/icon_placeholder_figure.png'),
                     )),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Container(
-                    width: ScreenUtil.screenWidth,
+                    width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(600),
                     color: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
@@ -156,7 +156,7 @@ class TopicMovieRankingWidget extends StatelessWidget {
                             EdgeInsets.only(top: ScreenUtil().setHeight(40)),
                         child: Container(
                           // padding: EdgeInsets.only(),
-                          width: ScreenUtil.screenWidth - 40,
+                          width: ScreenUtil().screenWidth - 40,
                           height: ScreenUtil().setHeight(300),
                           child: Swiper(
                             itemBuilder: (BuildContext context, int index) {

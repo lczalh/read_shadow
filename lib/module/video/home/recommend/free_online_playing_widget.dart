@@ -46,7 +46,7 @@ class FreeOnlinePlayingWidget extends StatelessWidget {
           ),
         ),
         Container(
-          width: ScreenUtil.screenWidth,
+          width: ScreenUtil().screenWidth,
           height: ScreenUtil().setHeight(400),
           child: ListView.builder(
             padding: EdgeInsets.only(left: 10),

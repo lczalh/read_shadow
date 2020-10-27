@@ -138,21 +138,21 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
                         height: ScreenUtil().setHeight(290),
                         fit: BoxFit.cover,
                         imageUrl: searchModel.vodPic,
-                        placeholder: (context, url) => Image.asset(
-                          'assets/images/icon_placeholder_figure.png',
-                          fit: BoxFit.cover,
-                        ),
+                        // placeholder: (context, url) => Image.asset(
+                        //   'assets/images/icon_placeholder_figure.png',
+                        //   fit: BoxFit.cover,
+                        // ),
                         cacheManager: DefaultCacheManager(),
                         placeholderFadeInDuration: Duration.zero,
-                        errorWidget: (context, url, error) => Image.asset(
-                          'assets/images/icon_placeholder_figure.png',
-                          fit: BoxFit.cover,
-                        ),
+                        // errorWidget: (context, url, error) => Image.asset(
+                        //   'assets/images/icon_placeholder_figure.png',
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
                     ),
                   ),
                   Container(
-                    width: ScreenUtil.screenWidth -
+                    width: ScreenUtil().screenWidth -
                         ScreenUtil().setWidth(200) -
                         30,
                     child: Column(

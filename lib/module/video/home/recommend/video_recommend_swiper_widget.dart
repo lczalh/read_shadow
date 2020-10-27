@@ -72,7 +72,7 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
         VideoRecommendSwiperModel.fromMap(data);
     if (swiperModel.data != null && swiperModel.data.list.length > 0) {
       return Container(
-        width: ScreenUtil.screenWidth,
+        width: ScreenUtil().screenWidth,
         height: ScreenUtil().setHeight(350),
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
@@ -86,10 +86,10 @@ class _VideoRecommendSwiperWidget extends State<VideoRecommendSwiperWidget>
               child: CachedNetworkImage(
                 fit: BoxFit.fill,
                 imageUrl: listElementModel.img,
-                placeholder: (context, url) => Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                // placeholder: (context, url) => Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                 cacheManager: DefaultCacheManager(),
-                errorWidget: (context, url, error) =>
-                    Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                // errorWidget: (context, url, error) =>
+                //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
               ),
             );
           },

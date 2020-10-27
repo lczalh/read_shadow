@@ -36,7 +36,7 @@ class _CZEmptyWidgetState extends State<CZEmptyWidget> {
           ),
           Container(
             margin: EdgeInsets.only(top: 15),
-            width: ScreenUtil.screenWidth - 50,
+            width: ScreenUtil().screenWidth - 50,
             child: Text(
               widget.content,
               textAlign: TextAlign.center,

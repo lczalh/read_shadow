@@ -1,23 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cdnbye/cdnbye.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:read_shadow/components/loading/cz_loading_toast.dart';
-import 'package:read_shadow/module/video/player/video_player_model.dart';
 import 'package:read_shadow/module/video/player/video_player_operate_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_series_widget.dart';
 import 'package:read_shadow/module/video/player/video_player_source_widget.dart';
-import 'package:read_shadow/network/cz_network.dart';
 import 'package:read_shadow/utility/cz_kit/cz_common.dart';
 import 'package:share/share.dart';
 
@@ -275,7 +269,7 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
           _isParseState == _VideoParsingStatus.parsingSuccess
               ? FijkView(
                   player: _fijkPlayer,
-                  width: ScreenUtil.screenWidth,
+                  width: ScreenUtil().screenWidth,
                   height: ScreenUtil().setHeight(400),
                   fit: FijkFit.cover,
                   fsFit: FijkFit.cover,
@@ -290,23 +284,23 @@ class _VideoPlayerWidget extends State<VideoPlayerWidget> {
               : Stack(
                   children: [
                     CachedNetworkImage(
-                      width: ScreenUtil.screenWidth,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(400),
                       fit: BoxFit.cover,
                       imageUrl: widget.videoImage ?? "",
-                      placeholder: (context, url) => Image.asset(
-                        'assets/images/icon_placeholder_figure.png',
-                        fit: BoxFit.cover,
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/icon_placeholder_figure.png',
-                        fit: BoxFit.cover,
-                      ),
+                      // placeholder: (context, url) => Image.asset(
+                      //   'assets/images/icon_placeholder_figure.png',
+                      //   fit: BoxFit.cover,
+                      // ),
+                      // errorWidget: (context, url, error) => Image.asset(
+                      //   'assets/images/icon_placeholder_figure.png',
+                      //   fit: BoxFit.cover,
+                      // ),
                       cacheManager: DefaultCacheManager(),
                       placeholderFadeInDuration: Duration.zero,
                     ),
                     Container(
-                        width: ScreenUtil.screenWidth,
+                        width: ScreenUtil().screenWidth,
                         height: ScreenUtil().setHeight(400),
                         color: Colors.black.withOpacity(0.5),
                         child: _isParseState == _VideoParsingStatus.parsing

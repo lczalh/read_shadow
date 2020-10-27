@@ -35,12 +35,13 @@ class VideoPieceSingleInfoWidget extends StatelessWidget {
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl: pieceSingleImageUrl,
-                    placeholder: (context, url) =>
-                        Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                    // placeholder: (context, url) =>
+                    //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                     cacheManager: DefaultCacheManager(),
                     placeholderFadeInDuration: Duration.zero,
-                    errorWidget: (context, url, error) =>
-                        Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,)),
+                    // errorWidget: (context, url, error) =>
+                    //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,)
+                         ),
                 constraints: new BoxConstraints.expand(),
               )),
         ),

@@ -101,7 +101,7 @@ class _VideoDetailsAdvanceTidbitsWidget
             return Container(
               margin: EdgeInsets.only(left: 10, right: 10, top: 10),
               alignment: Alignment.topLeft,
-              width: ScreenUtil.screenWidth,
+              width: ScreenUtil().screenWidth,
               // color: Colors.red,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -119,10 +119,10 @@ class _VideoDetailsAdvanceTidbitsWidget
                               width: ScreenUtil().setWidth(50),
                               height: ScreenUtil().setWidth(50),
                               imageUrl: miniListModel.img,
-                              placeholder: (context, url) => Image.asset(
-                                'assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
-                              errorWidget: (context, url, error) => Image.asset(
-                                  'assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                              // placeholder: (context, url) => Image.asset(
+                              //   'assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                              // errorWidget: (context, url, error) => Image.asset(
+                              //     'assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                               cacheManager: DefaultCacheManager(),
                               placeholderFadeInDuration: Duration.zero,
                               fit: BoxFit.cover,
@@ -206,7 +206,7 @@ class _VideoDetailsAdvanceTidbitsWidget
             return Container(
               margin: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
               alignment: Alignment.topLeft,
-              width: ScreenUtil.screenWidth,
+              width: ScreenUtil().screenWidth,
               decoration: new BoxDecoration(
                 color: Theme.of(context).accentColor.withOpacity(0.5),
                 //设置四周圆角 角度 这里的角度应该为 父Container height 的一半
@@ -231,13 +231,13 @@ class _VideoDetailsAdvanceTidbitsWidget
                                 width: ScreenUtil().setWidth(50),
                                 height: ScreenUtil().setWidth(50),
                                 imageUrl: plusListModel.headImg,
-                                placeholder: (context, url) => Center(
-                                    child: SpinKitFadingCube(
-                                  color: Theme.of(context).accentColor,
-                                )),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        'assets/images/icon_placeholder_figure.png'),
+                                // placeholder: (context, url) => Center(
+                                //     child: SpinKitFadingCube(
+                                //   color: Theme.of(context).accentColor,
+                                // )),
+                                // errorWidget: (context, url, error) =>
+                                //     Image.asset(
+                                //         'assets/images/icon_placeholder_figure.png'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(

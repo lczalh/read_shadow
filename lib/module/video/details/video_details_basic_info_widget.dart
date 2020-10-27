@@ -47,7 +47,7 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ScreenUtil.screenWidth,
+      width: ScreenUtil().screenWidth,
       //  height: ScreenUtil().setHeight(350),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -63,12 +63,12 @@ class VideoDetailsBasicInfoWidget extends StatelessWidget {
                     height: ScreenUtil().setHeight(350),
                     fit: BoxFit.cover,
                     imageUrl: movieImageUrl,
-                    placeholder: (context, url) =>
-                        Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                    // placeholder: (context, url) =>
+                    //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                     cacheManager: DefaultCacheManager(),
                     placeholderFadeInDuration: Duration.zero,
-                    errorWidget: (context, url, error) =>
-                        Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
+                    // errorWidget: (context, url, error) =>
+                    //     Image.asset('assets/images/icon_placeholder_figure.png', fit: BoxFit.cover,),
                   ),
                   Container(
                     width: ScreenUtil().setWidth(250),
