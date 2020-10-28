@@ -10,5 +10,5 @@ import 'package:fluro/fluro.dart';
 
 class Application {
   // 路由管理
-  static Router router;
+  static FluroRouter router;
 }

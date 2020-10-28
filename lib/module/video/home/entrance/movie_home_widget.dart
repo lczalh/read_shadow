@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_upgrade/flutter_app_upgrade.dart';
+// import 'package:flutter_app_upgrade/flutter_app_upgrade.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:package_info/package_info.dart';
 import 'package:read_shadow/macro/read_shadow_macro.dart';
@@ -47,16 +47,16 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
 
   @override
   void initState() {
-    if (Platform.isAndroid) {
-      _getAPPUpdateState();
-      /// 检查APP更新
-      AppUpgrade.appUpgrade(
-        context,
-        _getAPPUpdateState(),
-        iosAppId: '',
-        progressBarColor: Colors.red
-      );
-    }
+    // if (Platform.isAndroid) {
+    //   _getAPPUpdateState();
+    //   /// 检查APP更新
+    //   AppUpgrade.appUpgrade(
+    //     context,
+    //     _getAPPUpdateState(),
+    //     iosAppId: '',
+    //     progressBarColor: Colors.red
+    //   );
+    // }
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addObserver(this);
@@ -72,28 +72,28 @@ class _MovieHomeWidgetState extends State<MovieHomeWidget>
     WidgetsBinding.instance.removeObserver(this);
   }
 
-  Future<AppUpgradeInfo> _getAPPUpdateState() async {
-    var appUpdateJson =  await CZNetwork().get(baseUrl: "https://movie.letaoshijie.com", path: "/appUpdate.json");
-    if (appUpdateJson != null) {
-      ReadShadowUpdateModel readShadowUpdateModel = ReadShadowUpdateModel.fromMap(appUpdateJson);
-      /// 新版本号
-      String newVersion = readShadowUpdateModel.version;
-      /// 获取设备信息
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      /// 当前版本号
-      String currentVersion = packageInfo.version;
-
-      if (newVersion != currentVersion) {
-        return AppUpgradeInfo(
-          title: '${readShadowUpdateModel.title}v${readShadowUpdateModel.version}',
-          contents: readShadowUpdateModel.contents,
-          force: readShadowUpdateModel.force,
-          apkDownloadUrl: readShadowUpdateModel.url
-        );
-      }
-    }
-
-  }
+  // Future<AppUpgradeInfo> _getAPPUpdateState() async {
+  //   var appUpdateJson =  await CZNetwork().get(baseUrl: "https://movie.letaoshijie.com", path: "/appUpdate.json");
+  //   if (appUpdateJson != null) {
+  //     ReadShadowUpdateModel readShadowUpdateModel = ReadShadowUpdateModel.fromMap(appUpdateJson);
+  //     /// 新版本号
+  //     String newVersion = readShadowUpdateModel.version;
+  //     /// 获取设备信息
+  //     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //     /// 当前版本号
+  //     String currentVersion = packageInfo.version;
+  //
+  //     if (newVersion != currentVersion) {
+  //       return AppUpgradeInfo(
+  //         title: '${readShadowUpdateModel.title}v${readShadowUpdateModel.version}',
+  //         contents: readShadowUpdateModel.contents,
+  //         force: readShadowUpdateModel.force,
+  //         apkDownloadUrl: readShadowUpdateModel.url
+  //       );
+  //     }
+  //   }
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {

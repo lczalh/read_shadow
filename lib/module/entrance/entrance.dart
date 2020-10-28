@@ -22,6 +22,7 @@ class _EntranceState extends State<Entrance> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
         children: [
           MovieHomeWidget(),
           CategoryEntranceWidget(),
