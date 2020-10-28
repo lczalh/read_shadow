@@ -28,6 +28,10 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
 
   TextEditingController _textEditingController;
 
+  /// 记录旧的搜索值
+  String _oldSearchValue;
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,26 +39,38 @@ class _MovieSearchWidgetState extends State<MovieSearchWidget> {
 
     _textEditingController = new TextEditingController(text: widget.searchName);
     _textEditingController.addListener(() async {
-      if (_textEditingController.text.isEmpty == false) {
+      TextRange composingRange = _textEditingController.value.composing;
+      /// 过滤拼音联想
+      if (composingRange.isCollapsed == false) return;
+      /// 过滤搜索内容相同
+      if (_oldSearchValue == _textEditingController.text) return;
+      if (_textEditingController.text.isEmpty == true) { /// 搜索值为空
+        _oldSearchValue = null;
+        searchModels.clear();
+        setState(() {});
+      } else {
+        _oldSearchValue = _textEditingController.text;
         await CZNetwork().get(
             baseUrl: "http://zy.yilans.net",
             path: "/api.php/provide/vod",
             params: {
               "ac": "detail",
-              "wd": _textEditingController.text
+              "wd": _oldSearchValue
             }).then((map) {
           MovieSearchModel model = MovieSearchModel.fromMap(map);
           searchModels.clear();
           for (MovieSearchListElementModel searchModel in model.list) {
             searchModels.add(searchModel);
           }
+          /// 避免网络比较慢时 快速清理搜索值时列表还会显示数据
+          if (_oldSearchValue == null) {
+            searchModels.clear();
+          }
+          setState(() {});
         }).catchError((error)  {
-          searchModels.clear();
+
         });
-      } else {
-        searchModels.clear();
       }
-      setState(() {});
     });
   }
 
