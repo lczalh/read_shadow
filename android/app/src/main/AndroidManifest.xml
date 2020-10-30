@@ -12,12 +12,12 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="乐淘视界"
         android:icon="@mipmap/ic_launcher">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7194032995143004~8363517700"/>
-        <meta-data
-            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true"/>
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--            android:value="ca-app-pub-7194032995143004~8363517700"/>-->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.AD_MANAGER_APP"-->
+<!--            android:value="true"/>-->
         <activity
             android:name="package_name.read_shadow.MainActivity"
             android:launchMode="singleTop"
@@ -53,16 +53,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.read.shadow.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                tools:replace="android:resource"
-                android:resource="@xml/file_paths" />
-        </provider>
     </application>
     <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
