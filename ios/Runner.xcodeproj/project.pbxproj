@@ -16,7 +16,6 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		FC09300524FFAAE2004E4EB2 /* CZVideoPlayerViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC09300324FFAAE2004E4EB2 /* CZVideoPlayerViewFactory.swift */; };
 		FC3876952501F35E00C8777B /* CZVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3876942501F35E00C8777B /* CZVideoPlayerView.swift */; };
-		FCA5C469252428D800392AFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FCA5C468252428D800392AFB /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +51,6 @@
 		CBC86BDB92F69A219D0CC16C /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		FC09300324FFAAE2004E4EB2 /* CZVideoPlayerViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZVideoPlayerViewFactory.swift; sourceTree = "<group>"; };
 		FC3876942501F35E00C8777B /* CZVideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CZVideoPlayerView.swift; sourceTree = "<group>"; };
-		FCA5C468252428D800392AFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +108,6 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				FCA5C468252428D800392AFB /* GoogleService-Info.plist */,
 				FC3876942501F35E00C8777B /* CZVideoPlayerView.swift */,
 				FC09300324FFAAE2004E4EB2 /* CZVideoPlayerViewFactory.swift */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -207,7 +204,6 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
-				FCA5C469252428D800392AFB /* GoogleService-Info.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
@@ -281,7 +277,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 		9A10827B678C929EC5BF1036 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -533,7 +529,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = V8NV6JAKW7;
+				DEVELOPMENT_TEAM = KU7QS49523;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

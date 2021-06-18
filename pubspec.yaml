@@ -44,7 +44,7 @@ dependencies:
   # 调整屏幕和字体大小
   flutter_screenutil: ^2.3.1
   # 路由
-  fluro: "^1.6.3"
+  fluro: ^2.0.3
   # 状态管理
   #provider: ^4.3.2+2
   # 该软件包提供国际化和本地化功能，包括消息翻译，复数形式和性别，日期/数字格式和解析以及双向文本。
@@ -68,7 +68,7 @@ dependencies:
   # 扩展NestedScrollView
   extended_nested_scroll_view: ^1.0.1
   # 谷歌广告 https://developers.google.com/admob/ios/quick-start，https://apps.admob.com/v2/apps/list?pli=1
-  firebase_admob: ^0.9.3+4
+  #firebase_admob: ^0.9.3+4
   # p2p加速
   cdnbye: ^0.7.0
   #video_player: ^0.10.12+2

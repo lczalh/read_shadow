@@ -1,6 +1,6 @@
 // import 'package:firebase_admob/firebase_admob.dart';
 import 'package:auto_orientation/auto_orientation.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+//import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,11 +13,11 @@ import 'module/entrance/entrance.dart';
 
 void main() {
   // 配置路由
-  final router = Router();
+  final router = FluroRouter();
   RoutePathRegister.configureRoutes(router);
   Application.router = router;
   runApp(new MyApp());
-  FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
+  //FirebaseAdMob.instance.initialize(appId: getAdMobAppId());
 }
 
 class MyApp extends StatelessWidget {
